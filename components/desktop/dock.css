@@ -1,0 +1,28 @@
+
+.dock {
+  --scale: 1;
+  list-style: none;
+}
+
+.dock li {
+  font-size: calc(3rem * var(--scale));
+  padding: 0 .5rem;
+  cursor: default;
+  position: relative;
+  top: calc((3rem * var(--scale) - 3rem) / 2 * -1);
+  
+  transition: 100ms all ease-out;
+}
+
+.dock li.loading {
+  animation: 1s loading ease-in ;
+}
+
+@keyframes loading {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  60% {
+    transform: translateY(-40px);
+  }
+}

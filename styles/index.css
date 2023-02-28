@@ -1,0 +1,62 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+  .appleMenuItem{
+    @apply px-1 m-1 rounded hover:bg-primary hover:text-white
+  }
+  .menuDivider{
+  @apply border-t border-[#555658]
+  }
+
+
+  /* Slider */
+.slider .rangeslider {
+  @apply bg-gray-300 w-full h-7 shadow-none m-0 rounded-r-full border-t border-r border-b border-transparent;
+}
+
+.slider .rangeslider .rangeslider__fill {
+  @apply bg-gray-100 shadow-none rounded-none;
+}
+
+.slider .rangeslider .rangeslider__handle {
+  @apply border border-gray-300 outline-none h-7 w-7 text-white bg-white;
+  box-shadow: -3px 0px 8px 0px rgba(17, 17, 17, 0.15);
+}
+
+.slider .rangeslider .rangeslider__handle::after {
+  @apply hidden;
+}
+
+/* Slider toggle */
+.slider-toggle {
+  @apply absolute rounded-full bg-gray-400 bg-opacity-50 top-0 left-0 right-0 bottom-0 cursor-pointer duration-300;
+}
+
+.slider-toggle:before {
+  @apply content-[""] absolute rounded-full bg-white bottom-0.5 left-0.5 w-4.5 h-4.5 duration-300;
+}
+
+input:checked + .slider-toggle {
+  @apply bg-blue-500;
+}
+
+input:checked + .slider-toggle:before {
+  @apply translate-x-4;
+}
+
+input:focus + .slider-toggle {
+  box-shadow: 0 0 1px #3b82f6;
+}
+}
+
+
+* {
+  @apply m-0 p-0;
+}
+
+html, body, #root {
+  @apply h-full overflow-hidden;
+}
