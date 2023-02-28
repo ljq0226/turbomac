@@ -1,5 +1,6 @@
-'use client'
-import Desktop from './Desktop'
-export default function Home() {
-  return <><Desktop></Desktop></>
+export default function Page() {
+  return (
+    <div>
+    </div>
+  )
 }

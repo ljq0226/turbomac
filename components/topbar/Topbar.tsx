@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import {
   ArrowLeftRight,
@@ -15,12 +16,6 @@ import ControlCenter from '../menu/ControlCenter'
 import TopbarItem from './TopbarItem'
 import dayjs from '@/lib/day'
 import { themeStore, useControlStore } from '@/store'
-interface TopBarState {
-  date: Date
-  showControlCenter: boolean
-  showWifiMenu: boolean
-  showAppleMenu: boolean
-}
 
 const Topbar = () => {
   const [dark, setDark, brightness, setBrightness, sound, setSound]
@@ -62,11 +57,10 @@ const Topbar = () => {
   const date = new Date()
   return (
     <div
-      className={`w-full h-8 px-2 fixed top-0  
+      className={`w-full h-8 px-2  top-0  
        text-sm backdrop-blur-2xl shadow transition
-       flex  justify-between font-medium ${
-         dark ? 'text-white  bg-gray-500/20 ' : 'text-black  bg-gray-700/10'
-       }`}
+       flex  justify-between font-medium ${dark ? 'text-white  bg-gray-500/20 ' : 'text-black  bg-gray-700/10'
+        }`}
     >
       {/* Apple Icon  */}
       <div
@@ -82,11 +76,10 @@ const Topbar = () => {
               alt=""
               width={300}
               height={300}
-              src={`${
-                dark
-                  ? '/img/icons/apple-white.png'
-                  : '/img/icons/apple-black.png'
-              }`}
+              src={`${dark
+                ? '/img/icons/apple-white.png'
+                : '/img/icons/apple-black.png'
+                }`}
             />
           }
         ></TopbarItem>
@@ -99,19 +92,17 @@ const Topbar = () => {
         <div className="relative">
           {wifi
             ? (
-            <TopbarItem
-              clickHandler={wifiMenuSwitch}
-              value={showWifiMenu}
-              Icon={<Wifi size={16} color={dark ? '#fff' : '#000'} />}
-            ></TopbarItem>
-              )
+              <TopbarItem
+                clickHandler={wifiMenuSwitch}
+                value={showWifiMenu}
+                Icon={<Wifi size={16} color={dark ? '#fff' : '#000'} />}
+              ></TopbarItem>)
             : (
-            <TopbarItem
-              clickHandler={wifiMenuSwitch}
-              value={showWifiMenu}
-              Icon={<WifiOff size={16} color={dark ? '#fff' : '#000'} />}
-            ></TopbarItem>
-              )}
+              <TopbarItem
+                clickHandler={wifiMenuSwitch}
+                value={showWifiMenu}
+                Icon={<WifiOff size={16} color={dark ? '#fff' : '#000'} />}
+              ></TopbarItem>)}
           {showWifiMenu && (
             <WifiMenu
               wifi={wifi}

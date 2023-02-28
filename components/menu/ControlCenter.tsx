@@ -31,9 +31,8 @@ const ControlCenter = ({
   useClickAway(() => controlCenterSwitch(false), ref)
   return (
     <div
-      className={`absolute p-3  rounded-[13px] w-80 h-96 top-7 -left-44 flex flex-col shadow ${
-        dark ? 'bg-[#1a2133]/90 ' : 'bg-white/40'
-      }`}
+      className={`absolute p-3  rounded-[13px] w-80 h-96 top-7 -left-44 flex flex-col shadow ${dark ? 'bg-[#1a2133]/90 ' : 'bg-white/40'
+        }`}
       ref={ref}
     >
       <div className="flex w-full ">
@@ -47,16 +46,14 @@ const ControlCenter = ({
             onClick={() => setDark(!dark)}
           >
             <div
-              className={`w-8 h-8 py-[5px] pl-[7px] text-center border rounded-full ${
-                dark ? 'bg-primary' : 'bg-gray-200'
-              }`}
+              className={`w-8 h-8 py-[5px] pl-[7px] text-center border rounded-full ${dark ? 'bg-primary' : 'bg-gray-200'
+                }`}
             >
               {dark ? <Moon size={16} /> : <Sun size={16} />}
             </div>
             <h2
-              className={`align-middle py-[5px] pl-2 font-medium text-md ${
-                dark ? 'text-white' : 'text-black'
-              }`}
+              className={`align-middle py-[5px] pl-2 font-medium text-md ${dark ? 'text-white' : 'text-black'
+                }`}
             >
               {dark ? 'Dark Mode' : 'Light Mode'}
             </h2>

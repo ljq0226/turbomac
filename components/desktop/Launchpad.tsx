@@ -1,7 +1,9 @@
+'use client'
 import React, { useEffect, useState } from 'react'
 import { Search } from 'lucide-react'
 import { wallpapers } from '@/lib'
 import { useLaunchpadStore } from '@/store'
+import useMouseCorner from '@/hooks/useMouseCorner'
 const Launchpad = () => {
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
@@ -9,7 +11,8 @@ const Launchpad = () => {
   const close = show
     ? ''
     : 'opacity-0 invisible transition-opacity duration-200'
-
+  const handleMouseCorner = (show: boolean) => { }
+  useMouseCorner(handleMouseCorner)
   useEffect(() => {
     const clickDesktopHandle = () => {
       setShow(false)
@@ -29,7 +32,6 @@ const Launchpad = () => {
       style={{
         backgroundImage: `url(${wallpapers.day})`,
       }}
-      // onClick={() => toggleLaunchpad(false)}
     >
       <div className="absolute w-full h-full bg-gray-900/20 backdrop-blur-2xl">
         {/* Search Input */}
@@ -40,9 +42,8 @@ const Launchpad = () => {
           onBlur={() => setFocus(false)}
         >
           <div
-            className={`${
-              focus ? 'w-6 duration-200' : 'w-26 delay-250'
-            } flex items-center justify-end `}
+            className={`${focus ? 'w-6 duration-200' : 'w-26 delay-250'
+              } flex items-center justify-end `}
           >
             <span className="ml-1 text-white">
               <Search size={16} />
@@ -52,7 +53,6 @@ const Launchpad = () => {
             className="flex-1 min-w-0 px-1 text-sm text-white bg-transparent no-outline"
             placeholder={'Search'}
             value={''}
-            // onChange={e => setSearchText(e.target.value)}
           />
         </div>
         <div>app</div>
