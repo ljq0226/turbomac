@@ -4,7 +4,7 @@ import { Search } from 'lucide-react'
 import { wallpapers } from '@/lib'
 import { useLaunchpadStore, useThemeStore } from '@/store'
 import useMouseCorner from '@/hooks/useMouseCorner'
-const Launchpad = () => {
+const Launchpad: React.FC = () => {
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
   const dark = useThemeStore(s => s.dark)
@@ -12,8 +12,11 @@ const Launchpad = () => {
   const close = show
     ? ''
     : 'opacity-0 invisible transition-opacity duration-200'
-  const handleMouseCorner = (show: boolean) => { }
-  useMouseCorner(handleMouseCorner)
+  useMouseCorner((show: boolean) => { })
+  // useEffect(() => {
+
+  // }, [],
+  // )
   useEffect(() => {
     const clickDesktopHandle = () => {
       setShow(false)

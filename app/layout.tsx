@@ -1,7 +1,6 @@
 import GlobalBackGround from './GlobalBackGround'
 import Topbar from '@/components/topbar/Topbar'
 import '@/styles/index.css'
-import Launchpad from '@/components/desktop/Launchpad'
 import Dock from '@/components/desktop/Dock'
 
 export default function RootLayout({
@@ -11,7 +10,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head />
       <body>
         <div className='w-full h-full '>
           <GlobalBackGround>
@@ -22,7 +20,7 @@ export default function RootLayout({
             {children}
 
             {/* LaunchPad */}
-            <Launchpad></Launchpad>
+            {/* <Launchpad></Launchpad> */}
             {/* Dock */}
             <Dock></Dock>
 

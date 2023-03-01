@@ -1,12 +1,7 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import './dock.css'
 const Dock = () => {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleClick = (e: React.MouseEvent<HTMLLIElement>) => {
-    setIsLoading(true)
-  }
   const resetScale = () => {
     document.querySelectorAll('.dock li').forEach((li: any) => {
       li.style.setProperty('--scale', '1')
@@ -49,8 +44,6 @@ const Dock = () => {
         {dockItems.map((item, index) => (
           <li
             key={index}
-            className={`${isLoading ? 'loading' : ''}`}
-            onClick={handleClick}
             onMouseMove={handleMouseMove}
           >
             {item}

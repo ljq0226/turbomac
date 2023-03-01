@@ -10,13 +10,10 @@
   cursor: default;
   position: relative;
   top: calc((3rem * var(--scale) - 3rem) / 2 * -1);
-  
   transition: 100ms all ease-out;
+   animation: 100ms loading ease-in ;
 }
 
-.dock li.loading {
-  animation: 1s loading ease-in ;
-}
 
 @keyframes loading {
   0%, 100% {
