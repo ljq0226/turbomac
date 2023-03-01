@@ -21,7 +21,7 @@ const FocusMode = ({ dark, bg, brightness, setBrightness }: Props) => {
       onClick={clickHandler}
     >
       <div
-        className={cn('flex-center w-8 h-8  text-center border rounded-full', state ? 'bg-primary' : 'bg-gray-200')}
+        className={cn('flex-center w-8 h-8  text-center  rounded-full', state ? 'bg-primary' : 'bg-gray-200')}
       >
         {
           state

@@ -40,7 +40,7 @@ const Dock = () => {
   const dockItems = ['😃', '😊', '😜', '😍', '🤩', '🥳', '🥶']
 
   return (
-    <div className="absolute bottom-0 flex justify-center w-full h-20 ">
+    <div className="absolute bottom-0 flex justify-center w-full h-20 select-none">
       <div className="flex-1"></div>
       <ul
         className="flex items-center justify-start p-0 m-0 rounded-[1.4rem] dock glass"
