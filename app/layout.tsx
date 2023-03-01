@@ -2,6 +2,7 @@ import GlobalBackGround from './GlobalBackGround'
 import Topbar from '@/components/topbar/Topbar'
 import '@/styles/index.css'
 import Dock from '@/components/desktop/Dock'
+import Launchpad from '@/components/desktop/Launchpad'
 
 export default function RootLayout({
   children,
@@ -20,7 +21,7 @@ export default function RootLayout({
             {children}
 
             {/* LaunchPad */}
-            {/* <Launchpad></Launchpad> */}
+            <Launchpad></Launchpad>
             {/* Dock */}
             <Dock></Dock>
 

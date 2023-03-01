@@ -1,56 +1,51 @@
 'use client'
 import React from 'react'
-import './dock.css'
+import { useMotionValue } from 'framer-motion'
+import DockItem from './DockItem'
+import apps from '@/lib/apps'
+import { useDockStore } from '@/store'
 const Dock = () => {
-  const resetScale = () => {
-    document.querySelectorAll('.dock li').forEach((li: any) => {
-      li.style.setProperty('--scale', '1')
-    })
+  const dockSize = useDockStore(s => s.dockSize)
+  const dockMag = useDockStore(s => s.dockMag)
+
+  const openApp = (id: string) => {
+
+  }
+  const showApps = (id: string) => {
+
   }
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLLIElement>) => {
-    const item = e.currentTarget
-    const itemRect = item.getBoundingClientRect()
-    const offset = Math.abs(e.clientX - itemRect.left) / itemRect.width
-    const scale = 0.6
-
-    resetScale()
-
-    const prev: any = item.previousElementSibling || null
-    const next: any = item.nextElementSibling || null
-
-    if (prev)
-      prev.style.setProperty('--scale', `${1 + scale * Math.abs(offset - 1)}`)
-
-    item.style.setProperty('--scale', `${1 + scale}`)
-
-    if (next)
-      next.style.setProperty('--scale', `${1 + scale * offset}`)
-  }
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLUListElement>) => {
-    resetScale()
-  }
-
-  const dockItems = ['😃', '😊', '😜', '😍', '🤩', '🥳', '🥶']
-
+  const mouseX = useMotionValue<number | null>(null)
+  const hide = false
   return (
-    <div className="absolute bottom-0 flex justify-center w-full h-20 select-none">
-      <div className="flex-1"></div>
+    <div
+      className={`dock select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-1 ${hide ? 'z-0' : 'z-50'
+        } overflow-x-scroll sm:overflow-x-visible`}
+    >
       <ul
-        className="flex items-center justify-start p-0 m-0 rounded-[1.4rem] dock glass"
-        onMouseLeave={handleMouseLeave}
+        className="flex px-2 mx-auto space-x-2 bg-white rounded-none dock max-w-max backdrop-blur-2xl border-1 sm:rounded-xl border-c-border-400/40 bg-opacity-20 glass"
+        style={{
+          height: `${(dockSize as number) + 15}px`,
+        }}
+        onMouseMove={e => mouseX.set(e.nativeEvent.x)}
+        onMouseLeave={() => mouseX.set(null)}
       >
-        {dockItems.map((item, index) => (
-          <li
-            key={index}
-            onMouseMove={handleMouseMove}
-          >
-            {item}
-          </li>
+        {apps.map(app => (
+          <DockItem
+            key={`dock-${app.id}`}
+            id={app.id}
+            title={app.title}
+            img={app.img}
+            mouseX={mouseX}
+            desktop={app.desktop}
+            openApp={openApp}
+            isOpen={app.desktop}
+            link={app.link}
+            dockSize={dockSize as number}
+            dockMag={dockMag as number}
+          />
         ))}
       </ul>
-      <div className="flex-1"></div>
     </div>
   )
 }

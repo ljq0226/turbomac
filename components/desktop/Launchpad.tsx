@@ -13,10 +13,6 @@ const Launchpad: React.FC = () => {
     ? ''
     : 'opacity-0 invisible transition-opacity duration-200'
   useMouseCorner((show: boolean) => { })
-  // useEffect(() => {
-
-  // }, [],
-  // )
   useEffect(() => {
     const clickDesktopHandle = () => {
       setShow(false)
@@ -57,6 +53,7 @@ const Launchpad: React.FC = () => {
             className="flex-1 min-w-0 px-1 text-sm text-white bg-transparent no-outline"
             placeholder={'Search'}
             value={''}
+            onChange={() => { }}
           />
         </div>
         <div>app</div>

@@ -4,6 +4,7 @@ specifiers:
   '@antfu/eslint-config': ^0.35.2
   '@next/font': 13.1.6
   '@radix-ui/react-switch': ^1.0.1
+  '@rooks/use-raf': 4.11.2
   '@types/node': 18.14.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -31,6 +32,7 @@ specifiers:
 dependencies:
   '@next/font': 13.1.6
   '@radix-ui/react-switch': 1.0.1_biqbaboplfbrettd7655fr4n2y
+  '@rooks/use-raf': 4.11.2
   '@types/node': 18.14.0
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -506,6 +508,12 @@ packages:
       '@babel/runtime': 7.21.0
       '@radix-ui/react-use-layout-effect': 1.0.0_react@18.2.0
       react: 18.2.0
+    dev: false
+
+  /@rooks/use-raf/4.11.2:
+    resolution: {integrity: sha512-dK2UkwhB1/AuePV3POfBCc9bJJc0K+f18xZlzFSeAwBXDyzD2cCcCtmtqFsWXZcMh9309ZyR3Az5r4mwcIHNWQ==}
+    dependencies:
+      raf: 3.4.1
     dev: false
 
   /@rushstack/eslint-patch/1.2.0:
@@ -2778,6 +2786,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
+  /performance-now/2.1.0:
+    resolution: {integrity: sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==}
+    dev: false
+
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
 
@@ -2888,6 +2900,12 @@ packages:
   /quick-lru/5.1.1:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
+
+  /raf/3.4.1:
+    resolution: {integrity: sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==}
+    dependencies:
+      performance-now: 2.1.0
+    dev: false
 
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}

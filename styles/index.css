@@ -16,6 +16,17 @@
   .menuDivider{
   @apply border-t border-[#555658]
   }
+  /* Dock */
+  .dock li .tooltip {
+  @apply hidden;
+  top: calc(-100% - 5px);
+}
+
+.dock li:hover .tooltip {
+  @apply block;
+  box-shadow: hsla(0deg, 0%, 0%, 20%) 0px 1px 5px 2px, 0 0 0 0 white;
+}
+
 
 
   /* Slider */
@@ -56,6 +67,7 @@ input:checked + .slider-toggle:before {
 input:focus + .slider-toggle {
   box-shadow: 0 0 1px #3b82f6;
 }
+
 }
 
 
@@ -66,3 +78,7 @@ input:focus + .slider-toggle {
 html, body, #root {
   @apply h-full overflow-hidden;
 }
+
+
+
+
