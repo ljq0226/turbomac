@@ -1,5 +1,5 @@
-import themeStore from './theme'
+import useThemeStore from './theme'
 import useControlStore from './control'
 import useLaunchpadStore from './launchpad'
 
-export { themeStore, useControlStore, useLaunchpadStore }
+export { useThemeStore, useControlStore, useLaunchpadStore }

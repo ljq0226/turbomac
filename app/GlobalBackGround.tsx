@@ -1,11 +1,11 @@
 'use client'
 import React from 'react'
 import { shallow } from 'zustand/shallow'
-import { themeStore } from '@/store'
+import { useThemeStore } from '@/store'
 import { wallpapers } from '@/lib'
 
 const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
-  const [dark, brightness] = themeStore(s => [s.dark, s.brightness], shallow)
+  const [dark, brightness] = useThemeStore(s => [s.dark, s.brightness], shallow)
   return (
     <div
       className="flex flex-col w-full h-full overflow-hidden bg-center bg-cover felx-column"

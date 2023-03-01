@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import { Search } from 'lucide-react'
 import { wallpapers } from '@/lib'
-import { useLaunchpadStore } from '@/store'
+import { useLaunchpadStore, useThemeStore } from '@/store'
 import useMouseCorner from '@/hooks/useMouseCorner'
 const Launchpad = () => {
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
+  const dark = useThemeStore(s => s.dark)
   const [focus, setFocus] = useState(false)
   const close = show
     ? ''
@@ -30,7 +31,7 @@ const Launchpad = () => {
       className={`${close} z-30 transform scale-110 w-full h-full fixed overflow-hidden bg-center bg-cover`}
       id="launchpad"
       style={{
-        backgroundImage: `url(${wallpapers.day})`,
+        backgroundImage: `url(${dark ? wallpapers.night : wallpapers.day})`,
       }}
     >
       <div className="absolute w-full h-full bg-gray-900/20 backdrop-blur-2xl">

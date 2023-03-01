@@ -10,11 +10,11 @@ interface Props {
 const ThemeMode = ({ dark, setDark, bg }: Props) => {
   return (
     <div
-      className={`flex p-3 py-4 rounded-[13px] h-16 border shadow ${bg} cursor-pointer`}
+      className={`flex p-3 py-4 rounded-[13px] h-16 border shadow ${bg} cursor-default`}
       onClick={() => setDark(!dark)}
     >
       <div
-        className={`w-8 h-8 py-[5px] pl-[7px] text-center border rounded-full ${dark ? 'bg-primary' : 'bg-gray-200'
+        className={`w-8 h-8 flex-center rounded-full ${dark ? 'bg-primary' : 'bg-gray-200'
           }`}
       >
         {dark ? <Moon size={16} /> : <Sun size={16} />}

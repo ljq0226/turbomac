@@ -15,11 +15,11 @@ import WifiMenu from '../menu/WifiMenu'
 import ControlCenter from '../menu/ControlCenter/ControlCenter'
 import TopbarItem from './TopbarItem'
 import dayjs from '@/lib/day'
-import { themeStore, useControlStore } from '@/store'
+import { useControlStore, useThemeStore } from '@/store'
 
 const Topbar = () => {
   const [dark, setDark, brightness, setBrightness, sound, setSound]
-    = themeStore(
+    = useThemeStore(
       state => [
         state.dark,
         state.setDark,

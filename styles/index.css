@@ -4,6 +4,12 @@
 @tailwind utilities;
 
 @layer components{
+
+  .flex-center{
+    @apply flex justify-center items-center
+  }
+
+
   .appleMenuItem{
     @apply px-1 m-1 rounded hover:bg-primary hover:text-white
   }
