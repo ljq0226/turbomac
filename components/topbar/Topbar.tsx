@@ -57,7 +57,7 @@ const Topbar = () => {
   const date = new Date()
   return (
     <div
-      className={`w-full h-8 px-2  top-0  
+      className={`w-full h-8 px-2  top-0  z-50
        text-sm backdrop-blur-2xl shadow transition select-none
        flex  justify-between font-medium ${dark ? 'text-white  bg-gray-500/20 ' : 'text-black  bg-gray-700/10'
         }`}

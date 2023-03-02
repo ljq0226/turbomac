@@ -19,7 +19,7 @@ const Dock = () => {
   const hide = false
   return (
     <div
-      className={`dock select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-1 ${hide ? 'z-0' : 'z-50'
+      className={`dock z-10 select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-1 ${hide ? 'z-0' : 'z-50'
         } overflow-x-scroll sm:overflow-x-visible`}
     >
       <ul

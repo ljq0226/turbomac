@@ -27,7 +27,7 @@ const Launchpad: React.FC = () => {
 
   return (
     <div
-      className={`${close} z-30 transform scale-110 w-full h-full fixed overflow-hidden bg-center bg-cover`}
+      className={`${close} z-[100] transform scale-110 w-full h-full fixed overflow-hidden bg-center bg-cover`}
       id="launchpad"
       style={{
         backgroundImage: `url(${dark ? wallpapers.night : wallpapers.day})`,

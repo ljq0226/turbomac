@@ -14,7 +14,7 @@ export default function Desktop() {
         const appInfo = apps.filter(app => app.id === id)[0]
         return (
           <Window app={appInfo} >
-            {appInfo.content }
+            {appInfo.content}
           </Window>
         )
       }
@@ -25,7 +25,7 @@ export default function Desktop() {
   }
 
   return (
-    <div className="absolute z-10 window-bound " style={{ top: minMarginY }} >
+    <div className="absolute z-5 window-bound " style={{ top: minMarginY }} >
       {renderAppWindows()}
     </ div>
 

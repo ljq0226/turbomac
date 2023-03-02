@@ -95,13 +95,13 @@ const Window = ({ app, children }: WindowProps) => {
       dragHandleClassName="window-bar"
       disableDragging={max}
       enableResizing={!max}
-      style={{ zIndex: 50 }}
+      style={{ zIndex: 2 }}
       // onMouseDown={() => app.focus(app.id)}
       className={`absolute ${round} overflow-hidden rounded-md bg-transparent w-full h-full ${border} shadow-lg shadow-black/30 ${minimized}`}
       id={`window-${app.id}`}
     >
       <div
-        className="relative h-8 text-center select-none window-bar bg-stone-700 "
+        className="relative h-8 select-none flex-center window-bar bg-stone-700 "
       // onDoubleClick={() => app.setMax(app.id)}
       >
         {/* <TrafficLight
@@ -111,7 +111,7 @@ const Window = ({ app, children }: WindowProps) => {
           setMax={app.setMax}
           setMin={app.setMin}
         /> */}
-        <span className="font-semibold c-text-700">{app.title}</span>
+        <div className="font-semibold ">{app.title}</div>
       </div>
       <div className="w-full overflow-y-hidden innner-window">{children}</div>
     </Rnd>
