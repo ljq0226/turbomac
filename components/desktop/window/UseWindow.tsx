@@ -3,8 +3,8 @@
 import Window from './Window'
 import { useAppsStore } from '@/store'
 import apps from '@/lib/apps'
-const minMarginY = 32
 
+const minMarginY = 32
 export default function Desktop() {
   const renderAppWindows = () => {
     const store: any = useAppsStore.getState()
@@ -13,7 +13,9 @@ export default function Desktop() {
       if (store[id] === true) {
         const appInfo = apps.filter(app => app.id === id)[0]
         return (
-          <Window app={appInfo} />
+          <Window app={appInfo} >
+            {appInfo.content }
+          </Window>
         )
       }
       else {

@@ -10,6 +10,7 @@ const minMarginX = 100
 
 interface WindowProps {
   app: AppsData
+  children: React.ReactNode
 }
 
 interface WindowState {
@@ -19,7 +20,7 @@ interface WindowState {
   y: number
 }
 
-const Window = ({ app }: WindowProps) => {
+const Window = ({ app, children }: WindowProps) => {
   const dockSize = useDockStore(s => s.dockSize)
   const { winWidth, winHeight } = useWindowSize()
 
@@ -29,10 +30,8 @@ const Window = ({ app }: WindowProps) => {
   const [state, setState] = useState<WindowState>({
     width: initWidth,
     height: initHeight,
-    // "+ winWidth" because of the boundary for windows
-    x: winWidth + Math.random() * (winWidth - initWidth),
-    // "- minMarginY" because of the boundary for windows
-    y: Math.random() * (winHeight - initHeight - minMarginY),
+    x: Math.random() * (winWidth - initWidth),
+    y: Math.random() * (winHeight - initHeight),
   })
 
   useEffect(() => {
@@ -53,11 +52,6 @@ const Window = ({ app }: WindowProps) => {
   const width = max ? winWidth : state.width
   const height = max ? winHeight : state.height
 
-  // const children = React.cloneElement(
-  //   app.children as React.ReactElement<any>,
-  //   { width },
-  // )
-
   return (
     <Rnd
       bounds="parent"
@@ -67,7 +61,7 @@ const Window = ({ app }: WindowProps) => {
       }}
       position={{
         x: max
-          ? winWidth // because of boundary ==> |(1000px) |DeskTop(1000px)|(1000px) |
+          ? winWidth
           : Math.min(
             // "winWidth * 2" because of the boundary for windows
             winWidth * 2 - minMarginX,
@@ -78,7 +72,7 @@ const Window = ({ app }: WindowProps) => {
             ),
           ),
         y: max
-          ? -minMarginY // because of boundary
+          ? -minMarginY
           : Math.min(
             // "- minMarginY" because of the boundary for windows
             winHeight - minMarginY - (dockSize + 15 + minMarginY),
@@ -111,7 +105,7 @@ const Window = ({ app }: WindowProps) => {
       // onDoubleClick={() => app.setMax(app.id)}
       >
         {/* <TrafficLight
-          id={app.id}a
+          id={app.id}
           close={app.close}
           max={max}
           setMax={app.setMax}
@@ -119,7 +113,7 @@ const Window = ({ app }: WindowProps) => {
         /> */}
         <span className="font-semibold c-text-700">{app.title}</span>
       </div>
-      <div className="w-full overflow-y-hidden innner-window">{ }</div>
+      <div className="w-full overflow-y-hidden innner-window">{children}</div>
     </Rnd>
   )
 }

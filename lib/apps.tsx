@@ -1,5 +1,5 @@
 import type { AppsData } from '@/types/app'
-
+import VSCode from '@/components/apps/VSCode'
 const apps: AppsData[] = [
   // {
   //   id: 'launchpad',
@@ -19,19 +19,19 @@ const apps: AppsData[] = [
   {
     id: 'safari',
     title: 'Safari',
-    desktop: true,
+    desktop: false,
     width: 1024,
     minWidth: 375,
     minHeight: 200,
     img: '/img/icons/safari.png',
-    content: <div>123</div>,
+    content: <VSCode />,
   },
   {
     id: 'vscode',
     title: 'VSCode',
     desktop: true,
     img: '/img/icons/vscode.png',
-    content: <div>123</div>,
+    content: <VSCode />,
   },
   // {
   //   id: 'facetime',
@@ -48,19 +48,21 @@ const apps: AppsData[] = [
   //   img: '/img/icons/terminal.png',
   //   content: <div>123</div>,
   // },
-  // {
-  //   id: 'email',
-  //   title: 'Mail',
-  //   desktop: false,
-  //   img: '/img/icons/mail.png',
-  //   link: 'mailto:renovamenzxh@gmail.com',
-  // },
+  {
+    id: 'email',
+    title: 'Mail',
+    desktop: false,
+    img: '/img/icons/mail.png',
+    link: 'mailto:luorom001@gmail.com',
+    content: <></>,
+  },
   {
     id: 'github',
     title: 'Github',
-    desktop: false,
+    desktop: true,
     img: '/img/icons/github.png',
     link: 'https://github.com/ljq0226',
+    content: <></>,
   },
 ]
 
