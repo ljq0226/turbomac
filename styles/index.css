@@ -28,7 +28,6 @@
 }
 
 
-
   /* Slider */
 .slider .rangeslider {
   @apply bg-gray-300 w-full h-7 shadow-none m-0 rounded-r-full border-t border-r border-b border-transparent;
@@ -78,7 +77,17 @@ input:focus + .slider-toggle {
 html, body, #root {
   @apply h-full overflow-hidden;
 }
+.window-bound{
+  width: 300%;
+  height:200%;
+  left:-100%;
+}
 
+.innner-window {
+  height: calc(100% - 1.5rem);
+}
 
-
+.safari-content {
+  height: calc(100% - 2rem);
+}
 
