@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-export function useWindowSize() {
+export default function useWindowSize() {
   let width = 800
   let height = 600
   // to resolve the window Object can't be find in server side

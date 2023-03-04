@@ -5,13 +5,12 @@ import { useAppsStore } from '@/store'
 import apps from '@/lib/apps'
 
 export default function Desktop() {
-  const store: any = useAppsStore.getState()
-  const openApps = useAppsStore(s => s.openApps)
+  const showApps = useAppsStore(s => s.showApps)
   const renderAppWindows = () => {
-    return openApps.map((id) => {
+    return showApps.map((id) => {
       const appInfo = apps.filter(app => app.id === id)[0]
       return (
-        <Window key={appInfo.id} app={appInfo} closeApp={store.closeApp} >
+        <Window key={appInfo.id} app={appInfo} >
           {appInfo.content}
         </Window>
       )

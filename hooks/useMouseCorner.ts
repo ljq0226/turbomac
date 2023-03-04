@@ -44,12 +44,12 @@ const useMouseCorner = (callback: (show: boolean) => void): void => {
       const x = event.clientX
       const y = event.clientY
 
-      if (x < 20 && y < 20)
+      if (x < 20 && y > (screenHeight * 9.5) / 10)
         setShow(true)
-      else if (x > (screenWidth * 9.5) / 10 && y < 20)
-        setShow(true)
-      else if (x < 20 && y > (screenHeight * 9.5) / 10)
-        setShow(true)
+      // else if (x < 20 && y < 20)
+      //   setShow(true)
+      // else if (x > (screenWidth * 9.5) / 10 && y < 20)
+      //   setShow(true)
       else if (x > (screenWidth * 9.5) / 10 && y > (screenHeight * 9.5) / 10)
         setShow(true)
 

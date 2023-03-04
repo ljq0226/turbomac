@@ -17,9 +17,7 @@ const Launchpad: React.FC = () => {
     const clickDesktopHandle = () => {
       setShow(false)
     }
-
     document.addEventListener('click', clickDesktopHandle)
-
     return () => {
       document.removeEventListener('click', clickDesktopHandle)
     }
@@ -58,7 +56,6 @@ const Launchpad: React.FC = () => {
         </div>
         <div>app</div>
       </div>
-      Dock
     </div>
   )
 }

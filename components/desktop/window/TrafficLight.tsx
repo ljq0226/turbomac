@@ -1,17 +1,22 @@
 'use client'
 import { Maximize2, Minimize2, Minus, X } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
+import { shallow } from 'zustand/shallow'
+import { useAppsStore } from '@/store'
+
 interface TrafficProps {
   id: string
-  closeApp: (id: string) => void
-  max: boolean
+  handleMax: () => void
+  handleMini: () => void
 }
 
-const TrafficHeader = ({ id, max, closeApp }: TrafficProps) => {
-  const color = 'bg-red-500'
+const TrafficHeader = ({ id, handleMax, handleMini }: TrafficProps) => {
+  const [max, closeApp] = useAppsStore(s => [s.max, s.closeApp], shallow)
   const trafficLightRef = useRef(null)
   const [enter, setEnter] = useState(false)
-
+  const closeHandler = () => {
+    closeApp(id)
+  }
   useEffect(() => {
     const trafficLight: any = trafficLightRef.current
     trafficLight.addEventListener('mouseenter', () => {
@@ -32,22 +37,18 @@ const TrafficHeader = ({ id, max, closeApp }: TrafficProps) => {
 
   return (
     <div ref={trafficLightRef} className="traffic-lights relative flex space-x-2 w-[60px] ml-1 " >
-      <div onClick={() =>
-        closeApp(id)
-      } className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
-      <div className="bg-yellow-500 w-[13px] h-[13px] mt-2 rounded-full ">  </div>
-      <div className="bg-green-500 w-[13px] h-[13px] mt-2 rounded-full ">  </div>
+      <div onClick={closeHandler} className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
+      <div onClick={closeHandler} className="bg-yellow-500 w-[13px] h-[13px] mt-2 rounded-full "></div>
+      <div className="bg-green-500 w-[13px] h-[13px] mt-2 rounded-full "></div>
       {
         enter
         && <div className='absolute flex mt-[9px]'>
-          <X onClick={() =>
-            closeApp(id)
-          } size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
-          <Minus size={10} color='black' strokeWidth={3} className='mx-[10px]' />
+          <X onClick={closeHandler} size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
+          <Minus onClick={closeHandler} size={10} color='black' strokeWidth={3} className='mx-[10px]' />
           {
             max
-              ? <Minimize2 size={10} color='black' strokeWidth={2} className='ml-[1px]' />
-              : <Maximize2 size={10} color='black' strokeWidth={2} className='ml-[1px]' />
+              ? <Minimize2 onClick={handleMini} size={10} color='black' strokeWidth={2} className='ml-[1px]' />
+              : <Maximize2 onClick={handleMax} size={10} color='black' strokeWidth={2} className='ml-[1px]' />
           }
 
         </div>

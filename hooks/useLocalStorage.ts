@@ -1,14 +1,15 @@
 'use client'
 import { useEffect } from 'react'
 
-const useLocalStorage = (key: string, value: string) => {
+const useLocalStorage = (key: string, value?: any): any => {
+  let item
   useEffect(() => {
-    const item = localStorage.getItem(key)
+    item = localStorage.getItem(key)
     if (!item)
       localStorage.setItem(key, value)
   }, [])
 
-  return value
+  return item
 }
 
 export default useLocalStorage

@@ -3,23 +3,21 @@ import React from 'react'
 import { useMotionValue } from 'framer-motion'
 import DockItem from './DockItem'
 import apps from '@/lib/apps'
-import { useDockStore } from '@/store'
+import { useAppsStore, useDockStore } from '@/store'
 const Dock = () => {
   const dockSize = useDockStore(s => s.dockSize)
   const dockMag = useDockStore(s => s.dockMag)
+  const openApp = useAppsStore(s => s.openApp)
+  const max = useAppsStore(s => s.max)
 
-  const openApp = (id: string) => {
-
-  }
   const showApps = (id: string) => {
 
   }
 
   const mouseX = useMotionValue<number | null>(null)
-  const hide = false
   return (
     <div
-      className={`dock z-10 select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-1 ${hide ? 'z-0' : 'z-50'
+      className={`dock z-10 select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-1 ${max ? 'z-0' : 'z-50'
         } overflow-x-scroll sm:overflow-x-visible`}
     >
       <ul

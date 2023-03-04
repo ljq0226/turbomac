@@ -19,10 +19,8 @@ const apps: AppsData[] = [
   {
     id: 'safari',
     title: 'Safari',
-    desktop: false,
+    desktop: true,
     width: 1024,
-    minWidth: 375,
-    minHeight: 200,
     img: '/img/icons/safari.png',
     content: <div>123</div>,
   },
@@ -61,7 +59,7 @@ const apps: AppsData[] = [
   {
     id: 'github',
     title: 'Github',
-    desktop: true,
+    desktop: false,
     img: '/img/icons/github.png',
     link: 'https://github.com/ljq0226',
     content: <></>,

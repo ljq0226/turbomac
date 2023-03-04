@@ -3,7 +3,7 @@ import type { RefObject } from 'react'
 import useRaf from '@rooks/use-raf'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
-import { useWindowSize } from '@/hooks/useWindowSize'
+import { useWindowSize } from '@/hooks'
 
 // Hover effect is adopted from https://github.com/PuruVJ/macos-web/tree/main/src/components/Dock
 
