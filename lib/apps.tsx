@@ -1,12 +1,12 @@
 import type { AppsData } from '@/types/app'
 import VSCode from '@/components/apps/VSCode'
 const apps: AppsData[] = [
-  // {
-  //   id: 'launchpad',
-  //   title: 'Launchpad',
-  //   desktop: false,
-  //   img: '/img/icons/launchpad.png',
-  // },
+  {
+    id: 'launchpad',
+    title: 'Launchpad',
+    desktop: false,
+    img: '/img/icons/launchpad.png',
+  },
   // {
   //   id: 'bear',
   //   title: 'Bear',

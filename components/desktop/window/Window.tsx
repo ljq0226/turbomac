@@ -63,10 +63,13 @@ const Window = ({ app, children }: WindowProps) => {
     <div ref={draggableRef} className={cn('bg-black absolute rounded-xl', max ? 'z-[100]' : '')}
       style={{ width: `${box.width}px`, height: `${box.height}px` }}
     >
-      <header className='bg-[#383837] h-7  window-header rounded-t-xl'>
+      <header
+        className='bg-[#383837] h-7  window-header rounded-t-xl'
+        onDoubleClick={max ? handleMini : handleMax}
+      >
         <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
       </header>
-      <div className='w-full h-full bg-red-300'>
+      <div className='w-full h-full bg-red-300 rounded-b-xl'>
         {children}
       </div>
 
