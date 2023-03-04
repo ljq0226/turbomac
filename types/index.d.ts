@@ -3,7 +3,7 @@ declare module 'react-rangeslider'
 
 import React from "react";
 import { UserData } from './configs/user';
-
+import { LaunchpadData } from './configs/launchpad';
 
 export interface MacActions {
   setLogin: (value: boolean | ((prevVar: boolean) => boolean)) => void;
@@ -12,4 +12,4 @@ export interface MacActions {
   sleepMac: (e: React.MouseEvent) => void;
 }
 
-export { WallpaperData, AppsData, UserData } from './configs'
+export { WallpaperData, AppsData, UserData ,LaunchpadData} from './configs'

@@ -3,13 +3,14 @@ import React from 'react'
 import { useMotionValue } from 'framer-motion'
 import DockItem from './DockItem'
 import apps from '@/lib/apps'
-import { useAppsStore, useDockStore } from '@/store'
+import { useAppsStore, useDockStore, useLaunchpadStore } from '@/store'
 const Dock = () => {
   const dockSize = useDockStore(s => s.dockSize)
   const dockMag = useDockStore(s => s.dockMag)
   const openApp = useAppsStore(s => s.openApp)
   const showApps = useAppsStore(s => s.showApps)
   const max = useAppsStore(s => s.max)
+  const setShowLaunchpad = useLaunchpadStore(s => s.setShow)
   const mouseX = useMotionValue<number | null>(null)
 
   const isOpen = (id: string) => {
@@ -36,6 +37,7 @@ const Dock = () => {
             mouseX={mouseX}
             openApp={openApp}
             isOpen={isOpen}
+            setShowLaunchpad={setShowLaunchpad}
             dockSize={dockSize as number}
             dockMag={dockMag as number}
           />
