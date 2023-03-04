@@ -69,7 +69,7 @@ const Window = ({ app, children }: WindowProps) => {
       >
         <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
       </header>
-      <div className='w-full h-full bg-red-300 rounded-b-xl'>
+      <div className='w-full h-full bg-transparent rounded-b-xl'>
         {children}
       </div>
 

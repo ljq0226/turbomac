@@ -10,7 +10,7 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
     <div
       className="flex flex-col w-full h-full overflow-hidden bg-center bg-cover felx-column"
       style={{
-        backgroundImage: `url(${dark ? wallpapers.night : wallpapers.day})`,
+        backgroundImage: `url(${dark ? wallpapers.github : wallpapers.valley})`,
         filter: `brightness( ${(brightness as number) * 0.7 + 50}% )`,
       }}
     >

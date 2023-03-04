@@ -2,30 +2,22 @@ import React, { useRef } from 'react'
 import { motion } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
 import { useDockHoverAnimation, useWindowSize } from '@/hooks'
-
+import type { AppsData } from '@/types/app'
 interface DockItemProps {
-  id: string
-  title: string
-  img: string
+  app: AppsData
   mouseX: MotionValue
-  desktop: boolean
   openApp: (id: string) => void
-  isOpen: boolean
-  link?: string
+  isOpen: (id: string) => boolean
   dockSize: number
   dockMag: number
 }
 const DockItem = ({
-  id,
-  title,
-  img,
+  app,
   mouseX,
-  desktop,
   openApp,
-  isOpen,
-  link,
   dockSize,
   dockMag,
+  isOpen,
 }: DockItemProps) => {
   const imgRef = useRef<HTMLImageElement>(null)
   const { width } = useDockHoverAnimation(mouseX, imgRef, dockSize, dockMag)
@@ -33,22 +25,22 @@ const DockItem = ({
 
   return (
     <li
-      id={`dock-${id}`}
-      onClick={(desktop || id === 'launchpad') ? () => openApp(id) : () => { }}
+      id={`dock-${app.id}`}
+      onClick={(app.id !== 'launchpad') ? () => openApp(app.id) : () => { }}
       className="flex flex-col items-center justify-end mb-1 transition duration-150 ease-in origin-bottom"
     >
       <p className="absolute px-3 py-1 text-sm text-black rounded-md tooltip bg-gray-300/80">
-        {title}
+        {app.title}
       </p>
-      {link
+      {app.link
         ? (
-          <a href={link} target="_blank" rel="noreferrer">
+          <a href={app.link} target="_blank" rel="noreferrer">
             <motion.img
               className="w-12 rounded-md"
               ref={imgRef}
-              src={img}
-              alt={title}
-              title={title}
+              src={app.img}
+              alt={app.title}
+              title={app.title}
               draggable={false}
               style={winWidth < 640 ? {} : { width, willChange: 'width' }}
             />
@@ -57,16 +49,13 @@ const DockItem = ({
           <motion.img
             className="w-12 rounded-md"
             ref={imgRef}
-            src={img}
-            alt={title}
-            title={title}
+            src={app.img}
+            alt={app.title}
+            title={app.title}
             draggable={false}
             style={winWidth < 640 ? {} : { width, willChange: 'width' }}
           />)}
-      <div
-        className={`h-1 w-1 m-0 rounded-full c-bg-800 ${isOpen ? '' : 'invisible'
-          }`}
-      />
+      <div className={`h-1 w-1 m-0 rounded-full bg-white/40 ${isOpen(app.id) ? '' : 'invisible'}`} />
     </li>
   )
 }

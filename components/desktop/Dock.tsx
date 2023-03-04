@@ -8,16 +8,17 @@ const Dock = () => {
   const dockSize = useDockStore(s => s.dockSize)
   const dockMag = useDockStore(s => s.dockMag)
   const openApp = useAppsStore(s => s.openApp)
+  const showApps = useAppsStore(s => s.showApps)
   const max = useAppsStore(s => s.max)
+  const mouseX = useMotionValue<number | null>(null)
 
-  const showApps = (id: string) => {
-
+  const isOpen = (id: string) => {
+    return showApps.includes(id)
   }
 
-  const mouseX = useMotionValue<number | null>(null)
   return (
     <div
-      className={`dock z-10 select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-1 ${max ? 'z-0' : 'z-50'
+      className={`dock z-10 select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-4 ${max ? 'z-0' : 'z-50'
         } overflow-x-scroll sm:overflow-x-visible`}
     >
       <ul
@@ -31,14 +32,10 @@ const Dock = () => {
         {apps.map(app => (
           <DockItem
             key={`dock-${app.id}`}
-            id={app.id}
-            title={app.title}
-            img={app.img}
+            app={app}
             mouseX={mouseX}
-            desktop={app.desktop}
             openApp={openApp}
-            isOpen={app.desktop}
-            link={app.link}
+            isOpen={isOpen}
             dockSize={dockSize as number}
             dockMag={dockMag as number}
           />

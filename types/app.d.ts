@@ -1,7 +1,6 @@
 export interface AppsData {
   id: string;
   title: string;
-  desktop: boolean;
   img: string;
   width?: number;
   height?: number;

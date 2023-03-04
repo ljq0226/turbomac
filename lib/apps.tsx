@@ -1,10 +1,9 @@
 import type { AppsData } from '@/types/app'
-import VSCode from '@/components/apps/VSCode'
+import LinkWeb from '@/components/apps/LinkWeb'
 const apps: AppsData[] = [
   {
     id: 'launchpad',
     title: 'Launchpad',
-    desktop: false,
     img: '/img/icons/launchpad.png',
   },
   // {
@@ -19,7 +18,6 @@ const apps: AppsData[] = [
   {
     id: 'safari',
     title: 'Safari',
-    desktop: true,
     width: 1024,
     img: '/img/icons/safari.png',
     content: <div>123</div>,
@@ -27,11 +25,18 @@ const apps: AppsData[] = [
   {
     id: 'vscode',
     title: 'VSCode',
-    desktop: true,
     width: 860,
     height: 560,
     img: '/img/icons/vscode.png',
-    content: <VSCode />,
+    content: <LinkWeb src='https://github1s.com/ljq0226/my-mac-apps' title='VSCode' />,
+  },
+  {
+    id: 'spotify',
+    title: 'Spotify',
+    width: 860,
+    height: 560,
+    img: '/img/icons/spotify.png',
+    content: <LinkWeb src='https://open.spotify.com/' title='Spotify' />,
   },
   // {
   //   id: 'facetime',
@@ -51,7 +56,6 @@ const apps: AppsData[] = [
   {
     id: 'email',
     title: 'Mail',
-    desktop: false,
     img: '/img/icons/mail.png',
     link: 'mailto:luorom001@gmail.com',
     content: <></>,
@@ -59,7 +63,6 @@ const apps: AppsData[] = [
   {
     id: 'github',
     title: 'Github',
-    desktop: false,
     img: '/img/icons/github.png',
     link: 'https://github.com/ljq0226',
     content: <></>,
