@@ -12,12 +12,14 @@ interface appsState {
 const useAppsStore = create<appsState>(set => ({
   safari: false,
   vscode: true,
-  openApps: [],
-  openApp: id => set(() => ({
+  openApps: ['vscode'],
+  openApp: id => set(s => ({
     [id]: true,
+    openApps: [...s.openApps, id],
   })),
-  closeApp: id => set(() => ({
+  closeApp: id => set(s => ({
     [id]: false,
+    openApps: s.openApps.filter(app => app !== id),
   })),
 }))
 

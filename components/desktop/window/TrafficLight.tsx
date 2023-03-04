@@ -3,12 +3,11 @@ import { Maximize2, Minimize2, Minus, X } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 interface TrafficProps {
   id: string
-  // openApp: (id: string) => void
-  // closeApp: (id: string) => void
+  closeApp: (id: string) => void
   max: boolean
 }
 
-const TrafficHeader = ({ id, max }: TrafficProps) => {
+const TrafficHeader = ({ id, max, closeApp }: TrafficProps) => {
   const color = 'bg-red-500'
   const trafficLightRef = useRef(null)
   const [enter, setEnter] = useState(false)
@@ -33,13 +32,17 @@ const TrafficHeader = ({ id, max }: TrafficProps) => {
 
   return (
     <div ref={trafficLightRef} className="traffic-lights relative flex space-x-2 w-[60px] ml-1 " >
-      <div className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
+      <div onClick={() =>
+        closeApp(id)
+      } className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
       <div className="bg-yellow-500 w-[13px] h-[13px] mt-2 rounded-full ">  </div>
       <div className="bg-green-500 w-[13px] h-[13px] mt-2 rounded-full ">  </div>
       {
         enter
         && <div className='absolute flex mt-[9px]'>
-          <X size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
+          <X onClick={() =>
+            closeApp(id)
+          } size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
           <Minus size={10} color='black' strokeWidth={3} className='mx-[10px]' />
           {
             max
