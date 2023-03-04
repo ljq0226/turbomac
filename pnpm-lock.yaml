@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.35.2
+  '@neodrag/react': 2.0.3
   '@next/font': 13.1.6
   '@radix-ui/react-switch': ^1.0.1
   '@rooks/use-raf': 4.11.2
@@ -31,6 +32,7 @@ specifiers:
   zustand: ^4.3.3
 
 dependencies:
+  '@neodrag/react': 2.0.3
   '@next/font': 13.1.6
   '@radix-ui/react-switch': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@rooks/use-raf': 4.11.2
@@ -239,6 +241,10 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+
+  /@neodrag/react/2.0.3:
+    resolution: {integrity: sha512-VtubEZzyB+mmi6bZYKay/UmMuWsG2rsiAV7+O7iLN4YXKOOa7TxJT3alnLRqkntII8X48h2Hs7jSjosqxuAxDQ==}
+    dev: false
 
   /@next/env/13.1.6:
     resolution: {integrity: sha512-s+W9Fdqh5MFk6ECrbnVmmAOwxKQuhGMT7xXHrkYIBMBcTiOqNWhv5KbJIboKR5STXxNXl32hllnvKaffzFaWQg==}

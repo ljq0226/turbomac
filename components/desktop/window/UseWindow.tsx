@@ -6,14 +6,13 @@ import apps from '@/lib/apps'
 
 const minMarginY = 32
 export default function Desktop() {
+  const store: any = useAppsStore.getState()
   const renderAppWindows = () => {
-    const store: any = useAppsStore.getState()
-
     return Object.keys(store).map((id) => {
       if (store[id] === true) {
         const appInfo = apps.filter(app => app.id === id)[0]
         return (
-          <Window app={appInfo} >
+          <Window key={appInfo.id} app={appInfo} openApp={store.openApp} closeApp={store.closeApp} >
             {appInfo.content}
           </Window>
         )
@@ -25,9 +24,8 @@ export default function Desktop() {
   }
 
   return (
-    <div className="absolute z-5 window-bound " style={{ top: minMarginY }} >
+    <div className="absolute z-5 " style={{ top: minMarginY }} >
       {renderAppWindows()}
     </ div>
-
   )
 }

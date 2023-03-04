@@ -10,6 +10,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@neodrag/react": "2.0.3",
     "@next/font": "13.1.6",
     "@radix-ui/react-switch": "^1.0.1",
     "@rooks/use-raf": "4.11.2",

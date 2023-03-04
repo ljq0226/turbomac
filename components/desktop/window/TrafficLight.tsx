@@ -1,49 +1,55 @@
 'use client'
-import React from 'react'
 import { Maximize2, Minimize2, Minus, X } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import React, { useEffect, useRef, useState } from 'react'
 interface TrafficProps {
   id: string
+  // openApp: (id: string) => void
+  // closeApp: (id: string) => void
   max: boolean
-  setMax: (id: string, target?: boolean) => void
-  setMin: (id: string) => void
-  close: (id: string) => void
 }
 
-const TrafficHeader = ({ id, close, max, setMax, setMin }: TrafficProps) => {
-  const closeWindow = (e: React.MouseEvent | React.TouchEvent): void => {
-    e.stopPropagation()
-    close(id)
-  }
-  const buttonCn = 'rounded-full  flex-center w-[12px] h-[12px]'
-  const iconCn = ''
+const TrafficHeader = ({ id, max }: TrafficProps) => {
+  const color = 'bg-red-500'
+  const trafficLightRef = useRef(null)
+  const [enter, setEnter] = useState(false)
+
+  useEffect(() => {
+    const trafficLight: any = trafficLightRef.current
+    trafficLight.addEventListener('mouseenter', () => {
+      setEnter(true)
+    })
+    trafficLight.addEventListener('mouseleave', () => {
+      setEnter(false)
+    })
+    return () => {
+      trafficLight.removeEventListener('mouseenter', () => {
+        setEnter(true)
+      })
+      trafficLight.removeEventListener('mouseleave', () => {
+        setEnter(false)
+      })
+    }
+  }, [trafficLightRef])
 
   return (
-    <div className="flex flex-row absolute left-0 space-x-2 pl-2 mt-2.5 cursor-auto">
-      <div
-        className={cn('bg-red-500', buttonCn)}
-        onClick={closeWindow}
-        onTouchEnd={closeWindow}
-      >
-        <X size={10} color='black' className={iconCn} />
-      </div>
-      <div
-        className={cn('bg-yellow-500', buttonCn)}
-        onClick={() => setMin(id)}
-        onTouchEnd={() => setMin(id)}
-      >
-        <span>
-          <Minus size={10} color='black' className={iconCn} />
-        </span>
+    <div ref={trafficLightRef} className="traffic-lights relative flex space-x-2 w-[60px] ml-1 " >
+      <div className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
+      <div className="bg-yellow-500 w-[13px] h-[13px] mt-2 rounded-full ">  </div>
+      <div className="bg-green-500 w-[13px] h-[13px] mt-2 rounded-full ">  </div>
+      {
+        enter
+        && <div className='absolute flex mt-[9px]'>
+          <X size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
+          <Minus size={10} color='black' strokeWidth={3} className='mx-[10px]' />
+          {
+            max
+              ? <Minimize2 size={10} color='black' strokeWidth={2} className='ml-[1px]' />
+              : <Maximize2 size={10} color='black' strokeWidth={2} className='ml-[1px]' />
+          }
 
-      </div>
-      <div
-        className={cn('bg-green-500', buttonCn)}
-        onClick={() => setMax(id)}
-        onTouchEnd={() => setMax(id)}
-      >
-        {max ? <Minimize2 size={10} color='black' className={iconCn} /> : <Maximize2 size={10} color='black' className={iconCn} />}
-      </div>
+        </div>
+      }
+
     </div>
   )
 }
