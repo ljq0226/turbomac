@@ -67,6 +67,11 @@ input:focus + .slider-toggle {
   box-shadow: 0 0 1px #3b82f6;
 }
 
+
+.appLink{
+  cursor: url('../public/cursors/link-select.svg'), auto; 
+}
+
 }
 
 
@@ -82,17 +87,5 @@ button{
 cursor: url('../public/cursors/normal-select.svg'), auto;
 }
 
-.window-bound{
-  width: 300%;
-  height:200%;
-  left:-100%;
-}
 
-.innner-window {
-  height: calc(100% - 1.5rem);
-}
-
-.safari-content {
-  height: calc(100% - 2rem);
-}
 

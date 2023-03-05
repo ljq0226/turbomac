@@ -55,7 +55,7 @@ const DockItem = ({
         ? (
           <a href={app.link} target="_blank" rel="noreferrer">
             <motion.img
-              className="w-12 rounded-md"
+              className="w-12 rounded-md appLink"
               ref={imgRef}
               src={app.img}
               alt={app.title}

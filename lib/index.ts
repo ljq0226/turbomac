@@ -1,4 +1,5 @@
 import wallpapers from './wallpapers'
 import dayjs from './day'
+import { contextMenuConfig } from './contextmenu'
 
-export { wallpapers, dayjs }
+export { wallpapers, dayjs, contextMenuConfig }
