@@ -10,10 +10,12 @@ const Applemenu = ({ appleMenuSwitch }: ApplemenuProps) => {
   return (
     <div
       ref={ref}
-      className={`absolute text-black rounded-md cursor-pointer font-md h-70 w-52 bg-white/70 top-9 left-1
-    `}
+      className={'absolute text-black rounded-md cursor-pointer font-md h-70 w-52 bg-white/70 top-9 left-1'}
+      onClick={() => {
+        appleMenuSwitch(false)
+      }}
     >
-      <ul className="p-1">
+      <ul className="p-1" >
         <li className="appleMenuItem">About This Mac</li>
         <div className="menuDivider"></div>
         <li className="appleMenuItem">Systeam Prefrences...</li>

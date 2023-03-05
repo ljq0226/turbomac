@@ -39,7 +39,7 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       {children}
-      {menu && <ContextMenu setMenuStyle={setMenuStyle} pagePosition={pagePosition} />}
+      {menu && <ContextMenu setMenuStyle={setMenuStyle} pagePosition={pagePosition}/>}
     </div>
   )
 }

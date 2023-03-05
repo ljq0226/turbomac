@@ -24,9 +24,7 @@ const Dock = () => {
     >
       <ul
         className="flex px-2 mx-auto space-x-2 bg-white rounded-none dock max-w-max backdrop-blur-2xl border-1 sm:rounded-xl border-c-border-400/40 bg-opacity-20 glass"
-        style={{
-          height: `${(dockSize as number) + 15}px`,
-        }}
+        style={{ height: `${(dockSize as number) + 15}px` }}
         onMouseMove={e => mouseX.set(e.nativeEvent.x)}
         onMouseLeave={() => mouseX.set(null)}
       >

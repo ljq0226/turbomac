@@ -1,41 +1,10 @@
 import { useEffect } from 'react'
-import { shallow } from 'zustand/shallow'
 import { useLaunchpadStore } from '@/store'
+import { debounce } from '@/lib/utils'
 
-function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number,
-): (...args: Parameters<T>) => void {
-  let timer: any = null
-  return (...args) => {
-    if (timer) {
-      clearTimeout(timer)
-      timer = null
-    }
-    timer = setTimeout(() => {
-      func(...args)
-    }, wait)
-  }
-}
-
-function throttle<T extends (...args: any[]) => any>(
-  func: T,
-  delay: number,
-): (...args: Parameters<T>) => void {
-  let currentTime: any = new Date()
-  return (...args) => {
-    const nowTime: any = Date.now()
-    if (nowTime - currentTime > delay) {
-      func(...args)
-      currentTime = Date.now()
-    }
-  }
-}
-
-const useMouseCorner = (callback: (show: boolean) => void): void => {
-  const [show, setShow] = useLaunchpadStore(
-    s => [s.show, s.setShow],
-    shallow,
+const useMouseCorner = () => {
+  const setShow = useLaunchpadStore(
+    s => s.setShow,
   )
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -50,23 +19,12 @@ const useMouseCorner = (callback: (show: boolean) => void): void => {
       //   setShow(true)
       // else if (x > (screenWidth * 9.5) / 10 && y < 20)
       //   setShow(true)
-      else if (x > (screenWidth * 9.5) / 10 && y > (screenHeight * 9.5) / 10)
+      else if (x > screenWidth - 32 && y > screenHeight - 32)
         setShow(true)
-
-      // else
-      //   console.log('close false')
     }
-
-    const handleMouseCorner = () => {
-      if (show)
-        callback(show)
-    }
-
-    document.addEventListener('mousemove', throttle(handleMouseMove, 800))
-    document.addEventListener('mousemove', throttle(handleMouseCorner, 700))
+    document.addEventListener('mousemove', debounce(handleMouseMove, 300))
     return () => {
       document.removeEventListener('mousemove', handleMouseMove)
-      document.removeEventListener('mousemove', handleMouseCorner)
     }
   }, [])
 }

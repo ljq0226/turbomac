@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import Window from './Window'
 import { useAppsStore } from '@/store'
 import apps from '@/lib/apps'
@@ -18,9 +19,11 @@ export default function Desktop() {
   }
 
   return (
-    <div>
-      {renderAppWindows()}
-    </div>
+    <>
+      <Suspense fallback={<div>loading</div>}>
+        {renderAppWindows()}
+      </Suspense>
+    </>
 
   )
 }

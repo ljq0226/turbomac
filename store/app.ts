@@ -1,21 +1,20 @@
 import { create } from 'zustand'
 
 interface appsState {
-  safari: boolean
-  vscode: boolean
 
   max: string // the maximize APP's id
-
-  showApps: string[]
+  showApps: string[] // the whole opening app list
+  focus: string // the focusing app id
   openApp: (id: string) => void
   closeApp: (id: string) => void
   setMax: (id: string) => void
+  setFocus: (id: string) => void
+
 }
 
 const useAppsStore = create<appsState>(set => ({
-  safari: false,
-  vscode: true,
   max: '',
+  focus: '',
   showApps: [],
   openApp: id => set(s => ({
     showApps: (s.showApps.includes(id) ? [...s.showApps] : [...s.showApps, id]),
@@ -25,6 +24,9 @@ const useAppsStore = create<appsState>(set => ({
   })),
   setMax: id => set(() => ({
     max: id,
+  })),
+  setFocus: id => set(() => ({
+    focus: id,
   })),
 }))
 

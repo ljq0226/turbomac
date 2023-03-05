@@ -66,7 +66,7 @@ const Topbar = () => {
           {/* Apple Icon  */}
           <div
             className=" flex justify-center w-[30px] items-center  relative  hover:bg-gray-400 "
-            onMouseMove={() => {
+            onClick={() => {
               appleMenuSwitch(true)
             }}
           >

@@ -16,7 +16,7 @@ interface WindowProps {
 
 const Window = ({ app, children }: WindowProps) => {
   const { winWidth, winHeight } = useWindowSize()
-  const [max, setMax] = useAppsStore(s => [s.max, s.setMax], shallow)
+  const [max, setMax, focus, setFocus] = useAppsStore(s => [s.max, s.setMax, s.focus, s.setFocus], shallow)
   const [box, setBox] = useState({
     width: 0,
     height: 0,
@@ -57,11 +57,17 @@ const Window = ({ app, children }: WindowProps) => {
     disabled: !!max,
   }
   useDraggable(draggableRef, options)
+  const ZINDEX = 5
 
   return (
 
-    <div ref={draggableRef} className={cn('bg-black absolute rounded-xl', max ? 'z-[100]' : '')}
-      style={{ width: `${box.width}px`, height: `${box.height}px` }}
+    <div ref={draggableRef} className={cn('bg-black absolute rounded-xl')}
+      style={{
+        width: `${box.width}px`,
+        height: `${box.height}px`,
+        zIndex: max ? 100 : (focus === app.id) ? ZINDEX + 1 : ZINDEX,
+      }}
+      onClick={() => setFocus(app.id)}
     >
       <header
         className='bg-[#383837] h-7  window-header rounded-t-xl'
