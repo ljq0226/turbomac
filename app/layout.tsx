@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className='w-full h-full '>
+        <div className='w-full h-full'>
           <GlobalBackGround>
 
             {/* Topbar */}

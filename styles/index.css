@@ -82,6 +82,20 @@ html, body, #root {
   @apply h-full overflow-hidden;
   cursor: url('../public/cursors/normal-select.svg'), auto;
 }
+
+@media screen and (max-width: 768px) {
+  body {
+    transform: rotate(-90deg);
+    transform-origin: top left;
+    width: 100vh;
+    height: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
 button{
 cursor: url('../public/cursors/normal-select.svg'), auto;
 }

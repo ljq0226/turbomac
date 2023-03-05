@@ -19,11 +19,10 @@ const Dock = () => {
 
   return (
     <div
-      className={`dock z-10 select-none w-full sm:w-max fixed left-0 right-0 mx-auto bottom-4 ${max ? 'z-0' : 'z-50'
-        } overflow-x-scroll sm:overflow-x-visible`}
+      className={`dock z-10 select-none w-full  fixed left-0 right-0 mx-auto bottom-4 ${max ? 'z-0' : 'z-50'} overflow-x-visible`}
     >
       <ul
-        className="flex px-2 mx-auto space-x-2 bg-white rounded-none dock max-w-max backdrop-blur-2xl border-1 sm:rounded-xl border-c-border-400/40 bg-opacity-20 glass"
+        className="flex px-2 mx-auto space-x-2 bg-white rounded-none dock max-w-max backdrop-blur-2xl border-1 sm:rounded-xl bg-opacity-20 glass"
         style={{ height: `${(dockSize as number) + 15}px` }}
         onMouseMove={e => mouseX.set(e.nativeEvent.x)}
         onMouseLeave={() => mouseX.set(null)}
