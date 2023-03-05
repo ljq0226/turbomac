@@ -17,7 +17,7 @@ const FocusMode = ({ dark, bg, brightness, setBrightness }: Props) => {
 
   return (
     <div
-      className={`flex p-3 py-4 rounded-[13px] h-16 border shadow ${bg} cursor-default`}
+      className={`flex p-3 py-4 rounded-[13px] h-16 border shadow ${bg} `}
       onClick={clickHandler}
     >
       <div

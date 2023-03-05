@@ -14,6 +14,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      flexBasis: {
+        '1/16': '6.25%',
+        '1/8': '12.5%',
+        '7/8': '87.5%',
+      },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },

@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { Search } from 'lucide-react'
+import Image from 'next/image'
 import { wallpapers } from '@/lib'
 import { useLaunchpadStore, useThemeStore } from '@/store'
 import useMouseCorner from '@/hooks/useMouseCorner'
@@ -32,7 +33,7 @@ const Launchpad: React.FC = () => {
 
   return (
     <div
-      className={`${close} z-[100] transform scale-110 w-full h-full fixed overflow-hidden bg-center bg-cover`}
+      className={`${close} z-[100] transform scale-110 w-full h-full fixed  bg-center bg-cover`}
       id="launchpad"
       style={{
         backgroundImage: `url(${dark ? wallpapers.github : wallpapers.vallay})`,
@@ -62,36 +63,21 @@ const Launchpad: React.FC = () => {
             onChange={e => setSearchText(e.target.value)}
           />
         </div>
-        <div className='<div className=“max-w-[1100px] mx-auto mt-8 w-full px-4 sm:px-10 grid grid-flow-row grid-cols-4 sm:grid-cols-7” >'>
-          {search().map(app => (
-            <div
-              key={`launchpad-${app.id}`}
-              className="w-full h-32 sm:h-36 flex-center"
-            >
-              <div className="flex flex-col w-full h-full">
-                <a
-                  className="h-max"
-                  href={app.link}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={e => e.stopPropagation()}
-                >
-                  <img
-                    className="mx-auto w-14 sm:w-20"
-                    src={app.img}
-                    alt={app.title}
-                    title={app.title}
-                  />
+        <div className='flex w-full h-full launchpad'>
+          <div className={'h-full bg-red-500 basis-1/16'} />
+          <div className="flex flex-wrap h-auto basis-7/8">
+            {search().map(app => (
+              <div key={`launchpad-${app.id}`} className="flex flex-col w-[1/8]">
+                <a href={app.link}>
+                  <Image src={app.img} width={30} height={30} className='w-1/2 h-1/2' alt={app.title} />
                 </a>
-                <span className="mx-auto mt-2 text-xs text-white sm:text-sm">
-                  {app.title}
-                </span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className={'h-full bg-green-500 basis-1/16'} />
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

@@ -140,7 +140,7 @@ const Topbar = () => {
           )}
         </div>
 
-        <div className={dark ? 'text-white cursor-default' : 'cursor-default'}>
+        <div className={dark ? 'text-white ' : ''}>
           {dayjs(date).format('MMMD ddd  HH:mm')}
         </div>
       </div>

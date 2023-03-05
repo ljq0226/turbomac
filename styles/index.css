@@ -76,7 +76,12 @@ input:focus + .slider-toggle {
 
 html, body, #root {
   @apply h-full overflow-hidden;
+  cursor: url('../public/cursors/normal-select.svg'), auto;
 }
+button{
+cursor: url('../public/cursors/normal-select.svg'), auto;
+}
+
 .window-bound{
   width: 300%;
   height:200%;
