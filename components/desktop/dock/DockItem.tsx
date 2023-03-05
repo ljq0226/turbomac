@@ -20,7 +20,6 @@ const DockItem = ({
   app,
   mouseX,
   openApp,
-  setShowLaunchpad,
   dockSize,
   dockMag,
   isOpen,
@@ -32,13 +31,6 @@ const DockItem = ({
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
   const dockItemClick = () => {
-    // if (app.id === 'launchpad') {
-    //   // setShowLaunchpad(true)
-    //   setShow(!show)
-    // }
-    // else if (!bannedApp.includes(app.id)) {
-    //   openApp(app.id)
-    // }
     return (app.id === 'launchpad' ? setShow(!show) : (!bannedApp.includes(app.id) && openApp(app.id)))
   }
 
@@ -74,7 +66,7 @@ const DockItem = ({
             draggable={false}
             style={winWidth < 640 ? {} : { width, willChange: 'width' }}
           />)}
-      <div className={`h-1 w-1 m-0 rounded-full bg-white/40 ${isOpen(app.id) ? '' : 'invisible'}`} />
+      <div className={`h-1 w-1 m-0 rounded-full bg-white/40 ${(isOpen(app.id) || bannedApp.includes(app.id)) ? '' : 'invisible'}`} />
     </li>
   )
 }

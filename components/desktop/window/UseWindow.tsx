@@ -18,9 +18,9 @@ export default function Desktop() {
   }
 
   return (
-    <>
+    <div>
       {renderAppWindows()}
-    </>
+    </div>
 
   )
 }
