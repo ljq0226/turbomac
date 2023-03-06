@@ -16,21 +16,23 @@ interface WindowProps {
 
 const Window = ({ app, children }: WindowProps) => {
   const { winWidth, winHeight } = useWindowSize()
+
+  const isRotate = winWidth < 767 // check if to be phone mode
   const [max, setMax, focus, setFocus] = useAppsStore(s => [s.max, s.setMax, s.focus, s.setFocus], shallow)
   const [box, setBox] = useState({
     width: 0,
     height: 0,
   })
   const [position, setPosition] = useState({
-    x: max ? 0 : (winWidth * (Math.random() * 0.2 + 0.05)),
-    y: max ? 0 : (winHeight * (Math.random() * 0.2 + 0.05)),
+    x: max ? 0 : ((isRotate ? winHeight : winWidth) * (Math.random() * 0.2 + 0.05)),
+    y: max ? 0 : ((isRotate ? winWidth : winHeight) * (Math.random() * 0.2 + 0.05)),
   })
 
   const [lastPositon, setLastPositon] = useLocalStorageState('LAST_POSITION', { defaultValue: position })
 
   const handleMax = () => {
     setMax(app.id)
-    setBox({ width: winWidth, height: winHeight })
+    setBox({ width: (isRotate ? winHeight : winWidth), height: (isRotate ? winWidth : winHeight) })
     setLastPositon(position)
     setPosition({ x: 0, y: 0 })
   }
@@ -50,7 +52,7 @@ const Window = ({ app, children }: WindowProps) => {
   const draggableRef = useRef(null)
   const options: DragOptions = {
     position,
-    onDrag: ({ offsetX, offsetY }) => setPosition({ x: offsetX, y: offsetY }),
+    onDrag: ({ offsetX, offsetY }) => setPosition({ x: isRotate ? offsetY : offsetX, y: isRotate ? offsetX : offsetY }),
     bounds: { bottom: -6000, top: max ? -6000 : 32, left: -6000, right: -6000 },
     handle: '.window-header',
     cancel: '.traffic-lights',
