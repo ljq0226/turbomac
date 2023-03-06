@@ -1,12 +1,10 @@
 'use client'
 import React, { useRef } from 'react'
-import { motion } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useDockHoverAnimation, useWindowSize } from '@/hooks'
 import type { AppsData } from '@/types/app'
-
 import { useLaunchpadStore } from '@/store'
-
 interface DockItemProps {
   app: AppsData
   mouseX: MotionValue
@@ -53,18 +51,18 @@ const DockItem = ({
               alt={app.title}
               title={app.title}
               draggable={false}
-              style={winWidth < 640 ? {} : { width, willChange: 'width' }}
+              style={{ width, willChange: 'width' }}
             />
           </a>)
         : (
           <motion.img
-            className="w-12 rounded-md"
+            className="w-12 rounded-md appLink"
             ref={imgRef}
             src={app.img}
             alt={app.title}
             title={app.title}
             draggable={false}
-            style={winWidth < 640 ? {} : { width, willChange: 'width' }}
+            style={{ width, willChange: 'width' }}
           />)}
       <div className={`h-1 w-1 m-0 rounded-full bg-white/40 ${(isOpen(app.id) || bannedApp.includes(app.id)) ? '' : 'invisible'}`} />
     </li>
