@@ -9,7 +9,6 @@ interface TopbarItemProps {
 
 const TopbarItem = ({
   Icon,
-  children,
   clickHandler = () => {},
   value = false,
 }: TopbarItemProps) => {
