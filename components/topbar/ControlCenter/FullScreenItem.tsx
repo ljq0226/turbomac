@@ -9,11 +9,14 @@ interface Props {
   src?: string
 }
 
-const ControlItem = ({ Icon, title, src }: Props) => {
+const FullScreenItem = ({ Icon, title, src }: Props) => {
   const [value, setValue] = useState(false)
   return (
     <div className='flex p-2 space-x-2 h-1/3'
-      onClick={() => setValue(!value)}>
+      onClick={() => {
+        value ? document.exitFullscreen() : document.documentElement.requestFullscreen()
+        setValue(!value)
+      }}>
       <div className={cn('w-[2rem] h-[2rem] rounded-full flex-center', value ? 'bg-primary' : 'bg-gray-200')}>
         {src
           ? <Image width={300} height={300} src={src} alt='icon'></Image>
@@ -28,4 +31,4 @@ const ControlItem = ({ Icon, title, src }: Props) => {
   )
 }
 
-export default ControlItem
+export default FullScreenItem

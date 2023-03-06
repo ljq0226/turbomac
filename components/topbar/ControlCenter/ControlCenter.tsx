@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
 import { useClickAway } from 'ahooks'
-import { Bluetooth, Focus } from 'lucide-react'
+import { Bluetooth, Expand } from 'lucide-react'
 import ThemeMode from './ThemeMode'
 import BrightnessSlider from './BrightnessSlider'
 import SoundSlider from './SoundSlider'
-import ControlItem from './ControlItem'
 import WifiItem from './WifiItem'
 import EyeMode from './EyeMode'
+import FullScreenItem from './FullScreenItem'
+import BluetoothItem from './BluetoothItem'
 interface ControlCenterProps {
   dark: boolean
   brightness: number
@@ -40,13 +41,12 @@ const ControlCenter = ({
           className={`flex flex-col mr-3 rounded-[13px] border  shadow w-40 h-36 ${bg}`}
         >
           <WifiItem />
-          <ControlItem title='Bluetooth' Icon={Bluetooth} />
-          <ControlItem title='Focus' Icon={Focus} />
+          <BluetoothItem title='Bluetooth' Icon={Bluetooth} />
+          <FullScreenItem title='FullScreen' Icon={Expand} />
         </div>
 
         <div className="flex flex-col w-40 h-3 space-y-3 shadow">
           {/* Change Mode */}
-
           <ThemeMode bg={bg} dark={dark} setDark={setDark} />
           <EyeMode bg={bg} dark={dark} brightness={brightness} setBrightness={setBrightness} />
 
