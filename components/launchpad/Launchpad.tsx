@@ -50,7 +50,7 @@ const Launchpad: React.FC = () => {
           <div className="absolute w-full h-full bg-gray-900/20 backdrop-blur-2xl">
             {/* Search Input */}
             <div
-              className="flex w-64 mx-auto mt-12 border rounded-md h-7 bg-gray-200/10 border-gray-200/30"
+              className="flex w-64 mx-auto mt-[7vh] border rounded-md h-7 bg-gray-200/10 border-gray-200/30"
               onClick={e => e.stopPropagation()}
               onFocus={() => setFocus(true)}
               onBlur={() => setFocus(false)}
