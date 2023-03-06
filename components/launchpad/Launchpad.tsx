@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Search } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { wallpapers } from '@/lib'
 import { useLaunchpadStore, useThemeStore } from '@/store'
 import useMouseCorner from '@/hooks/useMouseCorner'
@@ -29,6 +30,9 @@ const Launchpad: React.FC = () => {
     ? ''
     : 'opacity-0 invisible transition-opacity duration-200'
 
+  const justifySelf = (index: number) => {
+    return search().length - index <= search().length % 6 ? 'justify-self-start' : ''
+  }
   useMouseCorner()
 
   return (
@@ -36,7 +40,7 @@ const Launchpad: React.FC = () => {
       {
         show
         && <div
-          className={`${close} z-[100] transform scale-110 w-full h-full fixed  bg-center bg-cover`}
+          className={`${close} z-[100] transform scale-110 w-full h-full fixed bg-center bg-cover`}
           id="launchpad"
           style={{
             backgroundImage: `url(${dark ? wallpapers.github : wallpapers.vallay})`,
@@ -66,18 +70,22 @@ const Launchpad: React.FC = () => {
                 onChange={e => setSearchText(e.target.value)}
               />
             </div>
-            <div className='flex w-full h-full launchpad'>
-              <div className={'h-full bg-red-500 basis-1/16'} />
-              <div className="flex flex-wrap h-auto basis-7/8">
-                {search().map(app => (
-                  <div key={`launchpad-${app.id}`} className="flex flex-col w-[1/8]">
-                    <a href={app.link}>
-                      <Image src={app.img} width={30} height={30} className='w-1/2 h-1/2' alt={app.title} />
-                    </a>
+
+            {/* Apps */}
+
+            <div className='flex w-full h-full overflow-y-scroll '>
+              <div className={'h-full w-[13vw] mr-auto'} />
+              <div className={'flex w-full flex-wrap content-start justify-items-center mt-3 h-full'}>
+                {search().map((app, index) => (
+                  <div key={`launchpad-${app.id + index}`} className={`flex-center flex-col ${justifySelf(index)} w-[13vw] h-[20vh]`}>
+                    <Link href={app.link}>
+                      <Image src={app.img} width={30} height={30} className={'w-[6vw] h-[6vw] '} alt={app.title} />
+                    </Link>
+                    <p>{app.title}</p>
                   </div>
                 ))}
               </div>
-              <div className={'h-full bg-green-500 basis-1/16'} />
+              <div className={'h-full w-[11vw] ml-auto'} />
             </div>
           </div>
         </div >

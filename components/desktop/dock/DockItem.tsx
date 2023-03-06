@@ -2,7 +2,8 @@
 import React, { useRef } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { motion } from 'framer-motion'
-import { useDockHoverAnimation, useWindowSize } from '@/hooks'
+import Link from 'next/link'
+import { useDockHoverAnimation } from '@/hooks'
 import type { AppsData } from '@/types/app'
 import { useLaunchpadStore } from '@/store'
 interface DockItemProps {
@@ -24,7 +25,6 @@ const DockItem = ({
 }: DockItemProps) => {
   const imgRef = useRef<HTMLImageElement>(null)
   const { width } = useDockHoverAnimation(mouseX, imgRef, dockSize, dockMag)
-  const { winWidth } = useWindowSize()
   const bannedApp = ['github', 'email']
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
@@ -43,7 +43,7 @@ const DockItem = ({
       </p>
       {app.link
         ? (
-          <a href={app.link} target="_blank" rel="noreferrer">
+          <Link href={app.link} target="_blank" rel="noreferrer">
             <motion.img
               className="w-12 rounded-md appLink"
               ref={imgRef}
@@ -53,7 +53,7 @@ const DockItem = ({
               draggable={false}
               style={{ width, willChange: 'width' }}
             />
-          </a>)
+          </Link>)
         : (
           <motion.img
             className="w-12 rounded-md appLink"

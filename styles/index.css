@@ -71,7 +71,10 @@ input:focus + .slider-toggle {
 .appLink{
   cursor: url('../public/cursors/normal-select.svg'), auto; 
 }
+
+
 }
+
 
 
 * {
