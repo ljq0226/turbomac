@@ -36,25 +36,29 @@ const TrafficHeader = ({ id, handleMax, handleMini }: TrafficProps) => {
   }, [trafficLightRef])
 
   return (
-    <div ref={trafficLightRef} className="traffic-lights relative flex space-x-2 w-[60px] ml-1 " >
-      <div onClick={closeHandler} className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
-      <div onClick={closeHandler} className="bg-yellow-500 w-[13px] h-[13px] mt-2 rounded-full "></div>
-      <div className="bg-green-500 w-[13px] h-[13px] mt-2 rounded-full "></div>
-      {
-        enter
-        && <div className='absolute flex mt-[9px]'>
-          <X onClick={closeHandler} size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
-          <Minus onClick={closeHandler} size={10} color='black' strokeWidth={3} className='mx-[10px]' />
-          {
-            max
-              ? <Minimize2 onClick={handleMini} size={10} color='black' strokeWidth={2} className='ml-[1px]' />
-              : <Maximize2 onClick={handleMax} size={10} color='black' strokeWidth={2} className='ml-[1px]' />
-          }
+    <div className='bg-transparent absoulte'>
+      <div ref={trafficLightRef} className="traffic-lights relative flex space-x-2 w-[60px] ml-1 " >
+        <div onClick={closeHandler} className="bg-red-500 w-[13px] h-[13px] mt-2 rounded-full ml-1">  </div>
+        <div onClick={closeHandler} className="bg-yellow-500 w-[13px] h-[13px] mt-2 rounded-full "></div>
+        <div className="bg-green-500 w-[13px] h-[13px] mt-2 rounded-full "></div>
+        {
+          enter
+          && <div className='absolute flex mt-[9px]'>
+            <X onClick={closeHandler} size={10} color='black' strokeWidth={2} className='-ml-[2px]' />
+            <Minus onClick={closeHandler} size={10} color='black' strokeWidth={3} className='mx-[10px]' />
+            {
+              max
+                ? <Minimize2 onClick={handleMini} size={10} color='black' strokeWidth={2} className='ml-[1px]' />
+                : <Maximize2 onClick={handleMax} size={10} color='black' strokeWidth={2} className='ml-[1px]' />
+            }
 
-        </div>
-      }
+          </div>
+        }
+
+      </div>
 
     </div>
+
   )
 }
 

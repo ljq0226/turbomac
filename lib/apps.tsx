@@ -38,8 +38,8 @@ const apps: AppsData[] = [
   {
     id: 'qq',
     title: 'QQ',
-    width: 860,
-    height: 560,
+    width: 969,
+    height: 640,
     img: '/img/icons/qq.png',
     content: <QQ />,
   },
