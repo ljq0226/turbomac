@@ -2,9 +2,6 @@
 import React from 'react'
 import {
   ArrowLeftRight,
-  BatteryCharging,
-  MoreHorizontal,
-  Search,
   Wifi,
   WifiOff,
 } from 'lucide-react'
@@ -14,7 +11,9 @@ import Applemenu from '../menu/Applemenu'
 import WifiMenu from '../menu/WifiMenu'
 import ControlCenter from './ControlCenter/ControlCenter'
 import TopbarItem from './TopbarItem'
-import dayjs from '@/lib/day'
+import CurrentDate from './CurrentDate'
+import Battery from './Battery'
+import ThemeContext from './ThemeContext'
 import { useAppsStore, useControlStore, useThemeStore } from '@/store'
 
 const Topbar = () => {
@@ -54,9 +53,9 @@ const Topbar = () => {
     shallow,
   )
   const max = useAppsStore(s => s.max)
-  const date = new Date()
+
   return (
-    <>
+    <ThemeContext.Provider value={{ dark, brightness }}>
       {
         !max && <div
           className={`w-full h-8 px-2  top-0  z-50 text-sm backdrop-blur-2xl shadow transition select-none
@@ -72,18 +71,10 @@ const Topbar = () => {
           >
             {/* Apple Menu Switch */}
             <TopbarItem
-              Icon={
-                <Image
-                  alt=""
-                  width={300}
-                  height={300}
-                  src={`${dark
-                    ? '/img/icons/apple-white.png'
-                    : '/img/icons/apple-black.png'
-                    }`}
-                />
+              Icon={<Image alt="" width={300} height={300} src={`${dark ? '/img/icons/apple-white.png' : '/img/icons/apple-black.png'}`}
+              />
               }
-            ></TopbarItem>
+            />
             {showAppleMenu && <Applemenu appleMenuSwitch={appleMenuSwitch} />}
           </div>
           {/* flex empty block */}
@@ -97,13 +88,13 @@ const Topbar = () => {
                     clickHandler={wifiMenuSwitch}
                     value={showWifiMenu}
                     Icon={<Wifi size={16} color={dark ? '#fff' : '#000'} />}
-                  ></TopbarItem>)
+                  />)
                 : (
                   <TopbarItem
                     clickHandler={wifiMenuSwitch}
                     value={showWifiMenu}
                     Icon={<WifiOff size={16} color={dark ? '#fff' : '#000'} />}
-                  ></TopbarItem>)}
+                  />)}
               {showWifiMenu && (
                 <WifiMenu
                   wifi={wifi}
@@ -113,22 +104,13 @@ const Topbar = () => {
                 />
               )}
             </div>
-
-            <TopbarItem
-              Icon={<Search size={16} color={dark ? '#fff' : '#000'} />}
-            ></TopbarItem>
-            <TopbarItem
-              Icon={<MoreHorizontal size={16} color={dark ? '#fff' : '#000'} />}
-            ></TopbarItem>
-            <TopbarItem
-              Icon={<BatteryCharging size={16} color={dark ? '#fff' : '#000'} />}
-            ></TopbarItem>
+            <Battery />
             <div className="relative">
               <TopbarItem
                 clickHandler={controlCenterSwitch}
                 value={showControlCenter}
                 Icon={<ArrowLeftRight size={16} color={dark ? '#fff' : '#000'} />}
-              ></TopbarItem>
+              />
               {showControlCenter && (
                 <ControlCenter
                   dark={dark}
@@ -141,15 +123,12 @@ const Topbar = () => {
                 />
               )}
             </div>
-
-            <div className={dark ? 'text-white ' : ''}>
-              {dayjs(date).format('MMMD ddd  HH:mm')}
-            </div>
+            <CurrentDate />
           </div>
         </div>
 
       }
-    </>
+    </ThemeContext.Provider>
 
   )
 }

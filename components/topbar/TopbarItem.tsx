@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface TopbarItemProps {
-  Icon: React.ReactNode
+  Icon?: React.ReactNode
   children?: JSX.Element
   clickHandler?: (value: boolean) => void
   value?: boolean
