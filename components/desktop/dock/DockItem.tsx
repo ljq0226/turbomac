@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useDockHoverAnimation } from '@/hooks'
 import type { AppsData } from '@/types/app'
-import { useLaunchpadStore } from '@/store'
+import { useLaunchpadStore, useUserStore } from '@/store'
 interface DockItemProps {
   app: AppsData
   mouseX: MotionValue
@@ -28,44 +28,58 @@ const DockItem = ({
   const bannedApp = ['github', 'email']
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
+  const username = useUserStore(s => s.username)
   const dockItemClick = () => {
-    return (app.id === 'launchpad' ? setShow(!show) : (!bannedApp.includes(app.id) && openApp(app.id)))
+    if (app.id === 'launchpad') {
+      return setShow(!show)
+    }
+
+    else if (!bannedApp.includes(app.id)) {
+      if (app.id === 'qq')
+        return username ? openApp('qq') : openApp('login')
+      return openApp(app.id)
+    }
   }
 
   return (
-    <li
-      id={`dock-${app.id}`}
-      onClick={dockItemClick}
-      className="flex flex-col items-center justify-end mb-1 transition duration-150 ease-in origin-bottom"
-    >
-      <p className="absolute px-3 py-1 text-sm text-black rounded-md tooltip bg-gray-300/80">
-        {app.title}
-      </p>
-      {app.link
-        ? (
-          <Link href={app.link} target="_blank" rel="noreferrer">
-            <motion.img
-              className="w-12 rounded-md appLink"
-              ref={imgRef}
-              src={app.img}
-              alt={app.title}
-              title={app.title}
-              draggable={false}
-              style={{ width, willChange: 'width' }}
-            />
-          </Link>)
-        : (
-          <motion.img
-            className="w-12 rounded-md appLink"
-            ref={imgRef}
-            src={app.img}
-            alt={app.title}
-            title={app.title}
-            draggable={false}
-            style={{ width, willChange: 'width' }}
-          />)}
-      <div className={`h-1 w-1 m-0 rounded-full bg-white/40 ${(isOpen(app.id) || bannedApp.includes(app.id)) ? '' : 'invisible'}`} />
-    </li>
+    <>
+      {app.id !== 'login'
+        && <li
+          id={`dock-${app.id}`}
+          onClick={dockItemClick}
+          className="flex flex-col items-center justify-end mb-1 transition duration-150 ease-in origin-bottom"
+        >
+          <p className="absolute px-3 py-1 text-sm text-black rounded-md tooltip bg-gray-300/80">
+            {app.title}
+          </p>
+          {app.link
+            ? (
+              <Link href={app.link} target="_blank" rel="noreferrer">
+                <motion.img
+                  className="w-12 rounded-md appLink"
+                  ref={imgRef}
+                  src={app.img}
+                  alt={app.title}
+                  title={app.title}
+                  draggable={false}
+                  style={{ width, willChange: 'width' }}
+                />
+              </Link>)
+            : (
+              <motion.img
+                className="w-12 rounded-md appLink"
+                ref={imgRef}
+                src={app.img}
+                alt={app.title}
+                title={app.title}
+                draggable={false}
+                style={{ width, willChange: 'width' }}
+              />)}
+          <div className={`h-1 w-1 m-0 rounded-full bg-white/40 ${(isOpen(app.id) || bannedApp.includes(app.id)) ? '' : 'invisible'}`} />
+        </li>
+      }
+    </>
+
   )
 }
 

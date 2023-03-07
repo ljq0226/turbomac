@@ -1,20 +1,17 @@
 import type { AppsData } from '@/types/app'
 import LinkWeb from '@/components/apps/LinkWeb'
+import QQ from '@/components/apps/qq/QQ'
+import Login from '@/components/apps/qq/Login'
+// import { useUserStore } from '@/store'
+
+// const username = useUserStore(s => s.username)
+
 const apps: AppsData[] = [
   {
     id: 'launchpad',
     title: 'Launchpad',
     img: '/img/icons/launchpad.png',
   },
-  // {
-  //   id: 'bear',
-  //   title: 'Bear',
-  //   desktop: true,
-  //   width: 860,
-  //   height: 500,
-  //   img: '/img/icons/bear.png',
-  //   content: <div>123</div>,
-  // },
   {
     id: 'safari',
     title: 'Safari',
@@ -38,21 +35,22 @@ const apps: AppsData[] = [
     img: '/img/icons/spotify.png',
     content: <LinkWeb src='https://open.spotify.com/' title='Spotify' />,
   },
-  // {
-  //   id: 'facetime',
-  //   title: 'FaceTime',
-  //   desktop: true,
-  //   img: '/img/icons/facetime.png',
-  //   height: 530,
-  //   content: <div>123</div>,
-  // },
-  // {
-  //   id: 'terminal',
-  //   title: 'Terminal',
-  //   desktop: true,
-  //   img: '/img/icons/terminal.png',
-  //   content: <div>123</div>,
-  // },
+  {
+    id: 'qq',
+    title: 'QQ',
+    width: 860,
+    height: 560,
+    img: '/img/icons/qq.png',
+    content: <QQ />,
+  },
+  {
+    id: 'login',
+    title: 'Login',
+    width: 320,
+    height: 448,
+    img: '/img/icons/qq.png',
+    content: <Login />,
+  },
   {
     id: 'email',
     title: 'Mail',

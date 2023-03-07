@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { Suspense } from 'react'
 import {
   ArrowLeftRight,
   Wifi,
@@ -123,7 +123,9 @@ const Topbar = () => {
                 />
               )}
             </div>
-            <CurrentDate />
+            <Suspense fallback={<div>loading...</div>}>
+              <CurrentDate />
+            </Suspense>
           </div>
         </div>
 

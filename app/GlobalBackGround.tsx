@@ -31,7 +31,7 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
   }, [])
   return (
     <div
-      className="flex flex-col w-full h-full overflow-hidden bg-center bg-cover felx-column"
+      className="flex flex-col w-full h-full overflow-hidden bg-center bg-cover"
       ref={bgRef}
       style={{
         backgroundImage: `url(${dark ? wallpapers.github : wallpapers.valley})`,

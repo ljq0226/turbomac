@@ -4,6 +4,7 @@ import type { DragOptions } from '@neodrag/react'
 import { useDraggable } from '@neodrag/react'
 import { shallow } from 'zustand/shallow'
 import { useLocalStorageState } from 'ahooks'
+import { motion } from 'framer-motion'
 import TrafficHeader from './TrafficLight'
 import { useWindowSize } from '@/hooks'
 import type { AppsData } from '@/types/app'
@@ -63,7 +64,7 @@ const Window = ({ app, children }: WindowProps) => {
 
   return (
 
-    <div ref={draggableRef} className={cn('bg-black absolute rounded-xl')}
+    <motion.div ref={draggableRef} className={cn('bg-black/80 absolute rounded-xl')}
       style={{
         width: `${box.width}px`,
         height: `${box.height}px`,
@@ -71,17 +72,25 @@ const Window = ({ app, children }: WindowProps) => {
       }}
       onClick={() => setFocus(app.id)}
     >
-      <header
-        className='bg-[#383837] h-7  window-header rounded-t-xl'
+      <motion.header
+        className='bg-[#383837] h-7  window-header rounded-t-xl flex '
         onDoubleClick={max ? handleMini : handleMax}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
       >
         <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
-      </header>
+        <div className='flex-[0.8]'></div>
+        <div className=''>
+          <h2>{app.title}</h2>
+        </div>
+        <div className='flex-1'></div>
+      </motion.header>
       <div className='w-full h-full bg-transparent rounded-b-xl'>
         {children}
       </div>
 
-    </div>
+    </motion.div>
 
   )
 }
