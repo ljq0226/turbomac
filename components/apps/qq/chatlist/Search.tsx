@@ -6,7 +6,7 @@ const Search = () => {
 
       <div className="flex bg-[#1e1e1e] w-full">
         <div className='w-[24px] flex-center'>
-          <Image src='/qq/icon/search.svg' width={15} alt='qqavatar' height={15} />
+          <Image src='/qq/chatlist/search.svg' width={15} alt='qqavatar' height={15} />
         </div>
 
         <div className='flex-1 flex-center'>
@@ -15,7 +15,7 @@ const Search = () => {
         <div className='w-[12px] bg-[#262626]' />
 
         <div className='w-[24px] flex-center'>
-          <Image src='/qq/icon/add.svg' width={15} alt='qqavatar' height={15} />
+          <Image src='/qq/chatlist/add.svg' width={15} alt='qqavatar' height={15} />
         </div>
       </div>
 
