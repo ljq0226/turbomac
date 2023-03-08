@@ -13,7 +13,7 @@
   .appleMenuItem{
     @apply px-1 m-1 rounded hover:bg-primary hover:text-white
   }
-  .menuDivider{
+  .menudivider{
   @apply border-t border-[#555658]
   }
   /* Dock */
@@ -103,3 +103,32 @@ cursor: url('../public/cursors/normal-select.svg'), auto;
   }
 }
 
+.chatlist::-webkit-scrollbar {
+  width:8px;
+}
+.chatlist::-webkit-scrollbar-thumb {
+  visibility:hidden;
+  border-radius:5px;
+  background-color:#585858
+}
+.chatlist::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.chatlist::-webkit-scrollbar-thumb:hover {
+  background-color: #585858;
+}
+
+.chatlist_::-webkit-scrollbar {
+  width:8px;
+}
+.chatlist_::-webkit-scrollbar-thumb {
+  visibility:visible;
+  border-radius:5px;
+  background-color:#585858
+}
+.chatlist_::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.chatlist_::-webkit-scrollbar-thumb:hover {
+  background-color: #585858;
+}
