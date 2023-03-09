@@ -1,8 +1,14 @@
 import React from 'react'
 
-const GroupMembers = () => {
+interface Props {
+  dark: boolean
+}
+
+const GroupMembers = ({ dark }: Props) => {
+  const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
+  const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   return (
-    <div className="flex flex-col w-full flex-1  border-[#232323]">
+    <div className={`flex flex-col flex-1 w-full  ${border}`}>
       <header className='flex p-1'>
         <div>群成员 25</div>
         <div className="flex-1"></div>

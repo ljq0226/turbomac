@@ -1,8 +1,13 @@
 import React from 'react'
 
-const GroupAnnouncement = () => {
+interface Props {
+  dark: boolean
+}
+
+const GroupAnnouncement = ({ dark }: Props) => {
+  const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   return (
-    <div className="border-y w-full h-[200px]  border-[#232323]">
+    <div className={`${border} border-b w-full h-[200px]`}>
       <header className='flex p-1'>
         <div>群公告</div>
         <div className="flex-1"></div>

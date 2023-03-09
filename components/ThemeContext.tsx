@@ -2,12 +2,12 @@ import { createContext } from 'react'
 
 interface MyThemeContext {
   dark: boolean
-  brightness: number
+  brightness?: number
 }
 
 const ThemeContext = createContext<MyThemeContext>({
   dark: false,
-  brightness: 80,
+  brightness: 50,
 })
 
 export default ThemeContext

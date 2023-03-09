@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import ThemeContext from './ThemeContext'
+import ThemeContext from '../ThemeContext'
 import { dayjs } from '@/lib'
 
 const CurrentDate = () => {

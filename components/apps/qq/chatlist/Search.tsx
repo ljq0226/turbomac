@@ -1,19 +1,24 @@
 import React from 'react'
 import Image from 'next/image'
-const Search = () => {
+
+interface Props {
+  dark: boolean
+}
+
+const Search = ({ dark }: Props) => {
+  const bg = dark ? 'bg-[#1e1e1e]' : 'bg-[#f5f5f5]'
   return (
     <div className="flex w-full p-2 px-4 rounded-lg h-[44px]">
 
-      <div className="flex bg-[#1e1e1e] w-full">
+      <div className={`flex w-full ${bg}`}>
         <div className='w-[24px] flex-center'>
           <Image src='/qq/chatlist/search.svg' width={15} alt='qqavatar' height={15} />
         </div>
 
         <div className='flex-1 flex-center'>
-          <input className='bg-[#1e1e1e] focus:outline-none' type="text" placeholder='Search' />
+          <input className={`focus:outline-none ${bg}`} type="text" placeholder='Search' />
         </div>
-        <div className='w-[12px] bg-[#262626]' />
-
+        <div className={`w-[12px] ${dark ? 'bg-[#1e1e1e]' : 'bg-white'}`} />
         <div className='w-[24px] flex-center'>
           <Image src='/qq/chatlist/add.svg' width={15} alt='qqavatar' height={15} />
         </div>

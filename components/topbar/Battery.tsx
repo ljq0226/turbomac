@@ -1,6 +1,6 @@
 'use client'
 import React, { useContext, useEffect, useState } from 'react'
-import ThemeContext from './ThemeContext'
+import ThemeContext from '../ThemeContext'
 import { cn } from '@/lib/utils'
 const Battery = () => {
   const { dark } = useContext(ThemeContext)

@@ -1,8 +1,12 @@
 import React from 'react'
+interface Props {
+  dark: boolean
+}
 
-const ChatMessage = () => {
+const ChatMessage = ({ dark }: Props) => {
+  const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   return (
-    <div className='chatlist h-[420px] overflow-y-scroll overflow-x:hidden scroll-smooth border border-[#232323]'
+    <div className={`${border} chatlist h-[420px] overflow-y-scroll overflow-x:hidden scroll-smooth border-t`}
       onMouseEnter={(e) => {
         e.currentTarget.classList.remove('chatlist')
         e.currentTarget.classList.add('chatlist_')

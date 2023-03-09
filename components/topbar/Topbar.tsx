@@ -9,11 +9,11 @@ import { shallow } from 'zustand/shallow'
 import Image from 'next/image'
 import Applemenu from '../menu/Applemenu'
 import WifiMenu from '../menu/WifiMenu'
+import ThemeContext from '../ThemeContext'
 import ControlCenter from './ControlCenter/ControlCenter'
 import TopbarItem from './TopbarItem'
 import CurrentDate from './CurrentDate'
 import Battery from './Battery'
-import ThemeContext from './ThemeContext'
 import { useAppsStore, useControlStore, useThemeStore } from '@/store'
 
 const Topbar = () => {
