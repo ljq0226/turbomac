@@ -1,7 +1,7 @@
 import React from 'react'
 import ChatList from './chatlist/ChatList'
 import ChatWindw from './chatwindow/ChatWindw'
-import SideBar from './siderbar/SideBar'
+import SideBar from './siderbar/SiderBar'
 const QQ = () => {
   const flag = true
   return (

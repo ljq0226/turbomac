@@ -33,7 +33,7 @@ const apps: AppsData[] = [
     width: 860,
     height: 560,
     img: '/img/icons/spotify.png',
-    content: <LinkWeb src='https://open.spotify.com/' title='Spotify' />,
+    content: <LinkWeb src='https://my-mac-apps.netlify.app/' title='Spotify' />,
   },
   {
     id: 'qq',

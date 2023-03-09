@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Icon from './Icon'
 const SideBar = () => {
   return (
-    <aside className='h-full w-[66px] flex flex-col select-none'>
+    <aside className='h-full w-[66px] flex flex-col select-none bg-black/10 '>
 
       <div className='w-full h-7 '></div>
       <div className="flex-center">
