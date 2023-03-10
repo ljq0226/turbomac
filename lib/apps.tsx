@@ -2,22 +2,12 @@ import type { AppsData } from '@/types/app'
 import LinkWeb from '@/components/apps/LinkWeb'
 import QQ from '@/components/apps/qq/QQ'
 import Login from '@/components/apps/qq/Login'
-// import { useUserStore } from '@/store'
-
-// const username = useUserStore(s => s.username)
 
 const apps: AppsData[] = [
   {
     id: 'launchpad',
     title: 'Launchpad',
     img: '/img/icons/launchpad.png',
-  },
-  {
-    id: 'safari',
-    title: 'Safari',
-    width: 1024,
-    img: '/img/icons/safari.png',
-    content: <div>123</div>,
   },
   {
     id: 'vscode',
