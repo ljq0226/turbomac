@@ -82,9 +82,12 @@ const Window = ({ app, children }: WindowProps) => {
         <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
       </motion.header>
 
-      <div className='relative w-full h-full'>
+      <motion.div className='relative w-full h-full'
+        initial={{ opacity: 0.3, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}>
         {children}
-      </div>
+      </motion.div>
 
     </motion.div>
 

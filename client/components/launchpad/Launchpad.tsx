@@ -40,7 +40,7 @@ const Launchpad: React.FC = () => {
       {
         show
         && <div
-          className={`${close} z-[100] transform scale-110 w-full h-full fixed bg-center bg-cover`}
+          className={`${close} z-[100] transform scale-110 w-full h-full fixed bg-center bg-cover select-none`}
           id="launchpad"
           style={{
             backgroundImage: `url(${dark ? wallpapers.github : wallpapers.vallay})`,
@@ -79,7 +79,8 @@ const Launchpad: React.FC = () => {
                 {search().map((app, index) => (
                   <div key={`launchpad-${app.id + index}`} className={`flex-center flex-col ${justifySelf(index)} w-[13vw] h-[20vh]`}>
                     <Link href={app.link}>
-                      <Image src={app.img} width={30} height={30} className={'w-[6vw] h-[6vw] '} alt={app.title} />
+                      <Image src={app.img} width={30} height={30} className={'w-[6rem] h-[6rem]'} alt={app.title} />
+
                     </Link>
                     <p>{app.title}</p>
                   </div>

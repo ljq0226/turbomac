@@ -13,13 +13,6 @@ const apps: AppsData[] = [
     img: '/img/icons/launchpad.png',
   },
   {
-    id: 'safari',
-    title: 'Safari',
-    width: 1024,
-    img: '/img/icons/safari.png',
-    content: <div>123</div>,
-  },
-  {
     id: 'vscode',
     title: 'VSCode',
     width: 860,
