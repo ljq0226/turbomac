@@ -11,6 +11,6 @@ export class AppController {
   }
   @Post('user')
   createUser(){
-    this.appService.createUser();
+   return  this.appService.createUser();
   }
 }

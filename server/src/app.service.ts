@@ -6,9 +6,9 @@ export class AppService {
   constructor(private prisma: PrismaService) {}
 
   async getHello() {
-    console.log(    await this.prisma.user.findMany()
-)
-    return await this.prisma.user.findMany()
+    const users = await this.prisma.user.findMany()
+    console.log(users)
+    return users
   }
 
   async createUser(){
