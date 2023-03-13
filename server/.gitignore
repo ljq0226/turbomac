@@ -2,7 +2,13 @@
 /dist
 /node_modules
 
-.env
+
+.gitignore
+
+# local env files
+.env*
+!.env*.example
+
 # Logs
 logs
 *.log
