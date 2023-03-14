@@ -19,15 +19,11 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^9.0.0",
-    "@nestjs/platform-socket.io": "^9.3.9",
-    "@nestjs/websockets": "^9.3.9",
     "@prisma/client": "^4.11.0",
     "nestjs-prisma": "^0.20.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "socket.io": "^4.6.1",
     "webpack": "^5.0.0"
   },
   "devDependencies": {
