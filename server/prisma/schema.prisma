@@ -18,3 +18,43 @@ model User {
   role      String   @default("user")
   createdAt DateTime @default(now())
 }
+
+model Group {
+  groupId      Int            @id @default(autoincrement())
+  groupName    String
+  userId       String
+  notice       String         @default("群主说暂时没有公告")
+  groupMessage GroupMessage[]
+  createAt     DateTime       @default(now())
+}
+
+model User_Group {
+  id      Int    @id @default(autoincrement())
+  userId  String
+  groupId Int
+}
+
+model GroupMessage {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  group       Group    @relation(fields: [groupId], references: [groupId])
+  groupId     Int
+  content     String
+  messageType String
+  createAt    DateTime @default(now())
+}
+
+model Friend {
+  id       Int    @id @default(autoincrement())
+  userId   String
+  friendId String
+}
+
+model FriendMessage {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  friendId    String
+  content     String
+  messageType String
+  createAt    DateTime @default(now())
+}
