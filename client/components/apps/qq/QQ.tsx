@@ -7,6 +7,7 @@ import { useThemeStore } from '@/store'
 
 const QQ = () => {
   const dark = useThemeStore(s => s.dark)
+
   const flag = true
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const src = dark ? '/qq/logo/qq_dark.svg' : '/qq/logo/qq_.svg'

@@ -2,12 +2,12 @@ import { create } from 'zustand'
 
 interface userStoreState {
   username: string
-  qq: string
+  password: string
 }
 
 const useUserStore = create<userStoreState>(set => ({
-  username: 'asd',
-  qq: '123',
+  username: '',
+  password: '',
 }))
 
 export default useUserStore

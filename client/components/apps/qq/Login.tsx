@@ -5,11 +5,17 @@ import { shallow } from 'zustand/shallow'
 import { useAppsStore } from '@/store'
 
 const Login = () => {
-  const [qq, setQQ] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [check, setCheck] = useState(true)
 
   const [openApp, closeApp] = useAppsStore(s => [s.openApp, s.closeApp], shallow)
+
+  const clickHandler = (e: MouseEvent) => {
+    e.preventDefault()
+    closeApp('login')
+    openApp('qq')
+  }
 
   return (
     <div className='flex flex-col w-full h-full space-y-4 overflow-hidden bg-center bg-cover rounded-b-md p-[32px]'
@@ -24,8 +30,8 @@ const Login = () => {
       <div className='h-[42px] flex text-black font-black'>
         <div className='h-full w-[60px] bg-white  flex-center'></div>
         <input type="text" placeholder='  输入 QQ 号'
-          className='h-full w-[130px] text-lg focus:outline-none' value={qq} onChange={(e) => {
-            setQQ(e.target.value)
+          className='h-full w-[130px] text-lg focus:outline-none' value={username} onChange={(e) => {
+            setUsername(e.target.value)
           }} />
         <div className='h-full w-[60px] bg-white'></div>
       </div>
@@ -48,12 +54,8 @@ const Login = () => {
       </div>
       <div className=''>
         <button
-          onClick={(e) => {
-            e.preventDefault()
-            closeApp('login')
-            openApp('qq')
-          }}
-          className={`rounded-lg w-[256px] h-[38px] text-white cursor-pointer ${(!!qq && !!password) ? 'bg-[#0099ff]' : 'bg-[#a7dbfe]'}`}>注册</button>
+          onClick={() => clickHandler}
+          className={`rounded-lg w-[256px] h-[38px] text-white cursor-pointer ${(!!username && !!password) ? 'bg-[#0099ff]' : 'bg-[#a7dbfe]'}`}>注册</button>
       </div>
       <div className='w-full h-auto  pt-[20px] flex-center'>
         <span className='text-xs text-primary hover:cursor-pointer'>扫码登录</span>
