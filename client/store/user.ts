@@ -6,8 +6,8 @@ interface userStoreState {
 }
 
 const useUserStore = create<userStoreState>(set => ({
-  username: '',
-  qq: '',
+  username: 'asd',
+  qq: '123',
 }))
 
 export default useUserStore

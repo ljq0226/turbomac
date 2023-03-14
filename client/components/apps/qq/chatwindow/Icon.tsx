@@ -23,8 +23,7 @@ const Icon: React.FC<Props> = ({ onClick, name, desc }) => {
         e.currentTarget.children[1].classList.add('invisible')
       }}
     >
-      <Image src={`/qq/chatwindow/${src}.svg`} width={23} alt='qqappicon' height={23}
-        style={{ width: 'auto', height: 'auto' }}
+      <Image src={`/qq/chatwindow/${src}.svg`} className='w-fit h-fit' width={15} alt='qqappicon' height={15}
       />
       <div className={`absolute invisible rounded-sm top-12 ${bg} `}
         style={{ width: `${desc ? desc.length * 1.1 : 0}rem` }}

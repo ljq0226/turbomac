@@ -1,4 +1,6 @@
+'use client'
 import React, { useContext } from 'react'
+
 import ChatMessage from './ChatMessage'
 import ChatSent from './ChatSent'
 import GroupAnnouncement from './GroupAnnouncement'

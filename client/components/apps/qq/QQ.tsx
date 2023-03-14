@@ -14,7 +14,7 @@ const QQ = () => {
     <>
       <ThemeContext.Provider value={{ dark }}>
         <div className='flex h-full backdrop-blur-sm'>
-          <SideBar dark={dark}/>
+          <SideBar dark={dark} />
           <ChatList />
           {flag
             ? <ChatWindw />

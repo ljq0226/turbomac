@@ -20,6 +20,7 @@ importers:
       '@types/react-dom': 18.0.11
       ahooks: ^3.7.4
       autoprefixer: ^10.4.7
+      bufferutil: 4.0.7
       class-variance-authority: ^0.4.0
       clsx: ^1.2.1
       daisyui: ^2.50.2
@@ -34,10 +35,12 @@ importers:
       react-dom: 18.2.0
       react-rangeslider: ^2.2.0
       react-rnd: 10.4.1
+      socket.io-client: 4.6.1
       tailwind-merge: ^1.10.0
       tailwindcss: ^3.1.6
       tailwindcss-animate: ^1.0.5
       typescript: 4.9.5
+      utf-8-validate: 6.0.3
       zustand: ^4.3.3
     dependencies:
       '@neodrag/react': 2.0.3
@@ -48,6 +51,7 @@ importers:
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       ahooks: 3.7.5_react@18.2.0
+      bufferutil: 4.0.7
       class-variance-authority: 0.4.0_typescript@4.9.5
       clsx: 1.2.1
       daisyui: 2.51.3_j7yt3jd32cwenjqavrrga47yr4
@@ -60,9 +64,11 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-rangeslider: 2.2.0_react@18.2.0
       react-rnd: 10.4.1_biqbaboplfbrettd7655fr4n2y
+      socket.io-client: 4.6.1_2adebc2xdjqbcvbjxkodkhadp4
       tailwind-merge: 1.10.0
       tailwindcss-animate: 1.0.5_tailwindcss@3.2.7
       typescript: 4.9.5
+      utf-8-validate: 6.0.3
       zustand: 4.3.6_react@18.2.0
     devDependencies:
       '@antfu/eslint-config': 0.36.0_zcxb7fyq5g6si26hwdg656hqxm
@@ -2012,6 +2018,14 @@ packages:
       base64-js: 1.5.1
       ieee754: 1.2.1
 
+  /bufferutil/4.0.7:
+    resolution: {integrity: sha512-kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.0
+    dev: false
+
   /builtin-modules/3.3.0:
     resolution: {integrity: sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==}
     engines: {node: '>=6'}
@@ -2527,6 +2541,20 @@ packages:
     dependencies:
       once: 1.4.0
     dev: true
+
+  /engine.io-client/6.4.0_2adebc2xdjqbcvbjxkodkhadp4:
+    resolution: {integrity: sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==}
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.4
+      engine.io-parser: 5.0.6
+      ws: 8.11.0_2adebc2xdjqbcvbjxkodkhadp4
+      xmlhttprequest-ssl: 2.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /engine.io-parser/5.0.6:
     resolution: {integrity: sha512-tjuoZDMAdEhVnSFleYPCtdL2GXwVTGtNjoeJd9IhIG3C1xs9uwxqRNEu5WpnDZCaozwVlK/nuQhpodhXSIMaxw==}
@@ -4732,6 +4760,11 @@ packages:
     dependencies:
       whatwg-url: 5.0.0
 
+  /node-gyp-build/4.6.0:
+    resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
+    hasBin: true
+    dev: false
+
   /node-releases/2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
 
@@ -5545,6 +5578,20 @@ packages:
       - bufferutil
       - utf-8-validate
 
+  /socket.io-client/4.6.1_2adebc2xdjqbcvbjxkodkhadp4:
+    resolution: {integrity: sha512-5UswCV6hpaRsNg5kkEHVcbBIXEYoVbMQaHJBXJCyEQ+CiFPV1NIOY0XOFWG4XR4GZcB8Kn6AsRs/9cy9TbqVMQ==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      '@socket.io/component-emitter': 3.1.0
+      debug: 4.3.4
+      engine.io-client: 6.4.0_2adebc2xdjqbcvbjxkodkhadp4
+      socket.io-parser: 4.2.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
   /socket.io-parser/4.2.2:
     resolution: {integrity: sha512-DJtziuKypFkMMHCm2uIshOYC7QaylbtzQwiMYDuCKy3OPkjLzu4B2vAhTlqipRHHzrI0NJeBAizTK7X+6m1jVw==}
     engines: {node: '>=10.0.0'}
@@ -6184,6 +6231,14 @@ packages:
       react: 18.2.0
     dev: false
 
+  /utf-8-validate/6.0.3:
+    resolution: {integrity: sha512-uIuGf9TWQ/y+0Lp+KGZCMuJWc3N9BHA+l/UmHd/oUHwJJDeysyTRxNQVkbzsIWfGFbRe3OcgML/i0mvVRPOyDA==}
+    engines: {node: '>=6.14.2'}
+    requiresBuild: true
+    dependencies:
+      node-gyp-build: 4.6.0
+    dev: false
+
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -6385,10 +6440,31 @@ packages:
       utf-8-validate:
         optional: true
 
+  /ws/8.11.0_2adebc2xdjqbcvbjxkodkhadp4:
+    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ^5.0.2
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+    dependencies:
+      bufferutil: 4.0.7
+      utf-8-validate: 6.0.3
+    dev: false
+
   /xml-name-validator/4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
     dev: true
+
+  /xmlhttprequest-ssl/2.0.0:
+    resolution: {integrity: sha512-QKxVRxiRACQcVuQEYFsI1hhkrMlrXHPegbbd1yn9UHOmRxY+si12nQYzri3vbzt8VdTTRviqcKxcyllFas5z2A==}
+    engines: {node: '>=0.4.0'}
+    dev: false
 
   /xtend/4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
