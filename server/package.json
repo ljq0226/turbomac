@@ -24,6 +24,8 @@
     "@nestjs/platform-socket.io": "^9.3.9",
     "@nestjs/websockets": "^9.3.9",
     "@prisma/client": "^4.11.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "nestjs-prisma": "^0.20.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
