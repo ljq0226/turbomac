@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
 import { PrismaModule } from 'nestjs-prisma';
-import { MessagesModule } from './messages/messages.module';
+import { AuthModule } from './module/auth/auth.module';
+import { MessagesModule } from './module/messages/messages.module';
+import { UserModule } from './module/user/user.module';
 @Module({
   imports: [
       PrismaModule.forRoot({
@@ -11,8 +11,10 @@ import { MessagesModule } from './messages/messages.module';
       },
     }),
       MessagesModule,
+      UserModule,
+      AuthModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

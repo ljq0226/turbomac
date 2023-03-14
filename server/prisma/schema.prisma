@@ -11,7 +11,10 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String
+  id        String   @id @default(uuid())
+  username  String   @default("visitor")
+  password  String
+  avatar    String   @default("")
+  role      String   @default("user")
   createdAt DateTime @default(now())
 }
