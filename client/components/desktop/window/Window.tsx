@@ -51,16 +51,18 @@ const Window = ({ app, children }: WindowProps) => {
   }, [])
 
   const draggableRef = useRef(null)
+
+  //init dragable 
   const options: DragOptions = {
     position,
     onDrag: ({ offsetX, offsetY }) => setPosition({ x: isRotate ? offsetY : offsetX, y: isRotate ? offsetX : offsetY }),
-    bounds: { bottom: -6000, top: max ? -6000 : 32, left: -6000, right: -6000 },
+    bounds: { bottom: -500, top: 32, left: -600, right: -600 },
     handle: '.window-header',
     cancel: '.traffic-lights',
     disabled: !!max,
   }
   useDraggable(draggableRef, options)
-  const ZINDEX = 5
+  const ZINDEX = 15
 
   return (
 

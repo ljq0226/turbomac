@@ -1,19 +1,15 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { io } from 'socket.io-client'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 interface Props {
   dark: boolean
 }
-
 interface Message {
   name: string
   text: string
 }
-
 const ChatMessage = ({ dark }: Props) => {
-  const socket = io('http://localhost:80')
   const [messages, setMessages] = useState<Message[]>([])
 
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
@@ -44,19 +40,6 @@ const ChatMessage = ({ dark }: Props) => {
 
   const animatingMessages = messages.slice(lastChangedIndex)
 
-  useEffect(() => {
-    socket.emit('findAllMessages', (res: any) => {
-      setMessages(res)
-    })
-    // when create message,the server emit the new message
-    socket.on('message', (message: Message) => {
-      setMessages([...messages, message])
-    })
-  }, [])
-
-  const sentMessage = () => {
-    socket.emit('createMessage', { text: 'asd' })
-  }
 
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   return (

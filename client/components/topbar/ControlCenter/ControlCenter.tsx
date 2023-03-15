@@ -32,7 +32,7 @@ const ControlCenter = ({
   useClickAway(() => controlCenterSwitch(false), ref)
   return (
     <div
-      className={`absolute p-3 select-none rounded-[13px] w-80 h-96 top-7 -left-44 flex flex-col shadow ${dark ? 'bg-[#1a2133]/90 ' : 'bg-white/40'
+      className={`absolute p-3 select-none rounded-[13px] w-80 h-76 top-7 -left-44 flex flex-col shadow ${dark ? 'bg-[#1a2133]/90 ' : 'bg-white/40'
         }`}
       ref={ref}
     >

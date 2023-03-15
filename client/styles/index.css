@@ -13,8 +13,8 @@
   .appleMenuItem{
     @apply px-1 m-1 rounded hover:bg-primary hover:text-white
   }
-  .menudivider{
-  @apply border-t border-[#555658]
+  .menuDivider{
+   @apply  border-t  mx-2 m-1 border-[#555658] 
   }
   /* Dock */
   .dock li .tooltip {
@@ -67,15 +67,10 @@ input:focus + .slider-toggle {
   box-shadow: 0 0 1px #3b82f6;
 }
 
-
 .appLink{
   cursor: url('../public/cursors/normal-select.svg'), auto; 
 }
-
-
 }
-
-
 
 * {
   @apply m-0 p-0;

@@ -18,7 +18,9 @@ const CurrentDate = () => {
   return (
     <div className={dark ? 'text-white ' : ''}>
       {/* {time.toLocaleTimeString()} */}
-      {dayjs(time).format('MMMD日 ddd HH:mm')}
+      {dayjs(time).locale('en').format('MMMD ddd HH:mm')}
+      {/* Chinese */}
+      {/* {dayjs(time).format('MMMD ddd日 HH:mm')} */}
     </div>
   )
 }

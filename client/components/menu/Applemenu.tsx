@@ -10,7 +10,7 @@ const Applemenu = ({ appleMenuSwitch }: ApplemenuProps) => {
   return (
     <div
       ref={ref}
-      className={'absolute text-black rounded-md cursor-pointer font-md h-70 w-52 bg-white/70 top-9 left-1'}
+      className={'absolute text-black rounded-md cursor-pointer font-md h-70 w-52 bg-gray-400/90 top-9 left-1'}
       onClick={() => {
         appleMenuSwitch(false)
       }}
