@@ -17,8 +17,8 @@ interface WindowProps {
 
 const Window = ({ app, children }: WindowProps) => {
   const { winWidth, winHeight } = useWindowSize()
-
-  const isRotate = winWidth < 767 // check if to be phone mode
+  // check if to be phone mode
+  const isRotate = winWidth < 767
   const [max, setMax, focus, setFocus] = useAppsStore(s => [s.max, s.setMax, s.focus, s.setFocus], shallow)
   const [box, setBox] = useState({
     width: 0,

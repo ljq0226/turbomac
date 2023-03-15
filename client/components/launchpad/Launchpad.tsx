@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { Search } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { wallpapers } from '@/lib'
 import { useLaunchpadStore, useThemeStore } from '@/store'
 import useMouseCorner from '@/hooks/useMouseCorner'
 import launchpadApps from '@/lib/launchpad'
-import { motion } from 'framer-motion'
+
 const Launchpad: React.FC = () => {
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
