@@ -1,10 +1,10 @@
+import Terminal from '../components/apps/Terminal/Terminal'
 import type { AppsData } from '@/types/app'
 import LinkWeb from '@/components/apps/LinkWeb'
 import QQ from '@/components/apps/qq/QQ'
 import Login from '@/components/apps/qq/Login'
 import ChatGPT from '@/components/apps/ChatGPT/ChatGPT'
 // import { useUserStore } from '@/store'
-
 // const username = useUserStore(s => s.username)
 
 const apps: AppsData[] = [
@@ -22,19 +22,28 @@ const apps: AppsData[] = [
     content: <LinkWeb src='https://github1s.com/ljq0226/turbomac' title='VSCode' />,
   },
   {
-    id: 'qq',
-    title: 'QQ',
-    width: 969,
-    height: 640,
-    img: '/img/icons/qq.png',
-    content: <QQ />,
-  }, {
     id: 'chatgpt',
     title: 'ChatGPT',
     width: 440,
     height: 580,
     img: '/img/icons/chatgpt.png',
     content: <ChatGPT />,
+  },
+  {
+    id: 'terminal',
+    title: 'Terminal',
+    width: 600,
+    height: 540,
+    img: '/img/icons/terminal.png',
+    content: <Terminal />,
+  },
+  {
+    id: 'qq',
+    title: 'QQ',
+    width: 969,
+    height: 640,
+    img: '/img/icons/qq.png',
+    content: <QQ />,
   },
   {
     id: 'login',

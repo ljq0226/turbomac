@@ -48,9 +48,9 @@ const Launchpad: React.FC = () => {
             backgroundImage: `url(${dark ? wallpapers.github : wallpapers.vallay})`,
           }}
           onClick={() => setShow(false)}
-          initial={{ opacity: 0, scale: 0.4 }}
+          initial={{ opacity: 0, scale: 1.4 }}
           animate={{ opacity: 1, scale: 1.1 }}
-          transition={{ duration: 0.4 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="absolute w-full h-full bg-gray-900/20 backdrop-blur-2xl">
             {/* Search Input */}

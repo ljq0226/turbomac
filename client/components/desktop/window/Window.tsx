@@ -77,15 +77,15 @@ const Window = ({ app, children }: WindowProps) => {
       <motion.header
         className='absolute z-10 flex w-full bg-transparent h-7 window-header rounded-t-xl'
         onDoubleClick={max ? handleMini : handleMax}
-        initial={{ opacity: 0.3, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
+        initial={{ opacity: 0.3, x: -100 }}
+        animate={{ opacity: 1, scale: 1, x: 0 }}
         transition={{ duration: 0.8 }}
       >
         <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
       </motion.header>
 
       <motion.div className='relative w-full h-full'
-        initial={{ opacity: 0.3, scale: 0.5 }}
+        initial={{ opacity: 0.3, scale: 1.3 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8 }}>
         {children}

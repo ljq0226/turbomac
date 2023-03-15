@@ -1,5 +1,4 @@
 'use client'
-
 import { Suspense } from 'react'
 import Window from './Window'
 import { useAppsStore } from '@/store'
