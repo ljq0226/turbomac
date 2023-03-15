@@ -2,6 +2,7 @@ import type { AppsData } from '@/types/app'
 import LinkWeb from '@/components/apps/LinkWeb'
 import QQ from '@/components/apps/qq/QQ'
 import Login from '@/components/apps/qq/Login'
+import ChatGPT from '@/components/apps/ChatGPT/ChatGPT'
 // import { useUserStore } from '@/store'
 
 // const username = useUserStore(s => s.username)
@@ -18,15 +19,7 @@ const apps: AppsData[] = [
     width: 860,
     height: 560,
     img: '/img/icons/vscode.png',
-    content: <LinkWeb src='https://github1s.com/ljq0226/my-mac-apps' title='VSCode' />,
-  },
-  {
-    id: 'spotify',
-    title: 'Spotify',
-    width: 860,
-    height: 560,
-    img: '/img/icons/spotify.png',
-    content: <LinkWeb src='https://my-mac-apps.netlify.app/' title='Spotify' />,
+    content: <LinkWeb src='https://github1s.com/ljq0226/turbomac' title='VSCode' />,
   },
   {
     id: 'qq',
@@ -35,6 +28,13 @@ const apps: AppsData[] = [
     height: 640,
     img: '/img/icons/qq.png',
     content: <QQ />,
+  }, {
+    id: 'chatgpt',
+    title: 'ChatGPT',
+    width: 440,
+    height: 580,
+    img: '/img/icons/chatgpt.png',
+    content: <ChatGPT />,
   },
   {
     id: 'login',

@@ -85,18 +85,7 @@ button{
 cursor: url('../public/cursors/normal-select.svg'), auto;
 }
 
-@media screen and (max-width: 767px) {
-  body {
-    transform: rotate(-90deg);
-    transform-origin: top left;
-    width: 100vh;
-    height: 100vw;
-    overflow: hidden;
-    position: absolute;
-    top: 100%;
-    left: 0;
-  }
-}
+
 
 .chatlist::-webkit-scrollbar {
   width:8px;
