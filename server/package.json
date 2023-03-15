@@ -16,7 +16,8 @@
     "db": "npx prisma studio"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.0",
+    "@nestjs/common": "^9.0.0", 
+    "@nestjs/websockets": "^9.3.9",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^10.0.2",
     "@nestjs/mapped-types": "*",
