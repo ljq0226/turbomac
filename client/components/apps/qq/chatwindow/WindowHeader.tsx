@@ -10,7 +10,7 @@ const WindowHeader = ({ dark }: Props) => {
     <>
       <div className="h-6"></div>
       <header className='flex-center '>
-        <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}>ICode Titile</div>
+        <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}>Group Title</div>
         <div className='flex-1'></div>
         <div className='flex mr-2 space-x-2'>
           <Icon name='apps' desc='应用中心' />

@@ -10,7 +10,7 @@ const GroupMembers = ({ dark }: Props) => {
   return (
     <div className={`flex flex-col flex-1 w-full  ${border}`}>
       <header className='flex p-1'>
-        <div>群成员 25</div>
+        <div>GroupMemberList 3</div>
         <div className="flex-1"></div>
         <div className='mr-2'>🔍</div>
       </header>
@@ -25,7 +25,9 @@ const GroupMembers = ({ dark }: Props) => {
           e.currentTarget.classList.add('chatlist')
         }}
       >
-        成员列表
+        <p> Jack</p>
+        <p> Marry</p>
+        <p> Rose</p>
 
       </div>
     </div>
