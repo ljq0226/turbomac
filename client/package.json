@@ -1,0 +1,48 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@neodrag/react": "2.0.3",
+    "@next/font": "13.1.6",
+    "@radix-ui/react-switch": "^1.0.1",
+    "@rooks/use-raf": "4.11.2",
+    "@types/node": "18.14.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "ahooks": "^3.7.4",
+    "class-variance-authority": "^0.4.0",
+    "clsx": "^1.2.1",
+    "daisyui": "^2.50.2",
+    "dayjs": "^1.11.7",
+    "eslint-config-next": "13.1.6",
+    "framer-motion": "^9.0.4",
+    "lucide-react": "^0.115.0",
+    "next": "13.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-rangeslider": "^2.2.0",
+    "socket.io-client": "4.6.1",
+    "tailwind-merge": "^1.10.0",
+    "tailwindcss-animate": "^1.0.5",
+    "typescript": "4.9.5",
+    "zustand": "^4.3.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "0.36.0",
+    "@types/node": "18.0.3",
+    "@types/react": "18.0.15",
+    "@types/react-dom": "18.0.6",
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.19.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.1.6",
+    "typescript": "4.9.5"
+  }
+}

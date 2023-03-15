@@ -1,0 +1,129 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+
+  .flex-center{
+    @apply flex justify-center items-center
+  }
+
+
+  .appleMenuItem{
+    @apply px-1 m-1 rounded hover:bg-primary hover:text-white
+  }
+  .menuDivider{
+   @apply  border-t  mx-2 m-1 border-[#555658] 
+  }
+  /* Dock */
+  .dock li .tooltip {
+  @apply hidden;
+  top: calc(-100% - 5px);
+}
+
+.dock li:hover .tooltip {
+  @apply block;
+  box-shadow: hsla(0deg, 0%, 0%, 20%) 0px 1px 5px 2px, 0 0 0 0 white;
+}
+
+
+  /* Slider */
+.slider .rangeslider {
+  @apply bg-gray-300 w-full h-7 shadow-none m-0 rounded-r-full border-t border-r border-b border-transparent;
+}
+
+.slider .rangeslider .rangeslider__fill {
+  @apply bg-gray-100 shadow-none rounded-none;
+}
+
+.slider .rangeslider .rangeslider__handle {
+  @apply border border-gray-300 outline-none h-7 w-7 text-white bg-white;
+  box-shadow: -3px 0px 8px 0px rgba(17, 17, 17, 0.15);
+}
+
+.slider .rangeslider .rangeslider__handle::after {
+  @apply hidden;
+}
+
+/* Slider toggle */
+.slider-toggle {
+  @apply absolute rounded-full bg-gray-400 bg-opacity-50 top-0 left-0 right-0 bottom-0 cursor-pointer duration-300;
+}
+
+.slider-toggle:before {
+  @apply content-[""] absolute rounded-full bg-white bottom-0.5 left-0.5 w-4.5 h-4.5 duration-300;
+}
+
+input:checked + .slider-toggle {
+  @apply bg-blue-500;
+}
+
+input:checked + .slider-toggle:before {
+  @apply translate-x-4;
+}
+
+input:focus + .slider-toggle {
+  box-shadow: 0 0 1px #3b82f6;
+}
+
+.appLink{
+  cursor: url('../public/cursors/normal-select.svg'), auto; 
+}
+}
+
+* {
+  @apply m-0 p-0;
+}
+
+html, body, #root {
+  @apply h-full overflow-hidden;
+  cursor: url('../public/cursors/normal-select.svg'), auto;
+}
+
+button{
+cursor: url('../public/cursors/normal-select.svg'), auto;
+}
+
+@media screen and (max-width: 767px) {
+  body {
+    transform: rotate(-90deg);
+    transform-origin: top left;
+    width: 100vh;
+    height: 100vw;
+    overflow: hidden;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
+.chatlist::-webkit-scrollbar {
+  width:8px;
+}
+.chatlist::-webkit-scrollbar-thumb {
+  visibility:hidden;
+  border-radius:5px;
+  background-color:#585858
+}
+.chatlist::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.chatlist::-webkit-scrollbar-thumb:hover {
+  background-color: #585858;
+}
+
+.chatlist_::-webkit-scrollbar {
+  width:8px;
+}
+.chatlist_::-webkit-scrollbar-thumb {
+  visibility:visible;
+  border-radius:5px;
+  background-color:#585858
+}
+.chatlist_::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.chatlist_::-webkit-scrollbar-thumb:hover {
+  background-color: #585858;
+}
