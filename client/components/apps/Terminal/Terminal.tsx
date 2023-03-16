@@ -1,78 +1,65 @@
 'use client'
-import React, { useRef, useState } from 'react'
-import Help from './Help'
-import { useTerminalStore } from '@/store'
-
-const defaultCommands = ['help', 'ls']
-
-const CommandNotFound = (command: string) => {
-  return (
-    <div className='flex w-full h-6'>
-      <span className="mr-2">zsh: command not found: {command}</span>
-    </div>
-  )
-}
-
+import React, { useState } from 'react'
+import { CommandNotFound, Help, Row } from './Util'
+import { generateRandomString } from '@/lib/utils'
 const Terminal: React.FC = () => {
-  const store: any = useTerminalStore.getState()
-  const windowRef = useRef(null)
-  const [command, setCommand] = useState('')
-  const [content, setContent] = useState<JSX.Element>(<></>)
-  const [inputDisabled, setInputDisabled] = useState(false)
+  const [commandHistory, setCommandHistory] = useState<String[]>([''])
+  const [content, setContent] = useState<JSX.Element[]>([])
 
   const generateRow = (row: JSX.Element) => {
-    setContent(s => (<>
-      {s}
-      {row}
-    </>))
+    setContent(s => [...s, row])
   }
-  // listen input change
-  const handleCommandChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCommand(event.target.value)
-  }
-
-  const inputRow = () => (
-    <div className='flex w-full h-6'>
-      <span className="mr-2 text-yellow-400">guest</span>
-      <span className="mr-2 text-green-400">@macbook-pro</span>
-      <span className="mr-2 text-blue-400">~</span>
-      <span className="mr-2 text-pink-400">$</span>
-      <input
-        type="text"
-        value={command}
-        onChange={handleCommandChange}
-        disabled={inputDisabled}
-        className="flex-1 w-full px-1 text-white bg-transparent outline-none"
-      />
-    </div>
-
-  )
-
-  // execute the command
-  const executeCommand = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const executeCommand = (event: React.KeyboardEvent<HTMLInputElement>, id: number) => {
     if (event.key === 'Enter') {
+      const input = document.querySelector(`#terminal-input-${id}`) as HTMLInputElement
+      const command = input.value
+      const newArr = commandHistory
+      newArr.push(command)
+      setCommandHistory(newArr)
+      // BUG: if use the following statement,it errors! Lessons in blood!
+      // setCommandHistory(s => [...s, command])
+      const key = `${command}-${commandHistory.length}`
       switch (command) {
         case 'help':
-          generateRow(<Help />)
+          generateRow(<Help key={generateRandomString()} />)
           break
-        case 'cls':
-          setContent(<></>)
+        case 'clear':
+          setContent([])
+          break
+        case 'ls':
+          generateRow(<div key={generateRandomString()}>Desktop  Downloads  Documents</div>)
+          break
+        case 'cd Documents':
+          generateRow(<div key={generateRandomString()}>cd Documents</div>)
+          break
+        case 'cd Downloads':
+          generateRow(<div key={generateRandomString()}>cd Downloads</div>)
+          break
+        case 'cd Desktop':
+          generateRow(<div key={generateRandomString()}>cd Desktop</div>)
+          break
+        case 'pwd':
+          generateRow(<div key={generateRandomString()}>/Users/guest</div>)
+          break
+        case 'open .':
+          generateRow(<div key={generateRandomString()}>Opening Finder...</div>)
+          break
+        case 'open vscode':
+          generateRow(<div key={generateRandomString()}>Opening Visual Studio Code...</div>)
           break
         default:
-          generateRow(CommandNotFound(command))
+          generateRow(<CommandNotFound key={generateRandomString()} command={command} />)
       }
-      generateRow(inputRow())
 
-      setCommand('')
+      generateRow(<Row key={key} id={commandHistory.length} onkeydown={(e: React.KeyboardEvent<HTMLInputElement>) => executeCommand(e, commandHistory.length)} />)
     }
   }
 
   return (
-
-    <div className="p-4 text-white bg-gray-900">
-      <div className="h-6">
-      </div>
-      <div ref={windowRef} className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2">
+    <div className="p-4 pr-[5px] text-white bg-gray-700 rounded-lg">
+      <div className="h-6 rounded-lg"></div>
+      <div className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2 chatlist_"
+      >
         <div className='flex w-full h-6'>
           <span className="mr-2 text-yellow-400">guest</span>
           <span className="mr-2 text-green-400">@macbook-pro</span>
@@ -80,15 +67,14 @@ const Terminal: React.FC = () => {
           <span className="mr-2 text-pink-400">$</span>
           <input
             type="text"
-            value={command}
-            onChange={handleCommandChange}
-            disabled={inputDisabled}
-            onKeyDown={executeCommand}
+            id={'terminal-input-0'}
             className="flex-1 w-full px-1 text-white bg-transparent outline-none"
+            onKeyDown={e => executeCommand(e, 0)}
           />
         </div>
-        {content}
-
+        <div className='flex-1 w-full'>
+          {...content}
+        </div>
       </div>
     </div>
   )

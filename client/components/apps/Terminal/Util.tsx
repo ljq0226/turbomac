@@ -1,8 +1,31 @@
 import React from 'react'
 
+interface RowProps {
+  id: number
+  onkeydown: (e: React.KeyboardEvent<HTMLInputElement>) => void
+}
+
+const Row: React.FC<RowProps> = ({ id, onkeydown }) => {
+  return (
+    <div className='flex w-full h-6'>
+      <span className="mr-2 text-yellow-400">guest</span>
+      <span className="mr-2 text-green-400">@macbook-pro</span>
+      <span className="mr-2 text-blue-400">~</span>
+      <span className="mr-2 text-pink-400">$</span>
+      <input
+        type="text"
+        id={`terminal-input-${id}`}
+        autoFocus={true}
+        className="flex-1 w-full px-1 text-white bg-transparent outline-none"
+        onKeyDown={onkeydown}
+      />
+    </div>
+  )
+}
+
 const Help = () => {
   return (
-    <ul className="list-disc ml-6 pb-1.5">
+    <ul key={Math.random().toString()} className="list-disc ml-6 pb-1.5">
       <li>
         <span className="text-red-400">cat {'<file>'}</span> - See the content
         of {'<file>'}
@@ -35,5 +58,12 @@ const Help = () => {
     </ul>
   )
 }
+const CommandNotFound: React.FC<{ command: string }> = ({ command }) => {
+  return (
+    <div className='flex w-full h-6'>
+      <span className="mr-2 text-red-400">zsh: command not found: {command}</span>
+    </div>
+  )
+}
 
-export default Help
+export { CommandNotFound, Help, Row }

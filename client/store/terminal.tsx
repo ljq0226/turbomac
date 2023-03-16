@@ -1,14 +1,19 @@
 import { create } from 'zustand'
-import Help from '@/components/apps/Terminal/Help'
+import Help from '@/components/apps/Terminal/Util'
 
 interface TerminalState {
-  commondsHistory: string[]
+  commandHistory: string[]
+  setCommandHistory: (v: string) => void
   help: () => JSX.Element
 
 }
 
 const useTerminalStore = create<TerminalState>(set => ({
-  commondsHistory: ['asd'],
+  commandHistory: [''],
+  setCommandHistory: v => set(s => ({
+    commandHistory: [...s.commandHistory, v],
+  }
+  )),
   help: () => (
     <Help />
   ),
