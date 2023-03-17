@@ -1,77 +1,159 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAppsStore, useTerminalStore } from 'store'
+import { shallow } from 'zustand/shallow'
 import { CommandNotFound, Help, Row } from './Util'
+import { FolderStructure } from './Data'
 import { generateRandomString } from '@/lib/utils'
+interface CommandList {
+  [key: string]: { (): void } | {
+    (arg: string): void
+  }
+}
+
 const Terminal: React.FC = () => {
-  const [commandHistory, setCommandHistory] = useState<String[]>([''])
-  const [content, setContent] = useState<JSX.Element[]>([])
+  const { setCurrentId } = useTerminalStore(s => ({
+    setCurrentId: s.setCurrentId,
+  }), shallow)
+  const [changeCount, setChangeCount] = useState<number>(0)
+  const [commandHistory, setCommandHistory] = useState<string[]>([])
+  const [currentDirectory, setCurrentDirectory] = useState<string>('')
+  const [content, setContent] = useState<JSX.Element[]>(
+    [<Row
+      key={generateRandomString()}
+      id={0}
+      currentDirectory={currentDirectory}
+      onkeydown={(e: React.KeyboardEvent<HTMLInputElement>) => executeCommand(e, 0)}
+    />,
+    ])
+
+  const openApp = useAppsStore(s => s.openApp)
+  const closeApp = useAppsStore(s => s.closeApp)
+
+  useEffect(() => {
+    const input = document.querySelector(`#terminal-input-${commandHistory.length}`) as HTMLInputElement
+    if (commandHistory.length)
+      input.value = commandHistory[commandHistory.length + changeCount]
+    if (!changeCount) {
+      input.value = ''
+      setChangeCount(0)
+    }
+  }, [changeCount])
+
+  useEffect(() => {
+    const span = document.querySelector(`#terminal-currentDirectory-${commandHistory.length}`) as HTMLSpanElement
+    span.innerHTML = currentDirectory
+  }, [currentDirectory, commandHistory.length])
 
   const generateRow = (row: JSX.Element) => {
     setContent(s => [...s, row])
   }
-  const executeCommand = (event: React.KeyboardEvent<HTMLInputElement>, id: number) => {
-    if (event.key === 'Enter') {
-      const input = document.querySelector(`#terminal-input-${id}`) as HTMLInputElement
-      const command = input.value
-      const newArr = commandHistory
-      newArr.push(command)
-      setCommandHistory(newArr)
-      // BUG: if use the following statement,it errors! Lessons in blood!
-      // setCommandHistory(s => [...s, command])
-      const key = `${command}-${commandHistory.length}`
-      switch (command) {
-        case 'help':
-          generateRow(<Help key={generateRandomString()} />)
-          break
-        case 'clear':
-          setContent([])
-          break
-        case 'ls':
-          generateRow(<div key={generateRandomString()}>Desktop  Downloads  Documents</div>)
-          break
-        case 'cd Documents':
-          generateRow(<div key={generateRandomString()}>cd Documents</div>)
-          break
-        case 'cd Downloads':
-          generateRow(<div key={generateRandomString()}>cd Downloads</div>)
-          break
-        case 'cd Desktop':
-          generateRow(<div key={generateRandomString()}>cd Desktop</div>)
-          break
-        case 'pwd':
-          generateRow(<div key={generateRandomString()}>/Users/guest</div>)
-          break
-        case 'open .':
-          generateRow(<div key={generateRandomString()}>Opening Finder...</div>)
-          break
-        case 'open vscode':
-          generateRow(<div key={generateRandomString()}>Opening Visual Studio Code...</div>)
-          break
-        default:
-          generateRow(<CommandNotFound key={generateRandomString()} command={command} />)
-      }
+  const clear = () => {
+    setContent([])
+    const input = document.querySelector('#terminal-input-0') as HTMLInputElement
+    input.value = ''
+  }
 
-      generateRow(<Row key={key} id={commandHistory.length} onkeydown={(e: React.KeyboardEvent<HTMLInputElement>) => executeCommand(e, commandHistory.length)} />)
+  const open = (arg: string) => {
+    generateRow(<div key={generateRandomString()}>Opening {arg}...</div>)
+    openApp(arg)
+  }
+  const close = (arg: string) => {
+    closeApp(arg)
+    generateRow(<div key={generateRandomString()}>Closed {arg}...</div>)
+  }
+  const cd = (arg: string) => {
+    if (arg === '..') {
+      if (currentDirectory !== '')
+        setCurrentDirectory('')
+    }
+    else {
+      const targetFolder = FolderStructure.find(folder => folder.title === arg || folder.title === (arg.charAt(0).toUpperCase() + arg.slice(1)))
+      if (targetFolder)
+        setCurrentDirectory(`${currentDirectory + targetFolder.title}/`)
+
+      else generateRow(<div key={generateRandomString()}>Directory not found: {arg}</div>)
+    }
+  }
+  const ls = () => {
+    if (currentDirectory === '') {
+      const items = FolderStructure.map(folder => folder.title).join(' ')
+      generateRow(<div key={generateRandomString()}>{items}</div>)
+      return
+    }
+    const currentFolder = FolderStructure.find(folder => folder.title === currentDirectory)
+    if (currentFolder && currentFolder.children) {
+      const items = currentFolder.children.map(item => item.title).join(' ')
+      generateRow(<div key={generateRandomString()}>{items}</div>)
+    }
+    else {
+      generateRow(<div key={generateRandomString()}>No files or folders found in the current directory.</div>)
+    }
+  }
+
+  function handleArrowUp() {
+    setChangeCount(prev => Math.max(prev - 1, -commandHistory.length))
+  }
+
+  function handleArrowDown() {
+    setChangeCount(prev => Math.min(prev + 1, 0))
+  }
+  const matchCommand = (inputValue: string): string | null => {
+    const matchedCommands = commandHistory.filter(command => command.startsWith(inputValue))
+    return matchedCommands.length > 0 ? matchedCommands[matchedCommands.length - 1] : null
+  }
+
+  const commandList: CommandList = {
+    clear,
+    help: () => generateRow(<Help key={generateRandomString()} />),
+    open,
+    close,
+    ls,
+    cd,
+  }
+
+  function executeCommand(event: React.KeyboardEvent<HTMLInputElement>, id: number) {
+    const input = document.querySelector(`#terminal-input-${id}`) as HTMLInputElement
+    const [cmd, args] = input.value.trim().split(' ')
+
+    if (event.key === 'ArrowUp') {
+      handleArrowUp()
+    }
+    else if (event.key === 'ArrowDown') {
+      handleArrowDown()
+    }
+    else if (event.key === 'Tab' || event.key === 'ArrowRight') {
+      event.preventDefault()
+      const matchedCommand = matchCommand(input.value.trim())
+      if (matchedCommand)
+        input.value = matchedCommand
+    }
+    else if (event.key === 'Enter') {
+      const newArr = commandHistory
+      newArr.push(input.value.trim())
+      setCommandHistory(newArr)
+      if (cmd && Object.keys(commandList).includes(cmd))
+        commandList[cmd](args)
+
+      else if (cmd !== '')
+        generateRow(<CommandNotFound key={generateRandomString()} command={input.value.trim()} />)
+
+      generateRow(
+        <Row
+          key={generateRandomString()}
+          id={commandHistory.length}
+          onkeydown={(e: React.KeyboardEvent<HTMLInputElement>) => executeCommand(e, commandHistory.length)}
+          currentDirectory={currentDirectory}
+        />,
+      )
+      setCurrentId(1)
     }
   }
 
   return (
-    <div className="p-4 pr-[5px] text-white bg-gray-700 rounded-lg">
+    <div className="p-4 pr-[5px] text-white bg-gray-700/90 rounded-lg">
       <div className="h-6 rounded-lg"></div>
-      <div className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2 chatlist_"
-      >
-        <div className='flex w-full h-6'>
-          <span className="mr-2 text-yellow-400">guest</span>
-          <span className="mr-2 text-green-400">@macbook-pro</span>
-          <span className="mr-2 text-blue-400">~</span>
-          <span className="mr-2 text-pink-400">$</span>
-          <input
-            type="text"
-            id={'terminal-input-0'}
-            className="flex-1 w-full px-1 text-white bg-transparent outline-none"
-            onKeyDown={e => executeCommand(e, 0)}
-          />
-        </div>
+      <div className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2 chatlist_">
         <div className='flex-1 w-full'>
           {...content}
         </div>
