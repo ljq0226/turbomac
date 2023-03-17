@@ -8,6 +8,7 @@ const CurrentDate = () => {
   const { dark } = useContext(ThemeContext)
 
   useEffect(() => {
+    setTime(new Date())
     const interval = setInterval(() => {
       setTime(new Date())
     }, 10000)
