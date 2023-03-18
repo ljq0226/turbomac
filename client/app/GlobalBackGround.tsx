@@ -6,7 +6,7 @@ import { useThemeStore } from '@/store'
 import { wallpapers } from '@/lib'
 
 const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
-  const [dark, brightness] = useThemeStore(s => [s.dark, s.brightness], shallow)
+  const [brightness] = useThemeStore(s => [s.brightness], shallow)
   const [menu, setMenuStyle] = useState(false)
   const [pagePosition, setPagePosition] = useState({
     pageX: -999,
@@ -34,7 +34,7 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
       className="flex flex-col w-full h-full overflow-hidden bg-center bg-cover"
       ref={bgRef}
       style={{
-        backgroundImage: `url(${dark ? wallpapers.github : wallpapers.valley})`,
+        backgroundImage: `url(${wallpapers.github})`,
         filter: `brightness( ${(brightness as number) * 0.7 + 50}%)`,
       }}
     >

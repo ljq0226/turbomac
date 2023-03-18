@@ -5,14 +5,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { wallpapers } from '@/lib'
-import { useLaunchpadStore, useThemeStore } from '@/store'
+import { useLaunchpadStore } from '@/store'
 import useMouseCorner from '@/hooks/useMouseCorner'
 import launchpadApps from '@/lib/launchpad'
 
 const Launchpad: React.FC = () => {
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
-  const dark = useThemeStore(s => s.dark)
   const [focus, setFocus] = useState(false)
   const [searchText, setSearchText] = useState('')
   const search = () => {
@@ -45,7 +44,7 @@ const Launchpad: React.FC = () => {
           className={`${close} z-[100] w-full h-full fixed bg-center bg-cover select-none`}
           id="launchpad"
           style={{
-            backgroundImage: `url(${dark ? wallpapers.github : wallpapers.vallay})`,
+            backgroundImage: `url(${wallpapers.github})`,
           }}
           onClick={() => setShow(false)}
           initial={{ opacity: 0, scale: 1.4 }}
