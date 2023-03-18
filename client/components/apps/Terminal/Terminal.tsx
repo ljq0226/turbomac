@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import { useAppsStore, useTerminalStore } from 'store'
 import { shallow } from 'zustand/shallow'
+import { motion } from 'framer-motion'
 import { CommandNotFound, Help, Row } from './Util'
 import { FolderStructure } from './Data'
 import { generateRandomString } from '@/lib/utils'
+
 interface CommandList {
   [key: string]: { (): void } | {
     (arg: string): void
@@ -151,14 +153,20 @@ const Terminal: React.FC = () => {
   }
 
   return (
-    <div className="p-4 pr-[5px] text-white bg-gray-700/90 rounded-lg">
+    <motion.div
+      className="p-4 pr-[5px] text-white bg-[#1C1C1E]/95 rounded-lg"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.3 }}
+      style={{ fontFamily: 'Menlo, monospace', fontSize: '14px' }}
+    >
       <div className="h-6 rounded-lg"></div>
       <div className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2 chatlist_">
         <div className='flex-1 w-full'>
           {...content}
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

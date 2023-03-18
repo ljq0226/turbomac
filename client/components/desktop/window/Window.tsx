@@ -4,12 +4,13 @@ import type { DragOptions } from '@neodrag/react'
 import { useDraggable } from '@neodrag/react'
 import { shallow } from 'zustand/shallow'
 import { useLocalStorageState } from 'ahooks'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import TrafficHeader from './TrafficLight'
 import { useWindowSize } from '@/hooks'
 import type { AppsData } from '@/types/app'
 import { cn } from '@/lib/utils'
 import { useAppsStore } from '@/store'
+
 interface WindowProps {
   app: AppsData
   children: React.ReactNode
@@ -65,34 +66,39 @@ const Window = ({ app, children }: WindowProps) => {
   const ZINDEX = 15
 
   return (
-
-    <motion.div ref={draggableRef} className={cn('absolute rounded-xl')}
-      style={{
-        width: `${box.width}px`,
-        height: `${box.height}px`,
-        zIndex: max ? 100 : (focus === app.id) ? ZINDEX + 1 : ZINDEX,
-      }}
-      onClick={() => setFocus(app.id)}
-    >
-      <motion.header
-        className='absolute z-10 flex w-full bg-transparent h-7 window-header rounded-t-xl'
-        onDoubleClick={max ? handleMini : handleMax}
-        initial={{ opacity: 0.3, x: -100 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
+    <AnimatePresence>
+      <motion.div
+        ref={draggableRef}
+        className={cn('absolute rounded-xl')}
+        style={{
+          width: `${box.width}px`,
+          height: `${box.height}px`,
+          zIndex: max ? 100 : (focus === app.id) ? ZINDEX + 1 : ZINDEX,
+        }}
+        onClick={() => setFocus(app.id)}
+        exit={{ opacity: 0, scale: 0.8, rotate: 180 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       >
-        <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
-      </motion.header>
+        <motion.header
+          className='absolute z-10 flex w-full bg-transparent h-7 window-header rounded-t-xl'
+          onDoubleClick={max ? handleMini : handleMax}
+          initial={{ opacity: 0.3, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+        >
 
-      <motion.div className='relative w-full h-full'
-        initial={{ opacity: 0.3, scale: 1.3 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}>
-        {children}
+          <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
+        </motion.header>
+
+        <motion.div className='relative w-full h-full'
+          initial={{ opacity: 0.3, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 80, damping: 30 }}>
+          {children}
+        </motion.div>
+
       </motion.div>
-
-    </motion.div>
-
+    </AnimatePresence >
   )
 }
 
