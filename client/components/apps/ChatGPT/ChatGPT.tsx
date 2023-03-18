@@ -100,18 +100,19 @@ const ChatGPT: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className="fixed flex w-full bottom-[30px]">
+        <div className="fixed flex w-full bottom-[10px]">
           <input
             type="text"
-            className={`py-2 border rounded-lg w-[320px] focus:outline-none focus:ring-2 ring-blue-500 transition duration-200 ${isLoading ? 'opacity-50' : ''}`}
+            className={`text-black py-2 border rounded-lg grow-[0.8] focus:outline-none focus:ring-2 ring-blue-500 transition duration-200 ${isLoading ? 'opacity-50' : ''}`}
             placeholder="Type your message here..."
             value={inputValue}
+            autoFocus={true}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
             disabled={isLoading}
           />
           <button
-            className="px-4 py-2 w-[90px] ml-2 text-white bg-primary rounded-lg disabled:opacity-50 transition duration-200"
+            className="ml-4 py-2 w-[80px]  text-white bg-primary rounded-lg disabled:opacity-50 transition duration-200"
             disabled={inputValue.trim() === '' || isLoading}
             onClick={sendMessage}
           >
