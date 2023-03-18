@@ -12,26 +12,28 @@ interface TrafficProps {
 
 const TrafficHeader = ({ id, handleMax, handleMini }: TrafficProps) => {
   const [max, closeApp] = useAppsStore(s => [s.max, s.closeApp], shallow)
-  const trafficLightRef = useRef(null)
+  const trafficLightRef = useRef<HTMLDivElement | null>(null)
   const [enter, setEnter] = useState(false)
   const closeHandler = () => {
     closeApp(id)
   }
   useEffect(() => {
-    const trafficLight: any = trafficLightRef.current
-    trafficLight.addEventListener('mouseenter', () => {
-      setEnter(true)
-    })
-    trafficLight.addEventListener('mouseleave', () => {
-      setEnter(false)
-    })
-    return () => {
-      trafficLight.removeEventListener('mouseenter', () => {
+    const trafficLight = trafficLightRef.current
+    if (trafficLight) {
+      trafficLight.addEventListener('mouseenter', () => {
         setEnter(true)
       })
-      trafficLight.removeEventListener('mouseleave', () => {
+      trafficLight.addEventListener('mouseleave', () => {
         setEnter(false)
       })
+      return () => {
+        trafficLight.removeEventListener('mouseenter', () => {
+          setEnter(true)
+        })
+        trafficLight.removeEventListener('mouseleave', () => {
+          setEnter(false)
+        })
+      }
     }
   }, [trafficLightRef])
 

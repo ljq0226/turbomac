@@ -1,7 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-// import useLocalStorage from './hooks/useLocalStorage'
 const { fontFamily } = require('tailwindcss/defaultTheme')
-// const primaryColor = useLocalStorage('primary-color', '#5388fc')
 const primaryColor = '#4e81ef'
 module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],

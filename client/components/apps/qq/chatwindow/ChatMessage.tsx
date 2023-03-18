@@ -33,9 +33,9 @@ const ChatMessage = ({ dark }: Props) => {
     ])
   }
 
-  function removeMessage(message: any) {
+  function removeMessage(message: Message) {
     setLastChangedIndex(messages.indexOf(message))
-    setMessages(messages => messages.filter((m, n) => n !== message.id))
+    // setMessages(messages => messages.filter((m, n) => n !== message.id))
   }
 
   const animatingMessages = messages.slice(lastChangedIndex)

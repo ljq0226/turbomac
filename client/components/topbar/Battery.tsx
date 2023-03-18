@@ -2,6 +2,19 @@
 import React, { useContext, useEffect, useState } from 'react'
 import ThemeContext from '../ThemeContext'
 import { cn } from '@/lib/utils'
+
+interface BatteryInfo {
+  level: number
+  charging: boolean
+  setBattery: () => void
+}
+
+declare global {
+  interface Navigator {
+    getBattery(): Promise<BatteryInfo>
+  }
+}
+
 const Battery = () => {
   const { dark } = useContext(ThemeContext)
   const [battery, setBattery] = useState<{ level: number; charging: boolean }>({
@@ -9,8 +22,8 @@ const Battery = () => {
     charging: false,
   })
   useEffect(() => {
-    const navigator = window.navigator as any
-    navigator.getBattery().then((battery: any) => {
+    const navigator: Navigator = window.navigator
+    navigator.getBattery().then((battery: BatteryInfo) => {
       setBattery({
         level: battery.level,
         charging: battery.charging,
