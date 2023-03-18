@@ -18,9 +18,10 @@ interface WindowProps {
 
 const Window = ({ app, children }: WindowProps) => {
   const { winWidth, winHeight } = useWindowSize()
+  const ZINDEX = 15
   // check if to be phone mode
   const isRotate = winWidth < 767
-  const [max, setMax, focus, setFocus] = useAppsStore(s => [s.max, s.setMax, s.focus, s.setFocus], shallow)
+  const [max, setMax, focus, setFocus, minimizeApps, addMinimizeApps] = useAppsStore(s => [s.max, s.setMax, s.focus, s.setFocus, s.minimizeApps, s.addMinimizeApps], shallow)
   const [box, setBox] = useState({
     width: 0,
     height: 0,
@@ -31,6 +32,7 @@ const Window = ({ app, children }: WindowProps) => {
   })
 
   const [lastPositon, setLastPositon] = useLocalStorageState('LAST_POSITION', { defaultValue: position })
+  const minimizeFlag = minimizeApps.includes(app.id)
 
   const handleMax = () => {
     setMax(app.id)
@@ -49,6 +51,7 @@ const Window = ({ app, children }: WindowProps) => {
       width: max ? winWidth : Math.min(winWidth, app.width ? app.width : 540),
       height: max ? winHeight : Math.min(winHeight, app.height ? app.height : 450),
     })
+    setFocus(app.id)
   }, [])
 
   const draggableRef = useRef(null)
@@ -63,7 +66,6 @@ const Window = ({ app, children }: WindowProps) => {
     disabled: !!max,
   }
   useDraggable(draggableRef, options)
-  const ZINDEX = 15
 
   return (
     <AnimatePresence>
@@ -74,6 +76,7 @@ const Window = ({ app, children }: WindowProps) => {
           width: `${box.width}px`,
           height: `${box.height}px`,
           zIndex: max ? 100 : (focus === app.id) ? ZINDEX + 1 : ZINDEX,
+          visibility: minimizeFlag ? 'hidden' : 'visible',
         }}
         onClick={() => setFocus(app.id)}
         exit={{ opacity: 0, scale: 0.8, rotate: 180 }}
@@ -87,7 +90,7 @@ const Window = ({ app, children }: WindowProps) => {
           transition={{ type: 'spring', stiffness: 100, damping: 20 }}
         >
 
-          <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} />
+          <TrafficHeader id={app.id} handleMax={handleMax} handleMini={handleMini} handleMinimize={() => addMinimizeApps(app.id)} />
         </motion.header>
 
         <motion.div className='relative w-full h-full'

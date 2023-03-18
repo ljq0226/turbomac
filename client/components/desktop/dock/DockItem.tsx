@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useDockHoverAnimation } from '@/hooks'
 import type { AppsData } from '@/types/app'
-import { useLaunchpadStore, useUserStore } from '@/store'
+import { useAppsStore, useLaunchpadStore, useUserStore } from '@/store'
 interface DockItemProps {
   app: AppsData
   mouseX: MotionValue
@@ -29,15 +29,22 @@ const DockItem = ({
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
   const username = useUserStore(s => s.username)
+  const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
+  const miniMizeApps = useAppsStore(s => s.minimizeApps)
   const dockItemClick = () => {
     if (app.id === 'launchpad') {
-      return setShow(!show)
+      setShow(!show)
     }
 
     else if (!bannedApp.includes(app.id)) {
+      const isMinimize = miniMizeApps.includes(app.id)
+      if (isMinimize) {
+        removeMinimizeApps(app.id)
+        return
+      }
       if (app.id === 'qq')
-        return username ? openApp('qq') : openApp('login')
-      return openApp(app.id)
+        username ? openApp('qq') : openApp('login')
+      else openApp(app.id)
     }
   }
 
