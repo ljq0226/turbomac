@@ -13,6 +13,7 @@
     "@next/font": "13.1.6",
     "@radix-ui/react-switch": "^1.0.1",
     "@rooks/use-raf": "4.11.2",
+    "@types/file-saver": "2.0.5",
     "@types/node": "18.14.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
