@@ -11,7 +11,7 @@ const Row: React.FC<RowProps> = ({ id, onkeydown, currentDirectory }) => {
   return (
     <div className='flex flex-col w-full h-12'>
       <div>
-        <span className="mr-2 text-yellow-400">guest</span>
+        <span className="mr-2 text-yellow-400">funnycoder</span>
         <span className="mr-2 text-green-400">@macbook-pro</span>
         <span className="mr-2 text-blue-400">~</span>
         <span id={`terminal-currentDirectory-${id}`} className="mr-2 text-blue-400"></span>
@@ -37,33 +37,30 @@ const Help = () => {
   return (
     <ul key={Math.random().toString()} className="list-disc ml-6 pb-1.5">
       <li>
-        <span className="text-red-400">cat {'<file>'}</span> - See the content
+        <span className="text-purple-400">cat {'<file>'}</span> - See the content
         of {'<file>'}
       </li>
       <li>
-        <span className="text-red-400">cd {'<dir>'}</span> - Move into
-        {' <dir>'}, "cd .." to move to the parent directory, "cd" or "cd ~" to
+        <span className="text-purple-400">cd {'<dir>'}</span> - Move into
+        {' <dir>'}, "cd" or"cd .." to move to the parent directory, "cd ~" to
         return to root
       </li>
       <li>
-        <span className="text-red-400">ls</span> - See files and directories
+        <span className="text-purple-400">ls</span> - See files and directories
         in the current directory
       </li>
       <li>
-        <span className="text-red-400">clear</span> - Clear the screen
+        <span className="text-purple-400">clear</span> - Clear the screen
       </li>
       <li>
-        <span className="text-red-400">help</span> - Display this help menu
+        <span className="text-purple-400">help</span> - Display this help menu
       </li>
       <li>
-        <span className="text-red-400">rm -rf /</span> - :)
-      </li>
-      <li>
-        press <span className="text-red-400">up arrow / down arrow</span> -
+        press <span className="text-purple-400">up arrow / down arrow</span> -
         Select history commands
       </li>
       <li>
-        press <span className="text-red-400">tab</span> - Auto complete
+        press <span className="text-purple-400">tab</span> - Auto complete
       </li>
     </ul>
   )
@@ -71,7 +68,7 @@ const Help = () => {
 const CommandNotFound: React.FC<{ command: string }> = ({ command }) => {
   return (
     <div className='flex w-full h-6'>
-      <span className="mr-2 text-red-400">zsh: command not found: {command}</span>
+      <span className="mr-2 text-red-400">zsh: command not found: <span className='text-purple-400'>{command}</span></span>
     </div>
   )
 }

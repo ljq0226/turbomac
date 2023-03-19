@@ -39,6 +39,14 @@ export const FolderStructure: TerminalData = {
       ],
     },
     {
+      id: 'about',
+      title: 'about.md',
+      type: 'file',
+      content: <div> hello,my name is ljq</div>,
+      children: [],
+
+    },
+    {
       id: 'downloads',
       title: 'Downloads',
       type: 'folder',

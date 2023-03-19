@@ -14,9 +14,10 @@ interface CommandList {
 }
 
 const Terminal: React.FC = () => {
-  const { setCurrentId } = useTerminalStore(s => ({
-    setCurrentId: s.setCurrentId,
-  }), shallow)
+  const [currentId, setCurrentId] = useTerminalStore(s => [
+    s.currentId,
+    s.setCurrentId,
+  ], shallow)
   const [changeCount, setChangeCount] = useState<number>(0)
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [currentDirectory, setCurrentDirectory] = useState<string>('')
@@ -111,6 +112,10 @@ const Terminal: React.FC = () => {
         }
       }
     }
+    else if (arg === '~') {
+      setCurrentDirectory('')
+      setTargetFolder(FolderStructure)
+    }
     else {
       dfs(targetFolder, args)
       const target = JSON.parse(localStorage.getItem('LS_Items') as string).split(' ').some(
@@ -120,7 +125,17 @@ const Terminal: React.FC = () => {
     }
   }
   const ls = () => {
-    generateRow(<div key={generateRandomString()}>{JSON.parse(localStorage.getItem('LS_Items') as string)}</div>)
+    const itmes = JSON.parse(localStorage.getItem('LS_Items') as string)
+    // eslint-disable-next-line array-callback-return
+    itmes.split(' ').map((item: string) => {
+      generateRow(<div key={generateRandomString()} className={item.includes('.') ? 'text-primary' : ''}>{item}</div>)
+    })
+  }
+
+  const cat = (arg = '') => {
+    targetFolder.children.map((item) => {
+      return item.title === arg ? generateRow(<div key={generateRandomString()}>{item.content}</div> as JSX.Element) : ''
+    })
   }
 
   function handleArrowUp() {
@@ -143,6 +158,7 @@ const Terminal: React.FC = () => {
     close,
     ls,
     cd,
+    cat,
   }
 
   function executeCommand(event: React.KeyboardEvent<HTMLInputElement>, id: number) {
@@ -155,7 +171,7 @@ const Terminal: React.FC = () => {
     else if (event.key === 'ArrowDown') {
       handleArrowDown()
     }
-    else if (event.key === 'Tab' || event.key === 'ArrowRight') {
+    else if (event.key === 'Tab') {
       event.preventDefault()
       const matchedCommand = matchCommand(input.value.trim())
       if (matchedCommand)
@@ -182,6 +198,11 @@ const Terminal: React.FC = () => {
       setCurrentId(1)
     }
   }
+  const clickToFocus = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault()
+    const currentInput = document.querySelector(`#terminal-input-${currentId}`) as HTMLInputElement
+    currentInput.focus()
+  }
 
   return (
     <motion.div
@@ -190,11 +211,15 @@ const Terminal: React.FC = () => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
       style={{ fontFamily: 'Menlo, monospace', fontSize: '14px' }}
+
     >
       <div className="h-6 rounded-lg"></div>
-      <div>{currentDirectory}</div>
       <div className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2 chatlist_">
-        <div className='flex-1 w-full'>
+        <div>Welcome to TueboMac,type `help` to get started,have fun!</div>
+        <div
+          className='flex-1 w-full'
+          onClick={e => clickToFocus(e)}
+        >
           {...content}
         </div>
       </div>
