@@ -14,9 +14,10 @@ interface CommandList {
 }
 
 const Terminal: React.FC = () => {
-  const [currentId, setCurrentId] = useTerminalStore(s => [
+  const [currentId, setCurrentId, resetCurrentId] = useTerminalStore(s => [
     s.currentId,
     s.setCurrentId,
+    s.resetCurrentId,
   ], shallow)
   const [changeCount, setChangeCount] = useState<number>(0)
   const [commandHistory, setCommandHistory] = useState<string[]>([])
@@ -34,7 +35,9 @@ const Terminal: React.FC = () => {
 
   const openApp = useAppsStore(s => s.openApp)
   const closeApp = useAppsStore(s => s.closeApp)
-
+  useEffect(() => {
+    resetCurrentId()
+  }, [])
   useEffect(() => {
     const input = document.querySelector(`#terminal-input-${commandHistory.length}`) as HTMLInputElement
     if (commandHistory.length)
@@ -138,6 +141,11 @@ const Terminal: React.FC = () => {
     })
   }
 
+  const apps = () => {
+    const list = ['qq', 'chatgpt', 'vscode']
+    list.map(item => generateRow(<div key={generateRandomString()}>{item}</div> as JSX.Element))
+  }
+
   function handleArrowUp() {
     setChangeCount(prev => Math.max(prev - 1, -commandHistory.length))
   }
@@ -159,6 +167,7 @@ const Terminal: React.FC = () => {
     ls,
     cd,
     cat,
+    apps,
   }
 
   function executeCommand(event: React.KeyboardEvent<HTMLInputElement>, id: number) {

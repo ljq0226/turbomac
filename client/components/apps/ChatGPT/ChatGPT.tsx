@@ -64,7 +64,7 @@ const ChatGPT: React.FC = () => {
     }
     catch (error) {
       console.error(error)
-      setError('An error occurred. Please try again later.')
+      setError('Make sure you have set the right openai key and connect the accessible internet. An error occurred. Please try again later.')
     }
     finally {
       setIsLoading(false)

@@ -56,6 +56,12 @@ const Help = () => {
         <span className="text-purple-400">help</span> - Display this help menu
       </li>
       <li>
+        <span className="text-purple-400">apps </span> - show app list
+      </li>
+      <li>
+        <span className="text-purple-400">Open/Close {'<AppId>'}</span> - Open/Close App Window
+      </li>
+      <li>
         press <span className="text-purple-400">up arrow / down arrow</span> -
         Select history commands
       </li>
