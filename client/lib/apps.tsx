@@ -4,6 +4,7 @@ import LinkWeb from '@/components/apps/LinkWeb'
 import QQ from '@/components/apps/qq/QQ'
 import Login from '@/components/apps/qq/Login'
 import ChatGPT from '@/components/apps/ChatGPT/ChatGPT'
+import FaceTime from '@/components/apps/FaceTime/FaceTime'
 // import { useUserStore } from '@/store'
 // const username = useUserStore(s => s.username)
 
@@ -52,6 +53,13 @@ const apps: AppsData[] = [
     height: 448,
     img: '/img/icons/qq.png',
     content: <Login />,
+  },
+  {
+    id: 'facetime',
+    title: 'FaceTime',
+    img: 'img/icons/facetime.png',
+    height: 530,
+    content: <FaceTime />,
   },
   {
     id: 'email',

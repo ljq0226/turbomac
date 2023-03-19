@@ -26,6 +26,7 @@ importers:
       dayjs: ^1.11.7
       eslint: 8.19.0
       eslint-config-next: 13.1.6
+      file-saver: 2.0.5
       framer-motion: ^9.0.4
       lucide-react: ^0.115.0
       next: 13.1.6
@@ -33,6 +34,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       react-rangeslider: ^2.2.0
+      react-webcam: 7.0.1
       socket.io-client: 4.6.1
       tailwind-merge: ^1.10.0
       tailwindcss: ^3.1.6
@@ -53,12 +55,14 @@ importers:
       daisyui: 2.51.3_ri7ukdwqn75ixgh5a57pjoe56i
       dayjs: 1.11.7
       eslint-config-next: 13.1.6_zcxb7fyq5g6si26hwdg656hqxm
+      file-saver: 2.0.5
       framer-motion: 9.1.7_biqbaboplfbrettd7655fr4n2y
       lucide-react: 0.115.0_react@18.2.0
       next: 13.1.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-rangeslider: 2.2.0_react@18.2.0
+      react-webcam: 7.0.1_biqbaboplfbrettd7655fr4n2y
       socket.io-client: 4.6.1
       tailwind-merge: 1.10.0
       tailwindcss-animate: 1.0.5_tailwindcss@3.2.7
@@ -3709,6 +3713,10 @@ packages:
     dependencies:
       flat-cache: 3.0.4
 
+  /file-saver/2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
+    dev: false
+
   /fill-range/7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -5318,6 +5326,16 @@ packages:
       classnames: 2.3.2
       react: 18.2.0
       resize-observer-polyfill: 1.5.1
+    dev: false
+
+  /react-webcam/7.0.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-8E/Eb/7ksKwn5QdLn67tOR7+TdP9BZdu6E5/DSt20v8yfW/s0VGBigE6VA7R4278mBuBUowovAB3DkCfVmSPvA==}
+    peerDependencies:
+      react: '>=16.2.0'
+      react-dom: '>=16.2.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react/18.2.0:
