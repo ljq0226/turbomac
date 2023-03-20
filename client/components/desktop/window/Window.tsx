@@ -105,4 +105,4 @@ const Window = ({ app, children }: WindowProps) => {
   )
 }
 
-export default Window
+export default React.memo(Window)
