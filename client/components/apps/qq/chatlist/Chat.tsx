@@ -13,7 +13,7 @@ const Chat = () => {
       </div>
 
       <div className='flex flex-col w-full'>
-        <div className='flex'> <div className={text}>ChatName</div> <div className='flex-1 h-full'></div><div>date</div></div>
+        <div className='flex'> <div className={text}>TurboRoom</div><div className='flex-1 h-full'></div><div>date</div></div>
         <p className={dark ? '' : 'text-gray-400'}>last message</p>
       </div>
     </div>

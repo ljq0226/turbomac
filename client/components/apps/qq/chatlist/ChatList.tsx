@@ -23,9 +23,6 @@ const ChatList = () => {
         }}
       >
         <Chat />
-        <Chat />
-        <Chat />
-        <Chat />
 
       </div>
 

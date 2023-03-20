@@ -86,7 +86,8 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
                 style={{
                   originX: true ? 1 : 0,
                 }}
-                key={index}
+                key={message.id}
+                id={`message-${message.id}`}
               >
                 <div className="p-[3px] flex">
                   <div className='my-2 rounded-full'>
