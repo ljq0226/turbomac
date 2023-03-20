@@ -13,12 +13,12 @@ import { JwtStrategy } from './strategy/jwt.strategy'
     UserModule,
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: jwtConstants.expiresIn},
+      signOptions: { expiresIn: jwtConstants.expiresIn },
     }),
-    PassportModule, 
+    PassportModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService,LocalStrategy,JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],
 })
 export class AuthModule { }
