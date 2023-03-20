@@ -1,20 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
 import TopIcon from './TopIcon'
 import BottomIcon from './BottomIcon'
+import UserInfoContext from '@/components/UserInfoContext'
 
 interface Props {
   dark: boolean
 }
 
 const SideBar = ({ dark }: Props) => {
+  const { avatar } = useContext(UserInfoContext)
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#e4e4e5]'
-  const img = '/qq/icon/qqlogo.svg'
   return (
     <aside className={`h-full w-[66px] flex flex-col select-none ${bg}`}>
       <div className='w-full h-7 '></div>
       <div className="flex-center">
-        <Image src={img} width={20} alt='qqlogo' height={20} />
+        <Image src={avatar} width={20} alt='qqlogo' height={20} />
         <div className={`flex-center font-black ${!dark && 'text-black'}`}>QQ</div>
       </div>
       <div className='my-4 flex-center'>

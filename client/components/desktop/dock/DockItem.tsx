@@ -3,9 +3,9 @@ import React, { useRef } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { useDockHoverAnimation } from '@/hooks'
 import type { AppsData } from 'types/configs/app'
-import { useAppsStore, useLaunchpadStore, useUserStore } from '@/store'
+import { useDockHoverAnimation } from '@/hooks'
+import { useAppsStore, useLaunchpadStore } from '@/store'
 interface DockItemProps {
   app: AppsData
   mouseX: MotionValue
@@ -28,7 +28,7 @@ const DockItem = ({
   const bannedApp = ['github', 'email']
   const show = useLaunchpadStore(s => s.show)
   const setShow = useLaunchpadStore(s => s.setShow)
-  const username = useUserStore(s => s.username)
+
   const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
   const miniMizeApps = useAppsStore(s => s.minimizeApps)
   const dockItemClick = () => {
@@ -43,7 +43,7 @@ const DockItem = ({
         return
       }
       if (app.id === 'qq')
-        username ? openApp('qq') : openApp('login')
+        localStorage.getItem('userId') ? openApp('qq') : openApp('login')
       else openApp(app.id)
     }
   }

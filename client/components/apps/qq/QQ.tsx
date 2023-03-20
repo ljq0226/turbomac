@@ -5,10 +5,12 @@ import ChatList from './chatlist/ChatList'
 import ChatWindw from './chatwindow/ChatWindw'
 import SideBar from './siderbar/SiderBar'
 import ThemeContext from '@/components/ThemeContext'
-import { useThemeStore } from '@/store'
+import UserInfoContext from '@/components/UserInfoContext'
+import { useThemeStore, useUserStore } from '@/store'
 import { socket } from '@/lib'
 
 const QQ = () => {
+  const userInfo = useUserStore(s => s.userInfo)
   const [messages, setMessages] = useState<Message[]>([])
   const dark = useThemeStore(s => s.dark)
   useEffect(() => {
@@ -35,17 +37,18 @@ const QQ = () => {
   return (
     <>
       <ThemeContext.Provider value={{ dark }}>
-        <div className='flex h-full backdrop-blur-sm'>
-          <SideBar dark={dark} />
-          <ChatList />
-          {flag
-            ? <ChatWindw messages={messages} setMessages={setMessages} />
-            : <div className={`flex-1 flex-center ${bg}`}>
-              <img className='w-[140px] h-[140px]' src={src} alt="123" />
-            </div>
-          }
-        </div>
-
+        <UserInfoContext.Provider value={{ ...userInfo }}>
+          <div className='flex h-full backdrop-blur-sm'>
+            <SideBar dark={dark} />
+            <ChatList />
+            {flag
+              ? <ChatWindw messages={messages} setMessages={setMessages} />
+              : <div className={`flex-1 flex-center ${bg}`}>
+                <img className='w-[140px] h-[140px]' src={src} alt="123" />
+              </div>
+            }
+          </div>
+        </UserInfoContext.Provider >
       </ThemeContext.Provider >
 
     </>

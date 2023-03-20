@@ -20,9 +20,12 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const userInfo = { username: user.username, sub: user.id }
+    const signInfo = { username: user.username, sub: user.id }
+    const { password, ...userInfo } = await this.prisma.user.findUnique({ where: { id: user.id } })
     return {
-      access_token: this.jwtService.sign(userInfo),
+      token: this.jwtService.sign(signInfo),
+      userInfo,
+      msg: 'Login successful',
     }
   }
 

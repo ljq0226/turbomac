@@ -6,10 +6,11 @@ export class TransformInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
       map((data) => {
+        const { msg, ...rest } = data
         return {
-          data,
+          data: rest,
           code: 200,
-          msg: '请求成功',
+          msg: msg || 'Request successful',
         }
       }),
     )
