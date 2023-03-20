@@ -1,28 +1,29 @@
 'use client'
+import type { Dispatch, SetStateAction } from 'react'
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
+import type { Message } from 'types'
 interface Props {
   dark: boolean
+  messages: Message[]
+  setMessages: Dispatch<SetStateAction<Message[]>>
 }
-interface Message {
-  name: string
-  text: string
-}
-const ChatMessage = ({ dark }: Props) => {
-  const [messages, setMessages] = useState<Message[]>([])
-
+const ChatMessage = ({ dark, messages, setMessages }: Props) => {
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
 
   function addMessage() {
-    const index = Math.floor(Math.random() * messages.length)
+    const index = Math.floor(Math.random() * messages.length * 100)
     const newId = messages.length
       ? Math.max(...messages.map((m, n) => n)) + 1
       : 1
     const newMessage = {
       id: newId,
-      name: Math.random() > 0.5 ? 'me' : 'them',
-      text: 'Your mom said it\'s time to come home',
+      userId: 'ljq0226',
+      roomId: 'turboroom',
+      content: `Your mom said it\'s ${index} time to come home`,
+      type: 'text',
+      createAt: new Date(),
     }
 
     setLastChangedIndex(index)
@@ -33,9 +34,10 @@ const ChatMessage = ({ dark }: Props) => {
     ])
   }
 
-  function removeMessage(message: Message) {
+  function removeMessage(e: React.MouseEvent, message: Message) {
+    e.preventDefault()
     setLastChangedIndex(messages.indexOf(message))
-    // setMessages(messages => messages.filter((m, n) => n !== message.id))
+    setMessages(messages => messages.filter(m => m.id !== message.id))
   }
 
   const animatingMessages = messages.slice(lastChangedIndex)
@@ -82,7 +84,7 @@ const ChatMessage = ({ dark }: Props) => {
                   },
                 }}
                 style={{
-                  originX: message.name === 'me' ? 1 : 0,
+                  originX: true ? 1 : 0,
                 }}
                 key={index}
               >
@@ -91,16 +93,16 @@ const ChatMessage = ({ dark }: Props) => {
                     <Image src='/qq/icon/qqavatar.svg' width={30} height={30} alt='qq' />
                   </div>
                   <div className="flex flex-col">
-                    <p>{message.name}</p>
+                    <p>{message.id}</p>
                     <button
-                      onClick={() => removeMessage(message)}
-                      className={`${message.name === 'me'
+                      onClick={e => removeMessage(e, message)}
+                      className={`${true
                         ? 'bg-blue-500 ml-auto'
                         : 'bg-gray-500 mr-auto'
                         } px-3 py-1 bg-blue-500 text-white text-left rounded-full select-none`}
                       style={{ WebkitTapHighlightColor: 'transparent' }}
                     >
-                      {message.text}
+                      {message.content}
                     </button>
 
                   </div>

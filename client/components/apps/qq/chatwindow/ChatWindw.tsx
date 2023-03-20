@@ -1,6 +1,8 @@
 'use client'
+import type { Dispatch, SetStateAction } from 'react'
 import React, { useContext } from 'react'
 
+import type { Message } from 'types'
 import ChatMessage from './ChatMessage'
 import ChatSent from './ChatSent'
 import GroupAnnouncement from './GroupAnnouncement'
@@ -8,7 +10,12 @@ import GroupMembers from './GroupMembers'
 import WindowHeader from './WindowHeader'
 import ThemeContext from '@/components/ThemeContext'
 
-const ChatWindw = () => {
+interface Props {
+  messages: Message[]
+  setMessages: Dispatch<SetStateAction<Message[]>>
+}
+
+const ChatWindw = ({ messages, setMessages }: Props) => {
   const { dark } = useContext(ThemeContext)
 
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
@@ -19,7 +26,7 @@ const ChatWindw = () => {
       <WindowHeader dark={dark} />
       <div className="flex flex-1">
         <div className={`flex flex-col flex-1 ${bg}`}>
-          <ChatMessage dark={dark} />
+          <ChatMessage dark={dark} messages={messages} setMessages={setMessages} />
           <ChatSent dark={dark} />
         </div>
         <div className={`flex flex-col w-[177px] border ${border}`}>

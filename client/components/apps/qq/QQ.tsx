@@ -1,5 +1,6 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import type { Message } from 'types'
 import ChatList from './chatlist/ChatList'
 import ChatWindw from './chatwindow/ChatWindw'
 import SideBar from './siderbar/SiderBar'
@@ -8,12 +9,19 @@ import { useThemeStore } from '@/store'
 import { socket } from '@/lib'
 
 const QQ = () => {
+  const [messages, setMessages] = useState<Message[]>([])
   const dark = useThemeStore(s => s.dark)
   useEffect(() => {
     socket.connect()
     socket.on('connect', () => {
+      // console.log('connect')
     })
-    socket.emit('message', 'i am coming')
+
+    socket.on('getMessages', (data) => {
+      if (data)
+        setMessages(data)
+    })
+
     socket.on('disconnect', () => {
       // do something
     })
@@ -26,13 +34,12 @@ const QQ = () => {
   const src = dark ? '/qq/logo/qq_dark.svg' : '/qq/logo/qq_.svg'
   return (
     <>
-
       <ThemeContext.Provider value={{ dark }}>
         <div className='flex h-full backdrop-blur-sm'>
           <SideBar dark={dark} />
           <ChatList />
           {flag
-            ? <ChatWindw />
+            ? <ChatWindw messages={messages} setMessages={setMessages} />
             : <div className={`flex-1 flex-center ${bg}`}>
               <img className='w-[140px] h-[140px]' src={src} alt="123" />
             </div>

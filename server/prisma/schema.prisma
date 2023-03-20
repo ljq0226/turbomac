@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,3 +18,11 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Message {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  roomId    String
+  content   String
+  type      String   @default("text")
+  createdAt DateTime @default(now())
+}
