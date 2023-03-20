@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { PrismaService } from 'nestjs-prisma'
+import { IMAGE_BASE_URL } from 'src/common/Constant'
 import { UserAuthDto } from './dto/UserAuthDto'
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -27,7 +27,12 @@ export class AuthService {
   }
 
   async register(user: UserAuthDto) {
-    const newUser = this.prisma.user.create({ data: user })
+    const newUser = this.prisma.user.create({
+      data: {
+        ...user,
+        avatar: `${IMAGE_BASE_URL}avatar${Math.round(Math.random() * 19 + 1)}png`,
+      },
+    })
     return newUser
   }
 }
