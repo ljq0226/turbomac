@@ -1,5 +1,5 @@
-import Terminal from '../components/apps/Terminal/Terminal'
 import type { AppsData } from 'types/configs/app'
+import Terminal from '../components/apps/Terminal/Terminal'
 import LinkWeb from '@/components/apps/LinkWeb'
 import QQ from '@/components/apps/qq/QQ'
 import Login from '@/components/apps/qq/Login'

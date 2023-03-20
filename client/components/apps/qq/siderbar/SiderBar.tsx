@@ -18,7 +18,7 @@ const SideBar = ({ dark }: Props) => {
         <div className={`flex-center font-black ${!dark && 'text-black'}`}>QQ</div>
       </div>
       <div className='my-4 flex-center'>
-        <Image src='/qq/icon/qqavatar.svg' width={35} alt='qqavatar' height={35} />
+        <Image src='https://turbomac-1309372570.cos.ap-shanghai.myqcloud.com/avatar/avatar1.png' width={35} alt='qqavatar' height={35} />
       </div>
       <div className="flex flex-col h-[160px] p-3 space-y-2">
         <TopIcon name='chat' />

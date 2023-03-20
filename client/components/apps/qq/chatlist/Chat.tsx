@@ -8,8 +8,8 @@ const Chat = () => {
 
   return (
     <div className={`flex w-full p-2  h-[70px] ${hover}`}>
-      <div className='rounded-full'>
-        <Image src='/qq/icon/qqavatar.svg' width={50} height={50} alt='qq' />
+      <div className='p-2 rounded-full'>
+        <Image src='https://turbomac-1309372570.cos.ap-shanghai.myqcloud.com/avatar/turbo.png' width={50} height={50} alt='qq' />
       </div>
 
       <div className='flex flex-col w-full'>
