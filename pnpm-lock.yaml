@@ -109,6 +109,7 @@ importers:
       prisma: ^4.11.0
       reflect-metadata: ^0.1.13
       rxjs: ^7.2.0
+      socket.io: ^4.6.1
       source-map-support: ^0.5.20
       supertest: ^6.1.3
       ts-loader: ^9.2.3
@@ -135,6 +136,7 @@ importers:
       passport-local: 1.0.0
       reflect-metadata: 0.1.13
       rxjs: 7.8.0
+      socket.io: 4.6.1
       webpack: 5.75.0
     devDependencies:
       '@antfu/eslint-config': 0.36.0_vgl77cfdswitgr47lm5swmv43m
@@ -5698,6 +5700,22 @@ packages:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  /socket.io/4.6.1:
+    resolution: {integrity: sha512-KMcaAi4l/8+xEjkRICl6ak8ySoxsYG+gG6/XfRCPJPQ/haCRIJBTL4wIl8YCsmtaBovcAXGLOShyVWQ/FG8GZA==}
+    engines: {node: '>=10.0.0'}
+    dependencies:
+      accepts: 1.3.8
+      base64id: 2.0.0
+      debug: 4.3.4
+      engine.io: 6.4.1
+      socket.io-adapter: 2.5.2
+      socket.io-parser: 4.2.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
 
   /source-map-js/1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}
