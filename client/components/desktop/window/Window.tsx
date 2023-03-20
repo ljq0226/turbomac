@@ -7,7 +7,7 @@ import { useLocalStorageState } from 'ahooks'
 import { AnimatePresence, motion } from 'framer-motion'
 import TrafficHeader from './TrafficLight'
 import { useWindowSize } from '@/hooks'
-import type { AppsData } from '@/types/app'
+import type { AppsData } from 'types/configs/app'
 import { cn } from '@/lib/utils'
 import { useAppsStore } from '@/store'
 

@@ -4,7 +4,7 @@ import type { MotionValue } from 'framer-motion'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useDockHoverAnimation } from '@/hooks'
-import type { AppsData } from '@/types/app'
+import type { AppsData } from 'types/configs/app'
 import { useAppsStore, useLaunchpadStore, useUserStore } from '@/store'
 interface DockItemProps {
   app: AppsData
