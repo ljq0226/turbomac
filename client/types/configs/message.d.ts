@@ -1,8 +1,12 @@
 export interface Message{
   id:number
   userId:string
-  roomId:string
+  roomId?:string
   content:string
   type:string
-  createAt :Date
+  createAt?:Date
+  user?:{
+    username:string
+    avatar:string
+  }
 }

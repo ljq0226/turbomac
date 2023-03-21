@@ -37,7 +37,16 @@ export class ChatGateway implements OnGatewayConnection {
   async getMessages(
     @ConnectedSocket() client: Socket,
   ) {
-    const messages = await this.prisma.message.findMany()
+    const messages = await this.prisma.message.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
+        },
+      },
+    })
     client.emit('getMessages', messages)
     return messages
   }
@@ -45,19 +54,40 @@ export class ChatGateway implements OnGatewayConnection {
   @SubscribeMessage('createMessage')
   async createMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody() message: string,
+    @MessageBody() { message, userId }: { message: string; userId: string },
   ) {
     const newMes = await this.prisma.message.create({
       data: {
-        userId: 'asdsf',
+        userId,
         roomId: PUBLIC_ROOM,
         content: message,
         type: 'text',
       },
     })
-    const messages = await this.prisma.message.findMany()
+    const messages = await this.prisma.message.findMany({
+      include: {
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
+        },
+      },
+    })
     client.emit('getMessages', messages)
     client.to(PUBLIC_ROOM).emit('getMessages', messages)
-    return newMes
+    return await this.prisma.message.findUnique({
+      where: {
+        id: newMes.id,
+      },
+      include: {
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
+        },
+      },
+    })
   }
 }

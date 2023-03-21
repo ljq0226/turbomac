@@ -2,7 +2,6 @@
 import type { Dispatch, SetStateAction } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
 import type { Message } from 'types'
 interface Props {
   dark: boolean
@@ -99,10 +98,10 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
               >
                 <div className="p-[3px] flex">
                   <div className='my-2 rounded-full'>
-                    <Image src='/qq/icon/qqavatar.svg' width={30} height={30} alt='qq' />
+                    <img src={message.user.avatar} width={30} height={30} alt='qq' />
                   </div>
                   <div className="flex flex-col">
-                    <p>{message.id}</p>
+                    <p>{message.user.username}</p>
                     <button
                       onClick={e => removeMessage(e, message)}
                       className={`${true

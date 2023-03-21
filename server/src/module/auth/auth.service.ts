@@ -33,7 +33,7 @@ export class AuthService {
     const newUser = this.prisma.user.create({
       data: {
         ...user,
-        avatar: `${IMAGE_BASE_URL}avatar${Math.round(Math.random() * 19 + 1)}png`,
+        avatar: `${IMAGE_BASE_URL}avatar${Math.round(Math.random() * 19 + 1)}.png`,
       },
     })
     return newUser
