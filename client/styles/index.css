@@ -70,6 +70,12 @@ input:focus + .slider-toggle {
 .appLink{
   cursor: url('../public/cursors/normal-select.svg'), auto; 
 }
+
+.emjoyPanel span{
+  display: inline-block;
+}
+
+
 }
 
 * {

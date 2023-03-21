@@ -13,7 +13,10 @@ const Icon: React.FC<Props> = ({ onClick, name, desc }) => {
   const src = dark ? name : `${name}_dark`
   return (
     <div className='rounded-lg h-[46px] flex-center relative px-[5px]'
-      onClick={() => onClick}
+      onClick={(e) => {
+        e.preventDefault()
+        onClick && onClick()
+      }}
       onMouseEnter={(e) => {
         e.currentTarget.children[0].setAttribute('src', `/qq/chatwindow/${name}_fill.svg`)
         e.currentTarget.children[1].classList.remove('invisible')
