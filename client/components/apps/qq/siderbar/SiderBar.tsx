@@ -1,15 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import TopIcon from './TopIcon'
 import BottomIcon from './BottomIcon'
-import UserInfoContext from '@/components/UserInfoContext'
 
 interface Props {
   dark: boolean
 }
 
 const SideBar = ({ dark }: Props) => {
-  const { avatar } = useContext(UserInfoContext)
+  const { avatar }: { avatar: string } = { ...JSON.parse(localStorage.getItem('userInfo') as string) }
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#e4e4e5]'
   return (
     <aside className={`h-full w-[66px] flex flex-col select-none ${bg}`}>

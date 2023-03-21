@@ -4,22 +4,19 @@ import Image from 'next/image'
 import { shallow } from 'zustand/shallow'
 import type { LoginData } from 'api/login'
 import { Login } from 'api/login'
-import { useAppsStore, useUserStore } from '@/store'
+import { useAppsStore } from '@/store'
 const LoginWindow = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [check, setCheck] = useState(true)
-  const setUserInfo = useUserStore(s => s.setUserInfo)
-  const userInfo = useUserStore(s => s.userInfo)
   const [openApp, closeApp] = useAppsStore(s => [s.openApp, s.closeApp], shallow)
 
   const loginHandler = async () => {
     const res = await Login({ username, password })
     const data = res.data as LoginData
-    setUserInfo(data.userInfo)
-    localStorage.setItem('token', data.token)
-    localStorage.setItem('userId', data.userInfo.id)
-    if (userInfo.username) {
+    if (res.code === 200) {
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
       closeApp('login')
       openApp('qq')
     }
@@ -50,12 +47,8 @@ const LoginWindow = () => {
           <input type="password" placeholder='Password'
             className='h-full w-[130px] text-lg focus:outline-none' value={password}
             onChange={(e) => {
-              setPassword(e.target.value)
-            }}
-            onKeyDown={(e) => {
               e.preventDefault()
-              if (e.key === 'Enter')
-                loginHandler()
+              setPassword(e.target.value)
             }}
           />
           <div className='h-full w-[60px] bg-white'></div>

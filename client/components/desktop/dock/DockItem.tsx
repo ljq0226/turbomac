@@ -31,6 +31,8 @@ const DockItem = ({
 
   const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
   const miniMizeApps = useAppsStore(s => s.minimizeApps)
+  const { id }: { id: string } = { ...JSON.parse(localStorage.getItem('userInfo') as string) }
+
   const dockItemClick = () => {
     if (app.id === 'launchpad') {
       setShow(!show)
@@ -43,7 +45,7 @@ const DockItem = ({
         return
       }
       if (app.id === 'qq')
-        localStorage.getItem('userId') ? openApp('qq') : openApp('login')
+        id ? openApp('qq') : openApp('login')
       else openApp(app.id)
     }
   }

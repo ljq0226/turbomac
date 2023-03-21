@@ -1,6 +1,6 @@
 'use client'
 import type { Dispatch, SetStateAction } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import type { Message } from 'types'
@@ -11,7 +11,13 @@ interface Props {
 }
 const ChatMessage = ({ dark, messages, setMessages }: Props) => {
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
-
+  const chatListRef = useRef(null)
+  useEffect(() => {
+    if (chatListRef.current) {
+      const chatlist = chatListRef.current as HTMLDivElement
+      chatlist.scrollTop = chatlist.scrollHeight
+    }
+  }, [messages])
   function addMessage() {
     const index = Math.floor(Math.random() * messages.length * 100)
     const newId = messages.length
@@ -44,7 +50,9 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
 
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   return (
-    <div className={`${border} chatlist h-[420px] overflow-y-scroll overflow-x:hidden scroll-smooth border-t`}
+    <div
+      ref={chatListRef}
+      className={`${border} chatlist h-[420px] overflow-y-scroll overflow-x:hidden scroll-smooth border-t`}
       onMouseEnter={(e) => {
         e.currentTarget.classList.remove('chatlist')
         e.currentTarget.classList.add('chatlist_')
