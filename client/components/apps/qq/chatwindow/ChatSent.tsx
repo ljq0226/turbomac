@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+'use client'
+import React, { useEffect, useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
 import Icon from './Icon'
 import EmojiPanel from './EmojiPanel'
@@ -13,7 +14,10 @@ const ChatSent = ({ dark }: Props) => {
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const [textValue, setTextValue] = useState('')
   const [showEmojiPanel, setShowEmojiPanel] = useState(false)
-  const userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
+  let userInfo: any
+  useEffect(() => {
+    userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
+  }, [])
   const ref = useRef(null)
   useClickAway(() => {
     setShowEmojiPanel(!showEmojiPanel)

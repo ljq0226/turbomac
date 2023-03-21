@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -31,8 +31,11 @@ const DockItem = ({
 
   const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
   const miniMizeApps = useAppsStore(s => s.minimizeApps)
-  const { id }: { id: string } = { ...JSON.parse(localStorage.getItem('userInfo') as string) }
 
+  let id: string
+  useEffect(() => {
+    id = { ...JSON.parse(localStorage.getItem('userInfo') as string) }.id
+  }, [])
   const dockItemClick = () => {
     if (app.id === 'launchpad') {
       setShow(!show)
