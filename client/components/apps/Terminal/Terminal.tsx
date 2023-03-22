@@ -23,7 +23,7 @@ const Terminal: React.FC = () => {
   const [commandHistory, setCommandHistory] = useState<string[]>([])
   const [currentDirectory, setCurrentDirectory] = useState<string>('')
   const [targetFolder, setTargetFolder] = useState<TerminalData>(FolderStructure)
-  const [lsItems, setLsItmes] = useLocalStorageState('LS_Items', { defaultValue: targetFolder.children.map(item => item.title).join('   ') })
+  const [, setLsItmes] = useLocalStorageState('LS_Items', { defaultValue: targetFolder.children.map(item => item.title).join('   ') })
   const [content, setContent] = useState<JSX.Element[]>(
     [<Row
       key={generateRandomString()}

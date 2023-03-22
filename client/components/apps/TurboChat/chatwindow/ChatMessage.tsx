@@ -93,7 +93,7 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
 
         <ul className="w-full mt-4">
           <AnimatePresence initial={false} mode="popLayout">
-            {messages.map((message, index) => (
+            {messages.map(message => (
               <motion.li
                 layout
                 initial={{ opacity: 0, scale: 0.8 }}

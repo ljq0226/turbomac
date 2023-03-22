@@ -6,7 +6,7 @@ interface RowProps {
   currentDirectory: string
 }
 
-const Row: React.FC<RowProps> = ({ id, onkeydown, currentDirectory }) => {
+const Row: React.FC<RowProps> = ({ id, onkeydown }) => {
   const currentId = useTerminalStore(s => s.currentId)
   return (
     <div className='flex flex-col w-full h-12'>
