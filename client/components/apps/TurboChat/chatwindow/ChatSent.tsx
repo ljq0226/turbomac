@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
 import Icon from './icon/Icon'
 import EmojiPanel from './EmojiPanel'
-import FileIcon from './icon/FileIcon'
+import FileIcon from './FileUpload'
 import { socket } from '@/lib'
 import type { UserInfo } from '@/types'
 interface Props {
