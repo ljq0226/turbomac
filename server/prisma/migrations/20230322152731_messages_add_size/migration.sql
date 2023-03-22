@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `Message` ADD COLUMN `size` VARCHAR(191) NOT NULL DEFAULT '';

@@ -26,5 +26,6 @@ model Message {
   roomId    String
   content   String
   type      String   @default("text")
+  size      String   @default("")
   createdAt DateTime @default(now())
 }
