@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
-import Icon from './Icon'
+import Icon from './icon/Icon'
 import EmojiPanel from './EmojiPanel'
-import FileIcon from './FileIcon'
+import FileIcon from './icon/FileIcon'
 import { socket } from '@/lib'
 import type { UserInfo } from '@/types'
 interface Props {

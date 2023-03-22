@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import type { Message } from 'types'
 import ChatList from './chatlist/ChatList'
-import ChatWindw from './chatwindow/ChatWindw'
+import ChatWindw from './chatwindow'
 import SideBar from './siderbar/SiderBar'
 import ThemeContext from '@/components/ThemeContext'
 import { useThemeStore } from '@/store'

@@ -12,9 +12,6 @@ const SideBar = ({ dark }: Props) => {
   return (
     <aside className={`h-full w-[66px] flex flex-col select-none ${bg}`}>
       <div className='w-full h-7 '></div>
-      <div className="flex-center">
-        <div className={`flex-center font-black ${!dark && 'text-black'}`}>Turbo</div>
-      </div>
       <div className='my-4 flex-center'>
         <Image src='https://turbomac-1309372570.cos.ap-shanghai.myqcloud.com/avatar/avatar1.png' width={35} alt='qqavatar' height={35} />
       </div>
