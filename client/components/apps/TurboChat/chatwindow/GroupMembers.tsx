@@ -12,7 +12,7 @@ const GroupMembers = ({ dark }: Props) => {
       <header className='flex p-1'>
         <div>GroupMemberList 3</div>
         <div className="flex-1"></div>
-        <div className='mr-2'>🔍</div>
+        <div className='mr-2'></div>
       </header>
       <div className='h-[340px] w-full overflow-y-scroll chatlist overflow-x:hidden scroll-smooth'
         onMouseEnter={(e) => {

@@ -12,7 +12,7 @@ const Search = ({ dark }: Props) => {
 
       <div className={`flex w-full ${bg}`}>
         <div className='w-[24px] flex-center'>
-          <Image src='/qq/chatlist/search.svg' width={15} alt='qqavatar' height={15} />
+          <Image src='/chat/chatlist/search.svg' width={15} alt='chatavatar' height={15} />
         </div>
 
         <div className='flex-1 flex-center'>
@@ -20,7 +20,7 @@ const Search = ({ dark }: Props) => {
         </div>
         <div className={`w-[12px] ${dark ? 'bg-[#1e1e1e]' : 'bg-white'}`} />
         <div className='w-[24px] flex-center'>
-          <Image src='/qq/chatlist/add.svg' width={15} alt='qqavatar' height={15} />
+          <Image src='/chat/chatlist/add.svg' width={15} alt='chatavatar' height={15} />
         </div>
       </div>
 

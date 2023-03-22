@@ -43,8 +43,6 @@ const ChatSent = ({ dark }: Props) => {
           setShowEmojiPanel(!showEmojiPanel)
         }} />
         <FileIcon name='file' desc='文件' userInfo={userInfo}/>
-        <Icon name='img' desc='照片' />
-        <Icon name='voice' desc='语音输入' />
         <div className='flex-1'></div>
         <Icon name='record' desc='历史记录' />
       </div>

@@ -1,8 +1,8 @@
 import type { AppsData } from 'types/configs/app'
 import Terminal from '../components/apps/Terminal/Terminal'
 import LinkWeb from '@/components/apps/LinkWeb'
-import QQ from '@/components/apps/qq/QQ'
-import Login from '@/components/apps/qq/Login'
+import QQ from '@/components/apps/TurboChat/TurboChat'
+import Login from '@/components/apps/TurboChat/Login'
 import ChatGPT from '@/components/apps/ChatGPT/ChatGPT'
 import FaceTime from '@/components/apps/FaceTime/FaceTime'
 
@@ -37,11 +37,11 @@ const apps: AppsData[] = [
     content: <Terminal />,
   },
   {
-    id: 'qq',
-    title: 'QQ',
+    id: 'turbochat',
+    title: 'TurboChat',
     width: 969,
     height: 640,
-    img: '/img/icons/qq.png',
+    img: '/img/icons/turbochat.png',
     content: <QQ />,
   },
   {

@@ -16,15 +16,6 @@ const FileIcon: React.FC<Props> = ({ name, desc, userInfo }) => {
   const src = dark ? name : `${name}_dark`
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleFileLoad = (event: ProgressEvent<FileReader>) => {
-    const content = event.target?.result as string
-    // do something with the file content
-  }
-
-  const handleUpload = () => {
-    // use fetch API to upload file content to server
-  }
-
   const handleIconClick = async () => {
     fileInputRef.current?.click()
   }
@@ -51,15 +42,15 @@ const FileIcon: React.FC<Props> = ({ name, desc, userInfo }) => {
     <div className='rounded-lg h-[46px] flex-center relative px-[5px]'
       onClick={handleIconClick}
       onMouseEnter={(e) => {
-        e.currentTarget.children[0].setAttribute('src', `/qq/chatwindow/${name}_fill.svg`)
+        e.currentTarget.children[0].setAttribute('src', `/chat/chatwindow/${name}_fill.svg`)
         e.currentTarget.children[1].classList.remove('invisible')
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.children[0].setAttribute('src', `/qq/chatwindow/${src}.svg`)
+        e.currentTarget.children[0].setAttribute('src', `/chat/chatwindow/${src}.svg`)
         e.currentTarget.children[1].classList.add('invisible')
       }}
     >
-      <Image src={`/qq/chatwindow/${src}.svg`} className='w-fit h-fit' width={15} alt='qqappicon' height={15}
+      <Image src={`/chat/chatwindow/${src}.svg`} className='w-fit h-fit' width={15} alt='chatappicon' height={15}
       />
       <div className={`absolute invisible rounded-sm top-12 ${bg} `}
         style={{ width: `${desc ? desc.length * 1.1 : 0}rem` }}

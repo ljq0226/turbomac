@@ -8,7 +8,7 @@ import ThemeContext from '@/components/ThemeContext'
 import { useThemeStore } from '@/store'
 import { socket } from '@/lib'
 
-const QQ = () => {
+const TurboChat = () => {
   const [messages, setMessages] = useState<Message[]>([])
   const dark = useThemeStore(s => s.dark)
   useEffect(() => {
@@ -52,4 +52,4 @@ const QQ = () => {
   )
 }
 
-export default React.memo(QQ)
+export default React.memo(TurboChat)

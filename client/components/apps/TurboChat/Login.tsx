@@ -18,7 +18,7 @@ const LoginWindow = () => {
       localStorage.setItem('token', data.token)
       localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
       closeApp('login')
-      openApp('qq')
+      openApp('turbochat')
     }
   }
 
@@ -31,7 +31,7 @@ const LoginWindow = () => {
       >
 
         <div className='mt-[32px] mb-[12px] flex-center'>
-          <Image src='/img/icons/qq.png' className='bg-white rounded-full' width={80} height={80} alt='qqavatar' />
+          <Image src='/img/icons/turbochat.png' className='bg-white rounded-full' width={80} height={80} alt='qqavatar' />
         </div>
 
         <div className='h-[42px] flex text-black font-black'>
@@ -60,7 +60,7 @@ const LoginWindow = () => {
           已阅读并同意
           <span className='text-primary hover:cursor-pointer'>服务协议</span>
           和
-          <span className='text-primary hover:cursor-pointer'>QQ隐私保护指引</span>
+          <span className='text-primary hover:cursor-pointer'>隐私保护指引</span>
         </div>
         <div className=''>
           <button

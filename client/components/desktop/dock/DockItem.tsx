@@ -47,8 +47,8 @@ const DockItem = ({
         removeMinimizeApps(app.id)
         return
       }
-      if (app.id === 'qq')
-        id ? openApp('qq') : openApp('login')
+      if (app.id === 'turbochat')
+        id ? openApp('turbochat') : openApp('login')
       else openApp(app.id)
     }
   }
