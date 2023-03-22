@@ -3,12 +3,14 @@ import React, { useContext, useRef } from 'react'
 import ThemeContext from '@/components/ThemeContext'
 import { upload } from '@/api/upload'
 import { socket } from '@/lib'
+import type { UserInfo } from '@/types'
 interface Props {
   name?: string
   desc?: string
+  userInfo: UserInfo
 }
 
-const FileIcon: React.FC<Props> = ({ name, desc }) => {
+const FileIcon: React.FC<Props> = ({ name, desc, userInfo }) => {
   const { dark } = useContext(ThemeContext)
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#fff] text-black'
   const src = dark ? name : `${name}_dark`
@@ -39,7 +41,7 @@ const FileIcon: React.FC<Props> = ({ name, desc }) => {
         if (res.code === 200) {
           switch (res.data.type) {
             case 'image':
-              socket.emit('createImage', res.data.location)
+              socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id })
           }
         }
       }

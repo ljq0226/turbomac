@@ -6,7 +6,7 @@ const COS = require('cos-nodejs-sdk-v5')
 const image = ['gif', 'png', 'jpg', 'jpeg', 'bmp', 'webp']
 const video = ['mp4', 'webm']
 const audio = ['mp3', 'wav', 'ogg']
-const document = ['pdf', 'docs', 'md', 'doc', 'txt']
+const document = ['pdf', 'docs', 'md', 'doc', 'txt', 'ppt']
 // const localPath = 'public/uploads'
 
 @Controller('')
@@ -47,7 +47,7 @@ export class UploadController {
     // fs.writeFileSync(localFilePath, file.buffer)
     return {
       msg: 'upload file',
-      location: result.Location,
+      location: `https://${result.Location}`,
       type: folder,
     }
   }

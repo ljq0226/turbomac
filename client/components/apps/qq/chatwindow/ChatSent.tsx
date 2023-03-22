@@ -5,6 +5,7 @@ import Icon from './Icon'
 import EmojiPanel from './EmojiPanel'
 import FileIcon from './FileIcon'
 import { socket } from '@/lib'
+import type { UserInfo } from '@/types'
 interface Props {
   dark: boolean
 }
@@ -14,9 +15,9 @@ const ChatSent = ({ dark }: Props) => {
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const [textValue, setTextValue] = useState('')
   const [showEmojiPanel, setShowEmojiPanel] = useState(false)
-  let userInfo: any
+  const [userInfo, setUserInfo] = useState<UserInfo>({})
   useEffect(() => {
-    userInfo = JSON.parse(localStorage.getItem('userInfo') as string)
+    setUserInfo(JSON.parse(localStorage.getItem('userInfo') as string))
   }, [])
   const ref = useRef(null)
   useClickAway(() => {
@@ -41,7 +42,7 @@ const ChatSent = ({ dark }: Props) => {
         <Icon name='smail' desc='表情' onClick={() => {
           setShowEmojiPanel(!showEmojiPanel)
         }} />
-        <FileIcon name='file' desc='文件' />
+        <FileIcon name='file' desc='文件' userInfo={userInfo}/>
         <Icon name='img' desc='照片' />
         <Icon name='voice' desc='语音输入' />
         <div className='flex-1'></div>
