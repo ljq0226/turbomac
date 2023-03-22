@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import React, { useContext, useRef } from 'react'
 import ThemeContext from '@/components/ThemeContext'
+import { upload } from '@/api/upload'
+import { socket } from '@/lib'
 interface Props {
   name?: string
   desc?: string
@@ -23,14 +25,26 @@ const FileIcon: React.FC<Props> = ({ name, desc }) => {
 
   const handleIconClick = async () => {
     fileInputRef.current?.click()
-    // const file = fileInputRef.current?.files && fileInputRef.current?.files[0]
-    // if (file) {
-    //   const reader = new FileReader()
-    //   reader.onload = handleFileLoad
-    //   reader.readAsText(file)
-    // }
   }
 
+  const fileChangeListener = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files
+    if (fileList) {
+      const file = fileList[0]
+      if (file.size > 3000000) {
+        alert('您没有权限上传大于 3MB 的文件')
+      }
+      else {
+        const res: { code: number; msg: string; data: any } = await upload(file)
+        if (res.code === 200) {
+          switch (res.data.type) {
+            case 'image':
+              socket.emit('createImage', res.data.location)
+          }
+        }
+      }
+    }
+  }
   return (
     <div className='rounded-lg h-[46px] flex-center relative px-[5px]'
       onClick={handleIconClick}
@@ -50,7 +64,9 @@ const FileIcon: React.FC<Props> = ({ name, desc }) => {
       >
         {desc}
       </div>
-      <input type='file' ref={fileInputRef} className='hidden' />
+      <input type='file' ref={fileInputRef}
+        onChange={fileChangeListener}
+        className='hidden' />
     </div>
   )
 }

@@ -62,7 +62,38 @@ async function post<T>(url: string, data: any, options: Options = {}): Promise<R
   }
 }
 
+async function uploadFile<T>(url: string, file: File, options: Options = {}): Promise<Response<T>> {
+  const token = localStorage.getItem('token')
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const response = await fetch(`${host}${url}`, {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : '',
+      ...options.headers,
+    },
+    method: 'POST',
+    body: formData,
+  })
+
+  if (!response.ok)
+    throw new Error(response.statusText)
+
+  const contentType = response.headers.get('content-type')
+  if (contentType && contentType.includes('application/json')) {
+    return response.json()
+  }
+  else {
+    return {
+      code: response.status,
+      data: response.text(),
+      msg: response.statusText,
+    } as Response<T>
+  }
+}
+
 export {
   get,
   post,
+  uploadFile,
 }
