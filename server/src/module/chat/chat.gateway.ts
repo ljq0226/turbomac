@@ -54,14 +54,14 @@ export class ChatGateway implements OnGatewayConnection {
   @SubscribeMessage('createMessage')
   async createMessage(
     @ConnectedSocket() client: Socket,
-    @MessageBody() { message, userId }: { message: string; userId: string },
+    @MessageBody() { message, type, userId }: { message: string;type: string; userId: string },
   ) {
     const newMes = await this.prisma.message.create({
       data: {
         userId,
         roomId: PUBLIC_ROOM,
         content: message,
-        type: 'text',
+        type,
       },
     })
     const messages = await this.prisma.message.findMany({

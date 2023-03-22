@@ -3,6 +3,7 @@ import type { Dispatch, SetStateAction } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Message } from 'types'
+import Image from 'next/image'
 interface Props {
   dark: boolean
   messages: Message[]
@@ -48,6 +49,24 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
   const animatingMessages = messages.slice(lastChangedIndex)
 
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
+  const renderMessage = (message: Message) => {
+    switch (message.type) {
+      case 'text':
+        return (<div className={`${true
+          ? 'bg-blue-500 ml-auto'
+          : 'bg-gray-500 mr-auto'
+          } px-3 py-1 bg-blue-500 text-white text-left rounded-xl select-none`}
+          style={{ WebkitTapHighlightColor: 'transparent' }}>{message.content}</div>)
+      case 'image':
+        return (<Image width={50} height={50} src={message.content} alt={'msg_img'} />)
+      case 'document':
+        return (<a href={message.content} target="_blank" rel="noopener noreferrer">Download Document</a>)
+      case 'audio':
+        return (<audio src={message.content} controls />)
+      case 'video':
+        return (<video src={message.content} controls />)
+    }
+  }
   return (
     <div
       ref={chatListRef}
@@ -102,16 +121,11 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
                   </div>
                   <div className="flex flex-col">
                     <p>{message.user.username}</p>
-                    <button
-                      onClick={e => removeMessage(e, message)}
-                      className={`${true
-                        ? 'bg-blue-500 ml-auto'
-                        : 'bg-gray-500 mr-auto'
-                        } px-3 py-1 bg-blue-500 text-white text-left rounded-full select-none`}
-                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    <div
+                      onDoubleClick={e => removeMessage(e, message)}
                     >
-                      {message.content}
-                    </button>
+                      {renderMessage(message)}
+                    </div>
 
                   </div>
 
