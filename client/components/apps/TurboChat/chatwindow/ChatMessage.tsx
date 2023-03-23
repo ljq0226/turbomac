@@ -100,7 +100,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag }: Props) => {
           </button>
         </div>
         <PhotoProvider>
-          <ul className="w-full mt-4">
+          <ul className="w-full my-4">
             <AnimatePresence initial={false} mode="popLayout">
               {messages.map(message => (
                 <motion.li

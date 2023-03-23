@@ -17,7 +17,7 @@ const SideBar = ({ dark }: Props) => {
       </div>
       <div className="flex flex-col h-[160px] space-y-1">
         <TopIcon name='chat' />
-        <TopIcon name='people' />
+        {/* <TopIcon name='people' /> */}
       </div>
       <div className="flex-1 w-full"></div>
       <div className="flex flex-col h-[160px] p-3 space-y-2 mb-3">

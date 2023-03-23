@@ -8,7 +8,6 @@ interface Props {
 
 const Icon: React.FC<Props> = ({ onClick, name }) => {
   const { dark } = useContext(ThemeContext)
-  const text = dark ? '' : 'text-black'
   const src = dark ? name : `${name}_dark`
   return (
     <div className={'rounded-lg w-full h-[46px] flex-center'}
