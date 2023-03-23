@@ -1,24 +1,24 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
+import UserInfoContext from '../UserInfoContext'
 import Icon from './icon/Icon'
 import EmojiPanel from './EmojiPanel'
 import FileIcon from './FileUpload'
 import { socket } from '@/lib'
-import type { UserInfo } from '@/types'
 interface Props {
   dark: boolean
+  sentFlag: boolean
+  setSentFlag: Dispatch<SetStateAction<boolean>>
 }
 
-const ChatSent = ({ dark }: Props) => {
+const ChatSent = ({ dark, setSentFlag }: Props) => {
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const [textValue, setTextValue] = useState('')
   const [showEmojiPanel, setShowEmojiPanel] = useState(false)
-  const [userInfo, setUserInfo] = useState<UserInfo>({})
-  useEffect(() => {
-    setUserInfo(JSON.parse(localStorage.getItem('userInfo') as string))
-  }, [])
+  const userInfo = useContext(UserInfoContext)
   const ref = useRef(null)
   useClickAway(() => {
     setShowEmojiPanel(!showEmojiPanel)
@@ -27,7 +27,9 @@ const ChatSent = ({ dark }: Props) => {
   const enterHandler = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
       socket.emit('createMessage', { message: textValue, userId: userInfo.id })
+      e.preventDefault()
       setTextValue('')
+      setSentFlag(pre => !pre)
     }
   }
   const handleSelectEmoji = (selectedEmoji: string) => {
@@ -42,7 +44,7 @@ const ChatSent = ({ dark }: Props) => {
         <Icon name='smail' desc='表情' onClick={() => {
           setShowEmojiPanel(!showEmojiPanel)
         }} />
-        <FileIcon name='file' desc='文件' userInfo={userInfo}/>
+        <FileIcon name='file' desc='文件' userInfo={userInfo} />
         <div className='flex-1'></div>
         <Icon name='record' desc='历史记录' />
       </div>

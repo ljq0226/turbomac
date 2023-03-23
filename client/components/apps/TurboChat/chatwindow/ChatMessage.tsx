@@ -1,10 +1,12 @@
 'use client'
 import type { Dispatch, SetStateAction } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Message } from 'types'
 import Image from 'next/image'
 import { PhotoProvider } from 'react-photo-view'
+import clsx from 'clsx'
+import UserInfoContext from '../UserInfoContext'
 import ImageType from './filetype/ImageType'
 import AudioType from './filetype/AudioType'
 import DocumentType from './filetype/DocumentType'
@@ -13,17 +15,22 @@ import TextType from './filetype/TextType'
 interface Props {
   dark: boolean
   messages: Message[]
+  sentFlag: boolean
   setMessages: Dispatch<SetStateAction<Message[]>>
 }
-const ChatMessage = ({ dark, messages, setMessages }: Props) => {
+const ChatMessage = ({ dark, messages, setMessages, sentFlag }: Props) => {
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
+  const userInfo = useContext(UserInfoContext)
   const chatListRef = useRef(null)
   useEffect(() => {
     if (chatListRef.current) {
       const chatlist = chatListRef.current as HTMLDivElement
-      chatlist.scrollTop = 99999
+      setTimeout(() => {
+        chatlist.scrollTop = 9999
+        // setTimeout is because the message updating is beforer than chatlist scrolling
+      }, 100)
     }
-  }, [messages])
+  }, [chatListRef.current, sentFlag])
   function addMessage() {
     const index = Math.floor(Math.random() * messages.length * 100)
     const newId = messages.length
@@ -58,7 +65,7 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
   const renderMessage = (message: Message) => {
     switch (message.type) {
       case 'text':
-        return ((<TextType message={message} />))
+        return ((<TextType message={message} isSelf={message.userId === userInfo.id}/>))
       case 'image':
         return (<ImageType message={message} />)
       case 'document':
@@ -111,27 +118,28 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
                         : 1,
                     },
                   }}
-                  style={{
-                    originX: true ? 1 : 0,
-                  }}
                   key={message.id}
                   id={`message-${message.id}`}
                 >
-                  <div className="p-[3px] flex">
-                    <div className='my-2 rounded-full'>
-                      <Image src={message.user.avatar} width={50} height={50} alt='qq' />
-                    </div>
-                    <div className="flex flex-col">
-                      <p>{message.user.username}</p>
+                  <div className={clsx('p-[3px] flex', message.userId === userInfo.id ? 'justify-end' : '')}>
+                    {
+                      message.userId !== userInfo.id
+                      && <div className='my-2 rounded-full'>
+                        <Image src={message.user.avatar} width={50} height={50} alt='qq' />
+                      </div>}
+                    <div className={clsx('flex flex-col', message.userId === userInfo.id ? 'items-end' : '')}>
+                      <p className={dark ? '' : 'text-black'}>{message.user.username}</p>
                       <div
                         onDoubleClick={e => removeMessage(e, message)}
                       >
-
                         {renderMessage(message)}
                       </div>
-
                     </div>
-
+                    {
+                      message.userId === userInfo.id
+                      && <div className='my-2 rounded-full'>
+                        <Image src={message.user.avatar} width={50} height={50} alt='qq' />
+                      </div>}
                   </div>
                 </motion.li>
               ))}

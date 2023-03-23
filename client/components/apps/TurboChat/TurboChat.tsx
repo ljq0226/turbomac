@@ -1,16 +1,23 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import type { Message } from 'types'
+import type { Message, UserInfo } from 'types'
 import ChatList from './chatlist/ChatList'
-import ChatWindw from './chatwindow'
+import ChatWindw from './chatwindow/ChatWindow'
 import SideBar from './siderbar/SiderBar'
+import UserInfoContext from './UserInfoContext'
 import ThemeContext from '@/components/ThemeContext'
 import { useThemeStore } from '@/store'
 import { socket } from '@/lib'
 
 const TurboChat = () => {
   const [messages, setMessages] = useState<Message[]>([])
+  // judge the new message is or not sent by you
+  const [sentFlag, setSentFlag] = useState<boolean>(false)
   const dark = useThemeStore(s => s.dark)
+  const [userInfo, setUserInfo] = useState<UserInfo>({})
+  useEffect(() => {
+    setUserInfo(JSON.parse(localStorage.getItem('userInfo') as string))
+  }, [])
   useEffect(() => {
     socket.connect()
     socket.on('connect', () => {
@@ -35,16 +42,18 @@ const TurboChat = () => {
   return (
     <>
       <ThemeContext.Provider value={{ dark }}>
-        <div className='flex h-full backdrop-blur-sm'>
-          <SideBar dark={dark} />
-          <ChatList />
-          {flag
-            ? <ChatWindw messages={messages} setMessages={setMessages} />
-            : <div className={`flex-1 flex-center ${bg}`}>
-              <img className='w-[140px] h-[140px]' src={src} alt="123" />
-            </div>
-          }
-        </div>
+        <UserInfoContext.Provider value={{ ...userInfo }}>
+          <div className='flex h-full backdrop-blur-sm'>
+            <SideBar dark={dark} />
+            <ChatList />
+            {flag
+              ? <ChatWindw messages={messages} setMessages={setMessages} sentFlag={sentFlag} setSentFlag={setSentFlag} />
+              : <div className={`flex-1 flex-center ${bg}`}>
+                <img className='w-[140px] h-[140px]' src={src} alt="123" />
+              </div>
+            }
+          </div>
+        </UserInfoContext.Provider>
       </ThemeContext.Provider >
 
     </>
