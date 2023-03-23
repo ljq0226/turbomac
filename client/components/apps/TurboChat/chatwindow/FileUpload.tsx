@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import type { Dispatch, SetStateAction } from 'react'
 import React, { useContext, useRef } from 'react'
 import ThemeContext from '@/components/ThemeContext'
 import { upload } from '@/api/upload'
@@ -8,9 +9,10 @@ interface Props {
   name?: string
   desc?: string
   userInfo: UserInfo
+  setSentFlag: Dispatch<SetStateAction<boolean>>
 }
 
-const FileUpload: React.FC<Props> = ({ name, desc, userInfo }) => {
+const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo, setSentFlag }) => {
   const { dark } = useContext(ThemeContext)
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#fff] text-black'
   const src = dark ? name : `${name}_dark`
@@ -29,8 +31,10 @@ const FileUpload: React.FC<Props> = ({ name, desc, userInfo }) => {
       }
       else {
         const res: { code: number; msg: string; data: any } = await upload(file)
-        if (res.code === 200)
+        if (res.code === 200) {
           socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id, size: res.data.size })
+          setSentFlag(pre => !pre)
+        }
       }
     }
   }

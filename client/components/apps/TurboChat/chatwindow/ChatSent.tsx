@@ -44,7 +44,7 @@ const ChatSent = ({ dark, setSentFlag }: Props) => {
         <Icon name='smail' desc='表情' onClick={() => {
           setShowEmojiPanel(!showEmojiPanel)
         }} />
-        <FileIcon name='file' desc='文件' userInfo={userInfo} />
+        <FileIcon userInfo={userInfo} setSentFlag={setSentFlag} />
         <div className='flex-1'></div>
         <Icon name='record' desc='历史记录' />
       </div>
