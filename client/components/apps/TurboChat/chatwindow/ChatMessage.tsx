@@ -4,6 +4,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Message } from 'types'
 import Image from 'next/image'
+import { PhotoProvider } from 'react-photo-view'
+import ImageType from './file/ImageType'
+import AudioType from './file/AudioType'
+import DocumentType from './file/DocumentType'
+import VideoType from './file/VideoType'
 interface Props {
   dark: boolean
   messages: Message[]
@@ -58,13 +63,13 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
           } px-3 py-1 bg-blue-500 text-white text-left rounded-xl select-none`}
           style={{ WebkitTapHighlightColor: 'transparent' }}>{message.content}</div>)
       case 'image':
-        return (<Image width={50} height={50} src={message.content} alt={'msg_img'} />)
+        return (<ImageType message={message} />)
       case 'document':
-        return (<a href={message.content} target="_blank" rel="noopener noreferrer">Download Document</a>)
+        return (<DocumentType message={message} />)
       case 'audio':
-        return (<audio src={message.content} controls />)
+        return (<AudioType message={message} />)
       case 'video':
-        return (<video src={message.content} controls />)
+        return (<VideoType message={message} />)
     }
   }
   return (
@@ -90,50 +95,52 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
             <div className="w-4 h-4" >＋</div>
           </button>
         </div>
+        <PhotoProvider>
+          <ul className="w-full mt-4">
+            <AnimatePresence initial={false} mode="popLayout">
+              {messages.map(message => (
+                <motion.li
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{
+                    opacity: { duration: 0.2 },
+                    layout: {
+                      type: 'spring',
+                      bounce: 0.4,
+                      duration: lastChangedIndex
+                        ? animatingMessages.indexOf(message) * 0.15 + 0.85
+                        : 1,
+                    },
+                  }}
+                  style={{
+                    originX: true ? 1 : 0,
+                  }}
+                  key={message.id}
+                  id={`message-${message.id}`}
+                >
+                  <div className="p-[3px] flex">
+                    <div className='my-2 rounded-full'>
+                      <Image src={message.user.avatar} width={50} height={50} alt='qq' />
+                    </div>
+                    <div className="flex flex-col">
+                      <p>{message.user.username}</p>
+                      <div
+                        onDoubleClick={e => removeMessage(e, message)}
+                      >
 
-        <ul className="w-full mt-4">
-          <AnimatePresence initial={false} mode="popLayout">
-            {messages.map(message => (
-              <motion.li
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{
-                  opacity: { duration: 0.2 },
-                  layout: {
-                    type: 'spring',
-                    bounce: 0.4,
-                    duration: lastChangedIndex
-                      ? animatingMessages.indexOf(message) * 0.15 + 0.85
-                      : 1,
-                  },
-                }}
-                style={{
-                  originX: true ? 1 : 0,
-                }}
-                key={message.id}
-                id={`message-${message.id}`}
-              >
-                <div className="p-[3px] flex">
-                  <div className='my-2 rounded-full'>
-                    <img src={message.user.avatar} width={30} height={30} alt='qq' />
-                  </div>
-                  <div className="flex flex-col">
-                    <p>{message.user.username}</p>
-                    <div
-                      onDoubleClick={e => removeMessage(e, message)}
-                    >
-                      {renderMessage(message)}
+                        {renderMessage(message)}
+                      </div>
+
                     </div>
 
                   </div>
-
-                </div>
-              </motion.li>
-            ))}
-          </AnimatePresence>
-        </ul>
+                </motion.li>
+              ))}
+            </AnimatePresence>
+          </ul>
+        </PhotoProvider>
       </div>
 
     </div>

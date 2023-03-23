@@ -24,8 +24,8 @@ const FileUpload: React.FC<Props> = ({ name, desc, userInfo }) => {
     const fileList = e.target.files
     if (fileList) {
       const file = fileList[0]
-      if (file.size > 3000000) {
-        alert('您没有权限上传大于 3MB 的文件')
+      if (file.size > 4000000) {
+        alert('您没有权限上传大于 4MB 的文件')
       }
       else {
         const res: { code: number; msg: string; data: any } = await upload(file)

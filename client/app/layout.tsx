@@ -1,6 +1,7 @@
 import GlobalBackGround from './GlobalBackGround'
 import Topbar from '@/components/topbar/Topbar'
 import '@/styles/index.css'
+import 'react-photo-view/dist/react-photo-view.css'
 import Dock from '@/components/desktop/dock/Dock'
 import Launchpad from '@/components/launchpad/Launchpad'
 
