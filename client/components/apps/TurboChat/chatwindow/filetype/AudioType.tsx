@@ -12,8 +12,8 @@ const AudioType = ({ message }: Props) => {
     <a href={message.content}>
       <div className='flex p-2 mb-2 bg-[#2c2c2c] w-[315px]'>
         <div className="flex flex-col flex-1">
-          <div className='flex justify-around pb-2 text-blue-500' >
-            <p className='w-[200px] truncate'>{`${fileName}`}</p>
+          <div className='flex justify-around pb-2 text-blue-500'>
+            <p className='w-[200px] truncate'>{`${decodeURIComponent(fileName)}`}</p>
             <p>{message.size}</p>
           </div>
           <audio src={message.content} controls />

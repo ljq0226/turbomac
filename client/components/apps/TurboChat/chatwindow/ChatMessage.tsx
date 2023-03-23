@@ -5,10 +5,11 @@ import { AnimatePresence, motion } from 'framer-motion'
 import type { Message } from 'types'
 import Image from 'next/image'
 import { PhotoProvider } from 'react-photo-view'
-import ImageType from './file/ImageType'
-import AudioType from './file/AudioType'
-import DocumentType from './file/DocumentType'
-import VideoType from './file/VideoType'
+import ImageType from './filetype/ImageType'
+import AudioType from './filetype/AudioType'
+import DocumentType from './filetype/DocumentType'
+import VideoType from './filetype/VideoType'
+import TextType from './filetype/TextType'
 interface Props {
   dark: boolean
   messages: Message[]
@@ -20,7 +21,7 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
   useEffect(() => {
     if (chatListRef.current) {
       const chatlist = chatListRef.current as HTMLDivElement
-      chatlist.scrollTop = chatlist.scrollHeight
+      chatlist.scrollTop = 99999
     }
   }, [messages])
   function addMessage() {
@@ -52,16 +53,12 @@ const ChatMessage = ({ dark, messages, setMessages }: Props) => {
   }
 
   const animatingMessages = messages.slice(lastChangedIndex)
-
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
+
   const renderMessage = (message: Message) => {
     switch (message.type) {
       case 'text':
-        return (<div className={`${true
-          ? 'bg-blue-500 ml-auto'
-          : 'bg-gray-500 mr-auto'
-          } px-3 py-1 bg-blue-500 text-white text-left rounded-xl select-none`}
-          style={{ WebkitTapHighlightColor: 'transparent' }}>{message.content}</div>)
+        return ((<TextType message={message} />))
       case 'image':
         return (<ImageType message={message} />)
       case 'document':

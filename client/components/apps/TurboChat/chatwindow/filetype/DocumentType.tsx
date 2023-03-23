@@ -7,8 +7,8 @@ interface Props {
 }
 
 const DocumentType = ({ message }: Props) => {
-  const filePath = message.content.split('/')
-  const fileName = filePath.pop()
+  const filePath = message.content.split('/').pop()
+  const fileName = decodeURI(filePath)
   return (
     <a href={message.content}>
       <div className='flex p-2  bg-[#2c2c2c] w-[250px]'>
@@ -16,7 +16,7 @@ const DocumentType = ({ message }: Props) => {
           <p className='w-[150px] truncate text-blue-300 pl-2'>{`${fileName}`}</p>
           <p className='pl-2'>{message.size}</p>
         </div>
-        <Image className='pr-3' src={`/chat/file/${fileName.split('.').pop()}.png`} width={60} height={60} alt='file_icon'></Image>
+        <Image className='pr-3' src={`/chat/file/${filePath.split('.').pop()}.png`} width={60} height={60} alt='file_icon'></Image>
       </div>
     </a>
   )
