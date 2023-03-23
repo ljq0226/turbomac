@@ -65,7 +65,7 @@ async function post<T>(url: string, data: any, options: Options = {}): Promise<R
 async function uploadFile<T>(url: string, file: File, options: Options = {}): Promise<Response<T>> {
   const token = localStorage.getItem('token')
   const formData = new FormData()
-  formData.append('file', file)
+  formData.append('file', file, encodeURI(file.name))
 
   const response = await fetch(`${host}${url}`, {
     headers: {

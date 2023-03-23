@@ -7,7 +7,7 @@ const document = ['pdf', 'docs', 'md', 'doc', 'txt', 'ppt', 'markdown']
 @Injectable()
 export class UploadService {
   getFilePath(file: Express.Multer.File) {
-    const filename = `${(Math.random() * 1000).toFixed(0)}_${file.originalname}`
+    const filename = `${(decodeURI(file.originalname))}`
     let folder = ''
     if (image.includes(file.originalname.split('.').pop()))
       folder = 'image'
@@ -30,6 +30,8 @@ export class UploadService {
     else if (size < 1000000)
       return `${(size / 1000).toFixed(2)}KB`
     else if (size < 1000000000)
-      return `${(size / 1000).toFixed(2)}MB`
+      return `${(size / 1000000).toFixed(2)}MB`
+    else
+      return `${(size / 1000000000).toFixed(2)}GB`
   }
 }

@@ -24,7 +24,7 @@ model Message {
   user      User     @relation(fields: [userId], references: [id])
   userId    String
   roomId    String
-  content   String
+  content   String   @db.Text()
   type      String   @default("text")
   size      String   @default("")
   createdAt DateTime @default(now())
