@@ -35,6 +35,7 @@ importers:
       postcss: ^8.4.14
       react: 18.2.0
       react-dom: 18.2.0
+      react-photo-view: 1.2.3
       react-rangeslider: ^2.2.0
       react-webcam: 7.0.1
       socket.io-client: 4.6.1
@@ -66,6 +67,7 @@ importers:
       next: 13.1.6_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      react-photo-view: 1.2.3_biqbaboplfbrettd7655fr4n2y
       react-rangeslider: 2.2.0_react@18.2.0
       react-webcam: 7.0.1_biqbaboplfbrettd7655fr4n2y
       socket.io-client: 4.6.1_2adebc2xdjqbcvbjxkodkhadp4
@@ -5610,6 +5612,16 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react-photo-view/1.2.3_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-dtaFjU8nAB/rD8mxBaaJcvESlDOweAd1tmvXujS/d3oh1QyGew3xD4C02l46E6Dhn3Tshzl2+IM1h0MWV9nG7g==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /react-rangeslider/2.2.0_react@18.2.0:
