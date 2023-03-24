@@ -9,11 +9,13 @@ import ThemeContext from '@/components/ThemeContext'
 interface Props {
   messages: Message[]
   sentFlag: boolean
+  page: number
   setMessages: Dispatch<SetStateAction<Message[]>>
   setSentFlag: Dispatch<SetStateAction<boolean>>
+  setPage: Dispatch<SetStateAction<number>>
 }
 
-const ChatWindw = ({ messages, setMessages, sentFlag, setSentFlag }: Props) => {
+const ChatWindw = ({ messages, setMessages, sentFlag, setSentFlag, page, setPage }: Props) => {
   const { dark } = useContext(ThemeContext)
 
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
@@ -23,8 +25,8 @@ const ChatWindw = ({ messages, setMessages, sentFlag, setSentFlag }: Props) => {
       <WindowHeader dark={dark} />
       <div className="flex-1">
         <div className={`flex flex-col flex-1 ${bg} pl-3 pr-2`}>
-          <ChatMessage dark={dark} messages={messages} setMessages={setMessages} sentFlag={sentFlag} />
-          <ChatSent dark={dark} setSentFlag={setSentFlag} sentFlag={sentFlag} />
+          <ChatMessage dark={dark} messages={messages} setMessages={setMessages} sentFlag={sentFlag} page={page} setPage={setPage} />
+          <ChatSent dark={dark} setSentFlag={setSentFlag} sentFlag={sentFlag} page={page} />
         </div>
       </div>
     </div>

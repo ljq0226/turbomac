@@ -12,13 +12,17 @@ import AudioType from './filetype/AudioType'
 import DocumentType from './filetype/DocumentType'
 import VideoType from './filetype/VideoType'
 import TextType from './filetype/TextType'
+import { debounce } from '@/lib/utils'
+import socket from '@/lib/socket'
 interface Props {
   dark: boolean
   messages: Message[]
   sentFlag: boolean
+  page: number
+  setPage: Dispatch<SetStateAction<number>>
   setMessages: Dispatch<SetStateAction<Message[]>>
 }
-const ChatMessage = ({ dark, messages, setMessages, sentFlag }: Props) => {
+const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: Props) => {
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
   const userInfo = useContext(UserInfoContext)
   const chatListRef = useRef(null)
@@ -65,7 +69,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag }: Props) => {
   const renderMessage = (message: Message) => {
     switch (message.type) {
       case 'text':
-        return ((<TextType message={message} isSelf={message.userId === userInfo.id}/>))
+        return ((<TextType message={message} isSelf={message.userId === userInfo.id} />))
       case 'image':
         return (<ImageType message={message} />)
       case 'document':
@@ -76,19 +80,32 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag }: Props) => {
         return (<VideoType message={message} />)
     }
   }
+  const ScrollHandler = () => {
+    if (chatListRef.current) {
+      const chatlist = chatListRef.current as HTMLDivElement
+      // when it gets to the top,send a request to the server
+      if (chatlist.scrollTop < 50) {
+        setPage(page => page + 1)
+        socket.emit('getMessages', { page })
+      }
+    }
+  }
+  const mouseEnter = (e: React.MouseEvent) => {
+    e.currentTarget.classList.remove('chatlist')
+    e.currentTarget.classList.add('chatlist_')
+  }
+  const mouseLeave = (e: React.MouseEvent) => {
+    e.currentTarget.classList.remove('chatlist_')
+    e.currentTarget.classList.add('chatlist')
+  }
+
   return (
     <div
       ref={chatListRef}
       className={`${border} chatlist h-[420px] overflow-y-scroll overflow-x:hidden scroll-smooth border-t`}
-      onMouseEnter={(e) => {
-        e.currentTarget.classList.remove('chatlist')
-        e.currentTarget.classList.add('chatlist_')
-      }
-      }
-      onMouseLeave={(e) => {
-        e.currentTarget.classList.remove('chatlist_')
-        e.currentTarget.classList.add('chatlist')
-      }}
+      onMouseEnter={mouseEnter}
+      onMouseLeave={mouseLeave}
+      onScroll={debounce(ScrollHandler, 300)}
     >
       <div className="flex flex-col w-full">
         <div className="text-right">
@@ -113,9 +130,9 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag }: Props) => {
                     layout: {
                       type: 'spring',
                       bounce: 0.4,
-                      duration: lastChangedIndex
-                        ? animatingMessages.indexOf(message) * 0.15 + 0.85
-                        : 1,
+                      // duration: lastChangedIndex
+                      //   ? animatingMessages.indexOf(message) * 0.15 + 0.85
+                      //   : 1,
                     },
                   }}
                   key={message.id}

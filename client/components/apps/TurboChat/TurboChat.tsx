@@ -15,20 +15,18 @@ const TurboChat = () => {
   const [sentFlag, setSentFlag] = useState<boolean>(false)
   const dark = useThemeStore(s => s.dark)
   const [userInfo, setUserInfo] = useState<UserInfo>({})
+  const [page, SetPage] = useState<number>(1)
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem('userInfo') as string))
   }, [])
   useEffect(() => {
     socket.connect()
     socket.on('connect', () => {
-      // console.log('connect')
     })
-
     socket.on('getMessages', (data) => {
       if (data)
         setMessages(data)
     })
-
     socket.on('disconnect', () => {
       // do something
     })
@@ -47,7 +45,7 @@ const TurboChat = () => {
             <SideBar dark={dark} />
             <ChatList />
             {flag
-              ? <ChatWindw messages={messages} setMessages={setMessages} sentFlag={sentFlag} setSentFlag={setSentFlag} />
+              ? <ChatWindw messages={messages} setMessages={setMessages} sentFlag={sentFlag} setSentFlag={setSentFlag} page={page} setPage={SetPage} />
               : <div className={`flex-1 flex-center ${bg}`}>
                 <img className='w-[140px] h-[140px]' src={src} alt="123" />
               </div>

@@ -8,11 +8,12 @@ import type { UserInfo } from '@/types'
 interface Props {
   name?: string
   desc?: string
+  page: number
   userInfo: UserInfo
   setSentFlag: Dispatch<SetStateAction<boolean>>
 }
 
-const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo, setSentFlag }) => {
+const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo, setSentFlag, page }) => {
   const { dark } = useContext(ThemeContext)
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#fff] text-black'
   const src = dark ? name : `${name}_dark`
@@ -32,7 +33,7 @@ const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo,
       else {
         const res: { code: number; msg: string; data: any } = await upload(file)
         if (res.code === 200) {
-          socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id, size: res.data.size })
+          socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id, size: res.data.size, page })
           setSentFlag(pre => !pre)
         }
       }

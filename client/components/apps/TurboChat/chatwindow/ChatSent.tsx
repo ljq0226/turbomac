@@ -10,10 +10,11 @@ import { socket } from '@/lib'
 interface Props {
   dark: boolean
   sentFlag: boolean
+  page: number
   setSentFlag: Dispatch<SetStateAction<boolean>>
 }
 
-const ChatSent = ({ dark, setSentFlag }: Props) => {
+const ChatSent = ({ dark, setSentFlag, page }: Props) => {
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const [textValue, setTextValue] = useState('')
@@ -26,7 +27,7 @@ const ChatSent = ({ dark, setSentFlag }: Props) => {
 
   const enterHandler = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      socket.emit('createMessage', { message: textValue, userId: userInfo.id })
+      socket.emit('createMessage', { message: textValue, userId: userInfo.id, page })
       e.preventDefault()
       setTextValue('')
       setSentFlag(pre => !pre)
@@ -44,7 +45,7 @@ const ChatSent = ({ dark, setSentFlag }: Props) => {
         <Icon name='smail' desc='表情' onClick={() => {
           setShowEmojiPanel(!showEmojiPanel)
         }} />
-        <FileIcon userInfo={userInfo} setSentFlag={setSentFlag} />
+        <FileIcon userInfo={userInfo} setSentFlag={setSentFlag} page={page} />
         <div className='flex-1'></div>
         <Icon name='record' desc='历史记录' />
       </div>
