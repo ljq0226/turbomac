@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { shallow } from 'zustand/shallow'
 import type { LoginData } from 'api/login'
@@ -10,6 +10,12 @@ const LoginWindow = () => {
   const [password, setPassword] = useState('')
   const [check, setCheck] = useState(true)
   const [openApp, closeApp] = useAppsStore(s => [s.openApp, s.closeApp], shallow)
+
+  useEffect(() => {
+    const userInfo = { ...JSON.parse(localStorage.getItem('userInfo') as string) }
+    if (userInfo)
+      setUsername(userInfo.username)
+  }, [])
 
   const loginHandler = async () => {
     const res = await Login({ username, password })

@@ -1,9 +1,9 @@
-'use client'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import type { MotionValue } from 'framer-motion'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { AppsData } from 'types/configs/app'
+import { id } from '../../apps/TurboChat/isLogin'
 import { useDockHoverAnimation } from '@/hooks'
 import { useAppsStore, useLaunchpadStore } from '@/store'
 interface DockItemProps {
@@ -32,10 +32,6 @@ const DockItem = ({
   const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
   const miniMizeApps = useAppsStore(s => s.minimizeApps)
 
-  let id: string
-  useEffect(() => {
-    id = { ...JSON.parse(localStorage.getItem('userInfo') as string) }.id
-  }, [])
   const dockItemClick = () => {
     if (app.id === 'launchpad') {
       setShow(!show)
