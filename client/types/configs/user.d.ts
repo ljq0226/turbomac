@@ -5,3 +5,10 @@ export interface UserInfo{
   username:string
   createAt:data
 }
+
+export interface ActiveUser{
+  id:string
+  avatar:string
+  role:string
+  username:string
+}

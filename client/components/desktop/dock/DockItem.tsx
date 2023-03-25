@@ -32,7 +32,7 @@ const DockItem = ({
   const miniMizeApps = useAppsStore(s => s.minimizeApps)
   let id: string
   useEffect(() => {
-    id = { ...JSON.parse(localStorage.getItem('userInfo') as string).toString() }.id
+    id = { ...JSON.parse(localStorage.getItem('userInfo') as string) }.id
   }, [])
 
   const dockItemClick = () => {

@@ -14,24 +14,31 @@ export class ChatGateway implements OnGatewayConnection {
   ) {
     this.defaultGroup = PUBLIC_ROOM
     this.pageSize = PAGINATION
+    this.users = []
   }
 
   @WebSocketServer() server: Server
   defaultGroup: string
   pageSize: number
+  users: string[]
   // onconnection call
   async handleConnection(client: Socket): Promise<string> {
     // default join public room
     client.join(this.defaultGroup)
-    const users = await this.server.fetchSockets()
-
+    this.getOnlineUsers(client)
     // when a user join the room,sent him the messages
     this.getMessages(client, { page: 1 })
-    // console.log(' ', Object.keys(users[0]))
-    // console.log(' ', users[0].handshake.query.userId)
-    // console.log('-0---------- ')
 
     return 'connect success'
+  }
+
+  // get online users
+  @SubscribeMessage('onlineUsers')
+  async getOnlineUsers(
+    @ConnectedSocket() client: Socket,
+  ) {
+    const data = await this.getActiveUser()
+    client.emit('onlineUsers', data)
   }
 
   @SubscribeMessage('getMessages')
@@ -91,5 +98,27 @@ export class ChatGateway implements OnGatewayConnection {
     })
     client.emit('getMessages', messages)
     client.to(PUBLIC_ROOM).emit('getMessages', messages)
+  }
+
+  async getActiveUser() {
+    const sockets = await this.server.fetchSockets()
+    const userIdArr = sockets.map(item => item.handshake.query.id)
+    const realUser = userIdArr.filter(item => item !== undefined)
+    const res = []
+    for (const userId of realUser) {
+      const user = await this.prisma.user.findUnique({
+        where: {
+          id: userId as string,
+        },
+        select: {
+          id: true,
+          username: true,
+          avatar: true,
+          role: true,
+        },
+      })
+      res.push(user)
+    }
+    return res
   }
 }

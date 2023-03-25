@@ -1,16 +1,31 @@
+import Image from 'next/image'
 import React from 'react'
+import type { ActiveUser } from 'types'
 
 interface Props {
   dark: boolean
+  activeUsers: ActiveUser[]
 }
 
-const GroupMembers = ({ dark }: Props) => {
+const GroupMembers = ({ dark, activeUsers }: Props) => {
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
+
+  const renderMembers = () => {
+    return (
+      activeUsers.map(user => (
+        <div key={user.id} className='flex items-center'>
+          <Image src={user.avatar} width={30} height={30} alt='user-img' />
+          <p>{user.username}{user.role === 'owner' && ' 👑'}</p>
+        </div>
+      ))
+    )
+  }
+
   return (
     <div className={`flex flex-col flex-1 w-full  ${border}`}>
       <header className='flex p-1'>
-        <div>GroupMemberList 3</div>
+        <div>GroupMemberList {activeUsers.length}</div>
         <div className="flex-1"></div>
         <div className='mr-2'></div>
       </header>
@@ -25,10 +40,7 @@ const GroupMembers = ({ dark }: Props) => {
           e.currentTarget.classList.add('chatlist')
         }}
       >
-        <p> Jack</p>
-        <p> Marry</p>
-        <p> Rose</p>
-
+        {renderMembers()}
       </div>
     </div>
   )

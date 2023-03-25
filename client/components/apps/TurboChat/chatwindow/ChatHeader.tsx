@@ -2,15 +2,17 @@
 import React, { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useClickAway } from 'ahooks'
+import type { ActiveUser } from 'types'
 import GroupAnnouncement from './groupInfo/GroupAnnouncement'
 import GroupMembers from './groupInfo/GroupMembers'
 import Icon from './icon/Icon'
 
 interface Props {
   dark: boolean
+  activeUsers: ActiveUser[]
 }
 
-const ChatHeader = ({ dark }: Props) => {
+const ChatHeader = ({ dark, activeUsers }: Props) => {
   const divRef = useRef(null)
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
@@ -27,7 +29,7 @@ const ChatHeader = ({ dark }: Props) => {
     <>
       <div className="h-6"></div>
       <motion.header className='flex-center'>
-        <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}>TurboRoom</div>
+        <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}>TurboRoom{` (${activeUsers.length})`}</div>
         <div className='flex-1'></div>
         <div className='relative flex mr-2 space-x-2'>
           <div >
@@ -42,7 +44,7 @@ const ChatHeader = ({ dark }: Props) => {
               ref={divRef}
             >
               <GroupAnnouncement dark={dark} />
-              <GroupMembers dark={dark} />
+              <GroupMembers dark={dark} activeUsers={activeUsers} />
             </motion.div>
           }
         </div>
