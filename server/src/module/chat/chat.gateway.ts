@@ -65,7 +65,7 @@ export class ChatGateway implements OnGatewayConnection {
     @MessageBody() { message, type, userId, size, page }: { message: string;type: string; userId: string; size: string;page: number },
   ) {
     // first: create a new  message
-    const { id } = await this.prisma.message.create({
+    await this.prisma.message.create({
       data: {
         userId,
         roomId: PUBLIC_ROOM,
@@ -74,8 +74,10 @@ export class ChatGateway implements OnGatewayConnection {
         size,
       },
     })
-    const newMessage = await this.prisma.message.findUnique({
-      where: { id },
+    const length = await this.prisma.message.count()
+    const take = page * this.pageSize
+    const skip = (length - take < 0) ? 0 : (length - take)
+    const messages = await this.prisma.message.findMany({
       include: {
         user: {
           select: {
@@ -84,8 +86,10 @@ export class ChatGateway implements OnGatewayConnection {
           },
         },
       },
+      skip,
+      take,
     })
-    client.emit('createMessage', newMessage)
-    client.to(PUBLIC_ROOM).emit('createMessage', newMessage)
+    client.emit('getMessages', messages)
+    client.to(PUBLIC_ROOM).emit('getMessages', messages)
   }
 }
