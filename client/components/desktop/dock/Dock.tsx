@@ -9,7 +9,6 @@ const Dock = () => {
   const dockMag = useDockStore(s => s.dockMag)
   const openApp = useAppsStore(s => s.openApp)
   const showApps = useAppsStore(s => s.showApps)
-  const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
   const max = useAppsStore(s => s.max)
   const setShowLaunchpad = useLaunchpadStore(s => s.setShow)
   const mouseX = useMotionValue<number | null>(null)

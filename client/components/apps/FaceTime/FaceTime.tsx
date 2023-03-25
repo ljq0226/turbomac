@@ -1,3 +1,4 @@
+'use client'
 import { useRef, useState } from 'react'
 import Webcam from 'react-webcam'
 import { saveAs } from 'file-saver'
