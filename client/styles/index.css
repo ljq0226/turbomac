@@ -122,3 +122,33 @@ cursor: url('../public/cursors/normal-select.svg'), auto;
 .chatlist_::-webkit-scrollbar-thumb:hover {
   background-color: #585858;
 }
+
+
+.spinner {
+  margin: auto;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  border-radius: 50%;
+  background-color: #007bff;
+}
+
+.dot-1 {
+  animation: none;
+}
+
+.dot-2 {
+  animation: none;
+}
+
+.dot-3 {
+  animation: none;
+}

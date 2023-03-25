@@ -12,6 +12,7 @@ import AudioType from './filetype/AudioType'
 import DocumentType from './filetype/DocumentType'
 import VideoType from './filetype/VideoType'
 import TextType from './filetype/TextType'
+import LoadingSpinner from './LoadingSpinner'
 import { debounce } from '@/lib/utils'
 import socket from '@/lib/socket'
 
@@ -26,6 +27,7 @@ interface Props {
 }
 const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage, windowRef }: Props) => {
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
+  const [loading, setLoading] = useState<boolean>(false)
   const userInfo = useContext(UserInfoContext)
   const chatListRef = useRef(null)
 
@@ -38,6 +40,14 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage, win
       }, 100)
     }
   }, [sentFlag])
+
+  useEffect(() => {
+    if (page > 0) {
+      socket.emit('getMessages', { page })
+      setLoading(false)
+    }
+  }, [page])
+
   function addMessage() {
     const index = Math.floor(Math.random() * messages.length * 100)
     const newId = messages.length
@@ -83,13 +93,15 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage, win
         return (<VideoType message={message} />)
     }
   }
-  const ScrollHandler = () => {
+  const ScrollHandler = async () => {
     if (chatListRef.current) {
       const chatlist = chatListRef.current as HTMLDivElement
       // when it gets to the top,send a request to the server
       if (chatlist.scrollTop < 50) {
-        setPage(page => page + 1)
-        socket.emit('getMessages', { page })
+        setLoading(true)
+        setTimeout(() => {
+          setPage(page => (page + 1))
+        }, 600)
       }
     }
   }
@@ -119,6 +131,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage, win
             <div className="w-4 h-4" >＋</div>
           </button>
         </div>
+        <LoadingSpinner loading={loading} />
         <PhotoProvider>
           <ul className="w-full my-4">
             <AnimatePresence initial={false} mode="popLayout">
