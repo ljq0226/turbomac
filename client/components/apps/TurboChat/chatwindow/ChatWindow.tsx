@@ -1,8 +1,8 @@
 import type { Dispatch, SetStateAction } from 'react'
 import React, { useContext, useRef } from 'react'
 import type { Message } from 'types'
-import ChatMessage from './ChatMessage'
-import ChatSent from './ChatSent'
+import ChatMessage from './message/ChatMessage'
+import ChatSent from './message/ChatSent'
 import WindowHeader from './ChatHeader'
 import ThemeContext from '@/components/ThemeContext'
 
