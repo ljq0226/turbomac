@@ -56,6 +56,7 @@ export class ChatGateway implements OnGatewayConnection {
           select: {
             username: true,
             avatar: true,
+            role: true,
           },
         },
       },
@@ -90,6 +91,7 @@ export class ChatGateway implements OnGatewayConnection {
           select: {
             username: true,
             avatar: true,
+            role: true,
           },
         },
       },

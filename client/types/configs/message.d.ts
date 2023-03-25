@@ -9,5 +9,6 @@ export interface Message{
   user?:{
     username:string
     avatar:string
+    role:string
   }
 }

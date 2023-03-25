@@ -72,7 +72,7 @@ const RenderMessage = ({ messages, dark, setMessages, lastChangedIndex, setLastC
                       <Image src={message.user.avatar} width={50} height={50} alt='qq' />
                     </div>}
                   <div className={clsx('flex flex-col', message.userId === userInfo.id ? 'items-end' : '')}>
-                    <p className={dark ? '' : 'text-black'}>{message.user.username}</p>
+                    <p className={clsx(dark ? '' : 'text-black', message.user.role === 'owner' && 'text-yellow-300')}>{message.user.username}{message.user.role === 'owner' && ' 👑'}</p>
                     <div
                       onDoubleClick={e => removeMessage(e, message)}
                     >
