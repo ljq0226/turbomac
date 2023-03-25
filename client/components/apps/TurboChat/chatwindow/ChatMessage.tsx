@@ -14,18 +14,21 @@ import VideoType from './filetype/VideoType'
 import TextType from './filetype/TextType'
 import { debounce } from '@/lib/utils'
 import socket from '@/lib/socket'
+
 interface Props {
   dark: boolean
   messages: Message[]
   sentFlag: boolean
   page: number
+  windowRef: React.MutableRefObject<HTMLDivElement | null>
   setPage: Dispatch<SetStateAction<number>>
   setMessages: Dispatch<SetStateAction<Message[]>>
 }
-const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: Props) => {
+const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage, windowRef }: Props) => {
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
   const userInfo = useContext(UserInfoContext)
   const chatListRef = useRef(null)
+
   useEffect(() => {
     if (chatListRef.current) {
       const chatlist = chatListRef.current as HTMLDivElement
@@ -34,7 +37,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: P
         // setTimeout is because the message updating is beforer than chatlist scrolling
       }, 100)
     }
-  }, [chatListRef.current, sentFlag])
+  }, [sentFlag])
   function addMessage() {
     const index = Math.floor(Math.random() * messages.length * 100)
     const newId = messages.length
@@ -102,7 +105,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: P
   return (
     <div
       ref={chatListRef}
-      className={`${border} chatlist h-[420px] overflow-y-scroll overflow-x:hidden scroll-smooth border-t`}
+      className={`${border} flex-1 h-[420px] chatlist overflow-y-scroll overflow-x-hidden scroll-smooth border-t`}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
       onScroll={debounce(ScrollHandler, 300)}
@@ -130,9 +133,9 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: P
                     layout: {
                       type: 'spring',
                       bounce: 0.4,
-                      // duration: lastChangedIndex
-                      //   ? animatingMessages.indexOf(message) * 0.15 + 0.85
-                      //   : 1,
+                      duration: lastChangedIndex
+                        ? animatingMessages.indexOf(message) * 0.15 + 0.85
+                        : 1,
                     },
                   }}
                   key={message.id}

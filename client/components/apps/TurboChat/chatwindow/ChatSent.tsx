@@ -37,7 +37,7 @@ const ChatSent = ({ dark, setSentFlag, page }: Props) => {
     setTextValue(textValue + selectedEmoji)
   }
   return (
-    <div className='relative flex flex-col'>
+    <div className='relative flex flex-col h-[170px]'>
       <div className="absolute bottom-[100px] w-full" >
         {showEmojiPanel && <EmojiPanel divRef={ref} onSelectEmoji={handleSelectEmoji} dark={dark} />}
       </div>
