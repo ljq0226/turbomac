@@ -27,6 +27,10 @@ const TurboChat = () => {
       if (data)
         setMessages(data)
     })
+    socket.on('createMessage', (data) => {
+      if (data)
+        setMessages(messages => [...messages, data])
+    })
     socket.on('disconnect', () => {
       // do something
     })
