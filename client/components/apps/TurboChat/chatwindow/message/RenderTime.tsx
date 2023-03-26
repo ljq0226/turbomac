@@ -10,27 +10,19 @@ interface Props {
 
 const RenderTime = ({ messages, message, index }: Props) => {
   const prevMessage = messages[index - 1]
-  if (!prevMessage)
-    return <p className='text-xs text-center text-gray-400'>{dayjs(new Date(message.createdAt)).format('YYYY/MM/DD HH:mm').toLocaleString()}</p>
-
-  const prevTime = new Date(prevMessage.createdAt).getTime()
-  const curTime = new Date(message.createdAt).getTime()
-  const nowTime = new Date().getTime()
-  const ONE_MINUTE = 60 * 1000
   const curDate = dayjs(new Date(message.createdAt))
-  const prevDate = dayjs(new Date(prevMessage.createdAt))
+  const nowDate = dayjs(new Date())
   const curHour = curDate.hour()
   const curMinute = curDate.minute()
-  const curDay = curDate.date()
-  const prevDay = prevDate.date()
-  const curMonth = curDate.month()
-  const prevMonth = prevDate.month()
-  const curYear = curDate.year()
-  const prevYear = prevDate.year()
-  const isSameDay = (nowTime - curTime < 24 * 60 * ONE_MINUTE) && curDay === prevDay && curMonth === prevMonth && curYear === prevYear
-  const isYesterday = curDay === prevDay + 1 && curMonth === prevMonth && curYear === prevYear
+  const isSameDay = curDate.date() === nowDate.date()
+  const isYesterday = curDate.date() + 1 === nowDate.date()
   const isAM = curHour < 12
-  const isPM = curHour >= 12 && curHour < 19
+  const isPM = curHour >= 12 && curHour < 18
+  const ONE_MINUTE = 60 * 1000
+  const curTime = new Date(message.createdAt).getTime()
+  const prevTime = prevMessage ? new Date(prevMessage.createdAt).getTime() : 0
+  if (!prevMessage)
+    return <p className='text-xs text-center text-gray-400'>{dayjs(curTime).format('YYYY/MM/DD HH:mm').toLocaleString()}</p>
   if (curTime - prevTime > 5 * ONE_MINUTE) {
     if (isSameDay) {
       return (
