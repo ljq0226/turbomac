@@ -1,6 +1,6 @@
 import { useClickAway } from 'ahooks'
 import React, { useRef } from 'react'
-import { Switch } from '@/components/ui/Switch'
+import Switch from '../ui/Switch'
 
 interface WifiMenuProps {
   dark: boolean
