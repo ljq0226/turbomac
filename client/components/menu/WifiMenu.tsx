@@ -1,6 +1,6 @@
 import { useClickAway } from 'ahooks'
 import React, { useRef } from 'react'
-import Switch from '../ui/Switch'
+// import Switch from '../ui/Switch'
 
 interface WifiMenuProps {
   dark: boolean
@@ -25,11 +25,11 @@ const WifiMenu = ({
         }`}
     >
       <div className="font-medium ">Wi-Fi</div>
-      <Switch
+      {/* <Switch
         className=""
         checked={wifi}
         onCheckedChange={() => wifiSwitch(!wifi)}
-      />
+      /> */}
     </div>
   )
 }
