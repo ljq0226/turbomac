@@ -7,7 +7,7 @@ interface Response<T> {
   data: T
   msg: string
 }
-const host = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : process.env.NEXT_PUBLIC_HOST
+const host = process.env.NODE_ENV === 'development' ? 'http://localhost:8080/' : `${process.env.NEXT_PUBLIC_HOST}8080`
 
 async function get<T>(url: string, options: Options = {}): Promise<Response<T>> {
   const token = localStorage.getItem('token')
