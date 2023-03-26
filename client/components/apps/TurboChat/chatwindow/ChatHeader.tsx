@@ -27,7 +27,9 @@ const ChatHeader = () => {
     <>
       <div className="h-6"></div>
       <motion.header className='flex-center'>
-        <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}>TurboRoom{` (${activeUsers.length})`}</div>
+        <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}
+          onClick={handleIconClick}>
+          TurboRoom{` (${activeUsers.length})`}</div>
         <div className='flex-1'></div>
         <div className='relative flex mr-2 space-x-2'>
           <div >
