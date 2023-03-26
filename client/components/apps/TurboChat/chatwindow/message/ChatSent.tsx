@@ -2,11 +2,11 @@
 import type { Dispatch, SetStateAction } from 'react'
 import React, { useContext, useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
+import { useSocketStore } from 'store'
 import UserInfoContext from '../../UserInfoContext'
 import Icon from '../icon/Icon'
 import EmojiPanel from './EmojiPanel'
 import FileIcon from './FileUpload'
-import { socket } from '@/lib'
 interface Props {
   dark: boolean
   sentFlag: boolean
@@ -15,9 +15,11 @@ interface Props {
 }
 
 const ChatSent = ({ dark, setSentFlag, page }: Props) => {
+  const socket = useSocketStore(s => s.socket)
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const [textValue, setTextValue] = useState('')
+
   const [showEmojiPanel, setShowEmojiPanel] = useState(false)
   const userInfo = useContext(UserInfoContext)
   const ref = useRef(null)
@@ -27,7 +29,7 @@ const ChatSent = ({ dark, setSentFlag, page }: Props) => {
 
   const enterHandler = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      socket.emit('createMessage', { message: textValue, userId: userInfo.id, page })
+      socket && socket.emit('createMessage', { message: textValue, userId: userInfo.id, page })
       e.preventDefault()
       setTextValue('')
       setSentFlag(pre => !pre)

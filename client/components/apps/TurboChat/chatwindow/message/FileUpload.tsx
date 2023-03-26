@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import type { Dispatch, SetStateAction } from 'react'
 import React, { useContext, useRef } from 'react'
+import { useSocketStore } from 'store'
 import ThemeContext from '@/components/ThemeContext'
 import { upload } from '@/api/upload'
-import { socket } from '@/lib'
 import type { UserInfo } from '@/types'
 interface Props {
   name?: string
@@ -14,6 +14,7 @@ interface Props {
 }
 
 const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo, setSentFlag, page }) => {
+  const socket = useSocketStore(s => s.socket)
   const { dark } = useContext(ThemeContext)
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#fff] text-black'
   const src = dark ? name : `${name}_dark`
@@ -33,7 +34,7 @@ const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo,
       else {
         const res: { code: number; msg: string; data: any } = await upload(file)
         if (res.code === 200) {
-          socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id, size: res.data.size, page })
+          socket && socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id, size: res.data.size, page })
           setSentFlag(pre => !pre)
         }
       }

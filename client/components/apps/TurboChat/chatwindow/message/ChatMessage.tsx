@@ -2,10 +2,10 @@
 import type { Dispatch, SetStateAction } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import type { Message } from 'types'
+import { useSocketStore } from 'store'
 import LoadingSpinner from './LoadingSpinner'
 import RenderMessage from './RenderMessage'
 import { debounce } from '@/lib/utils'
-import socket from '@/lib/socket'
 interface Props {
   dark: boolean
   messages: Message[]
@@ -16,6 +16,7 @@ interface Props {
   setMessages: Dispatch<SetStateAction<Message[]>>
 }
 const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: Props) => {
+  const socket = useSocketStore(s => s.socket)
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const chatListRef = useRef(null)
@@ -31,9 +32,11 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: P
   }, [sentFlag])
 
   useEffect(() => {
-    if (page > 0) {
-      socket.emit('getMessages', { page })
-      setLoading(false)
+    if (socket) {
+      if (page > 0) {
+        socket.emit('getMessages', { page })
+        setLoading(false)
+      }
     }
   }, [page])
 

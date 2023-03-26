@@ -4,6 +4,7 @@ import useLaunchpadStore from './launchpad'
 import useDockStore from './dock'
 import useAppsStore from './app'
 import useUserStore from './user'
+import useSocketStore from './socket'
 import useTerminalStore from './terminal'
 
-export { useTerminalStore, useThemeStore, useControlStore, useLaunchpadStore, useDockStore, useAppsStore, useUserStore }
+export { useTerminalStore, useSocketStore, useThemeStore, useControlStore, useLaunchpadStore, useDockStore, useAppsStore, useUserStore }

@@ -5,7 +5,6 @@ import ChatMessage from './message/ChatMessage'
 import ChatSent from './message/ChatSent'
 import WindowHeader from './ChatHeader'
 import ThemeContext from '@/components/ThemeContext'
-
 interface Props {
   messages: Message[]
   activeUsers: ActiveUser[]
