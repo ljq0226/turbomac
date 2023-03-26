@@ -1,5 +1,6 @@
 'use client'
 import { Suspense } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import Window from './Window'
 import { useAppsStore } from '@/store'
 import apps from '@/lib/apps'
@@ -20,7 +21,9 @@ export default function Desktop() {
   return (
     <>
       <Suspense fallback={<div>loading</div>}>
-        {renderAppWindows()}
+        <AnimatePresence>
+          {renderAppWindows()}
+        </AnimatePresence>
       </Suspense>
     </>
 

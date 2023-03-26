@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
+import { useAlertStore } from '@/store'
 
 interface Message {
   text: string
@@ -13,6 +14,7 @@ const ChatGPT: React.FC = () => {
   const chatListRef = useRef<HTMLDivElement>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+  const useAlert = useAlertStore(s => s.useAlert)
 
   useEffect(() => {
     if (chatListRef.current)
@@ -63,8 +65,7 @@ const ChatGPT: React.FC = () => {
       }
     }
     catch (error) {
-      console.error(error)
-      setError('Make sure you have set the right openai key and connect the accessible internet. An error occurred. Please try again later.')
+      useAlert('error', 'Make sure you have set the right openai key and connect the accessible internet. An error occurred. Please try again later.', 10000)
     }
     finally {
       setIsLoading(false)
@@ -119,11 +120,6 @@ const ChatGPT: React.FC = () => {
             {isLoading ? 'Sending...' : 'Send'}
           </button>
         </div>
-        {error && (
-          <div className="fixed bottom-[70px] w-full text-center">
-            <span className="text-red-500">{error}</span>
-          </div>
-        )}
       </div>
     </div>
   )

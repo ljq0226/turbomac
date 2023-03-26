@@ -6,12 +6,12 @@ import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const AlertMessage = () => {
-  const [show, type, content, setShow] = useAlertStore(s => [s.show, s.type, s.content, s.setShow], shallow)
+  const [show, type, content, duration, setShow] = useAlertStore(s => [s.show, s.type, s.content, s.duration, s.setShow], shallow)
 
   useEffect(() => {
     setTimeout(() => {
       setShow(false)
-    }, 2000)
+    }, duration)
   }, [show])
   const render = () => {
     switch (type) {

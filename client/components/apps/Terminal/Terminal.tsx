@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAppsStore, useTerminalStore } from 'store'
 import { shallow } from 'zustand/shallow'
-import { motion } from 'framer-motion'
 import { useLocalStorageState } from 'ahooks'
 import { CommandNotFound, Help, Row } from './Util'
 import { FolderStructure } from './Data'
@@ -214,11 +213,8 @@ const Terminal: React.FC = () => {
   }
 
   return (
-    <motion.div
+    <div
       className="p-4 pr-[5px] text-white bg-[#1C1C1E]/95 rounded-lg"
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
       style={{ fontFamily: 'Menlo, monospace', fontSize: '14px' }}
 
     >
@@ -232,7 +228,7 @@ const Terminal: React.FC = () => {
           {...content}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 
