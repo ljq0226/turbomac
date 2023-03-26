@@ -1,12 +1,7 @@
+import type { UserInfo } from 'types/configs/user'
 import { create } from 'zustand'
 interface useUserStates {
-  userInfo: {
-    id: string
-    username: string
-    avatar: string
-    role: string
-    createAt?: Date
-  }
+  userInfo: UserInfo
   setUserInfo: (v: any) => void
 
 }

@@ -3,7 +3,7 @@ export interface UserInfo{
   avatar:string
   role:string
   username:string
-  createAt:data
+  createAt?:data
 }
 
 export interface ActiveUser{

@@ -1,25 +1,19 @@
 'use client'
-import React, { useEffect, useState } from 'react'
-import type { ActiveUser, Message, UserInfo } from 'types'
+import React, { useEffect } from 'react'
 import { io } from 'socket.io-client'
+import { shallow } from 'zustand/shallow'
 import ChatList from './chatlist/ChatList'
 import ChatWindw from './chatwindow/ChatWindow'
 import SideBar from './siderbar/SiderBar'
-import UserInfoContext from './UserInfoContext'
 import ThemeContext from '@/components/ThemeContext'
-import { useSocketStore, useThemeStore } from '@/store'
-
+import { useChatStore, useSocketStore, useThemeStore, useUserStore } from '@/store'
 const TurboChat = () => {
-  const [messages, setMessages] = useState<Message[]>([])
-  const [activeUsers, setActiveUsers] = useState<ActiveUser[]>([])
-  const socket = useSocketStore(s => s.socket)
-  const setSocket = useSocketStore(s => s.setSocket)
+  const setMessages = useChatStore(s => s.setMessages)
+  const setActiveUsers = useChatStore(s => s.setActiveUsers)
+  const [socket, setSocket] = useSocketStore(s => [s.socket, s.setSocket], shallow)
 
-  // judge the new message is or not sent by you
-  const [sentFlag, setSentFlag] = useState<boolean>(false)
   const dark = useThemeStore(s => s.dark)
-  const [userInfo, setUserInfo] = useState<UserInfo>({})
-  const [page, SetPage] = useState<number>(1)
+  const setUserInfo = useUserStore(s => s.setUserInfo)
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem('userInfo') as string))
     const id = { ...JSON.parse(localStorage.getItem('userInfo') as string) }.id
@@ -54,15 +48,13 @@ const TurboChat = () => {
   return (
     <>
       <ThemeContext.Provider value={{ dark }}>
-        <UserInfoContext.Provider value={{ ...userInfo }}>
-          <div className='flex h-full backdrop-blur-sm'>
-            <SideBar dark={dark} />
-            <ChatList />
-            {socket !== null && socket !== undefined
-              && <ChatWindw messages={messages} setMessages={setMessages} sentFlag={sentFlag} setSentFlag={setSentFlag} page={page} setPage={SetPage} activeUsers={activeUsers} />
-            }
-          </div>
-        </UserInfoContext.Provider>
+        <div className='flex h-full backdrop-blur-sm'>
+          <SideBar dark={dark} />
+          <ChatList />
+          {socket !== null && socket !== undefined
+            && <ChatWindw />
+          }
+        </div>
       </ThemeContext.Provider >
 
     </>

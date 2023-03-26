@@ -1,11 +1,11 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import type { Dispatch, SetStateAction } from 'react'
-import React, { useContext } from 'react'
+import React from 'react'
 import { PhotoProvider } from 'react-photo-view'
 import type { Message } from 'types'
 import Image from 'next/image'
-import UserInfoContext from '../../UserInfoContext'
+import { useUserStore } from 'store'
 import { AudioType, DocumentType, ImageType, TextType, VideoType } from '../filetype'
 import RenderTime from './RenderTime'
 interface Props {
@@ -13,11 +13,11 @@ interface Props {
   lastChangedIndex: number
   setLastChangedIndex: Dispatch<SetStateAction<number>>
   messages: Message[]
-  setMessages: Dispatch<SetStateAction<Message[]>>
+  setMessages: (v: Message) => void
 }
 
 const RenderMessage = ({ messages, dark, setMessages, lastChangedIndex, setLastChangedIndex }: Props) => {
-  const userInfo = useContext(UserInfoContext)
+  const userInfo = useUserStore(s => s.userInfo)
   const animatingMessages = messages.slice(lastChangedIndex)
   const renderMessage = (message: Message) => {
     switch (message.type) {
@@ -37,7 +37,7 @@ const RenderMessage = ({ messages, dark, setMessages, lastChangedIndex, setLastC
   function removeMessage(e: React.MouseEvent, message: Message) {
     e.preventDefault()
     setLastChangedIndex(messages.indexOf(message))
-    setMessages(messages => messages.filter(m => m.id !== message.id))
+    setMessages(messages.filter(m => m.id !== message.id))
   }
 
   return (

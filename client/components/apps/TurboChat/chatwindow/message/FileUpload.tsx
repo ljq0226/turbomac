@@ -1,19 +1,20 @@
 import Image from 'next/image'
-import type { Dispatch, SetStateAction } from 'react'
 import React, { useContext, useRef } from 'react'
-import { useSocketStore } from 'store'
+import { useChatStore, useSocketStore } from 'store'
+import { shallow } from 'zustand/shallow'
 import ThemeContext from '@/components/ThemeContext'
 import { upload } from '@/api/upload'
 import type { UserInfo } from '@/types'
 interface Props {
   name?: string
   desc?: string
-  page: number
   userInfo: UserInfo
-  setSentFlag: Dispatch<SetStateAction<boolean>>
 }
 
-const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo, setSentFlag, page }) => {
+const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo }) => {
+  const [sentFlag, setSentFlag] = useChatStore(s => [s.sentFlag, s.setSentFlag], shallow)
+  const page = useChatStore(s => s.page)
+
   const socket = useSocketStore(s => s.socket)
   const { dark } = useContext(ThemeContext)
   const bg = dark ? 'bg-[#262626] ' : 'bg-[#fff] text-black'
@@ -35,7 +36,7 @@ const FileUpload: React.FC<Props> = ({ name = 'file', desc = '文件', userInfo,
         const res: { code: number; msg: string; data: any } = await upload(file)
         if (res.code === 200) {
           socket && socket.emit('createMessage', { message: res.data.location, type: res.data.type, userId: userInfo.id, size: res.data.size, page })
-          setSentFlag(pre => !pre)
+          setSentFlag(!sentFlag)
         }
       }
     }

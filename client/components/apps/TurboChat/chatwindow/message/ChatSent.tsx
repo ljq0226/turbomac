@@ -1,27 +1,25 @@
 'use client'
-import type { Dispatch, SetStateAction } from 'react'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useClickAway } from 'ahooks'
-import { useSocketStore } from 'store'
-import UserInfoContext from '../../UserInfoContext'
+import { useChatStore, useSocketStore, useUserStore } from 'store'
+import { shallow } from 'zustand/shallow'
 import Icon from '../icon/Icon'
 import EmojiPanel from './EmojiPanel'
 import FileIcon from './FileUpload'
 interface Props {
   dark: boolean
-  sentFlag: boolean
-  page: number
-  setSentFlag: Dispatch<SetStateAction<boolean>>
 }
 
-const ChatSent = ({ dark, setSentFlag, page }: Props) => {
+const ChatSent = ({ dark }: Props) => {
   const socket = useSocketStore(s => s.socket)
+  const [sentFlag, setSentFlag] = useChatStore(s => [s.sentFlag, s.setSentFlag], shallow)
+  const page = useChatStore(s => s.page)
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const [textValue, setTextValue] = useState('')
 
   const [showEmojiPanel, setShowEmojiPanel] = useState(false)
-  const userInfo = useContext(UserInfoContext)
+  const userInfo = useUserStore(s => s.userInfo)
   const ref = useRef(null)
   useClickAway(() => {
     setShowEmojiPanel(!showEmojiPanel)
@@ -32,7 +30,7 @@ const ChatSent = ({ dark, setSentFlag, page }: Props) => {
       socket && socket.emit('createMessage', { message: textValue, userId: userInfo.id, page })
       e.preventDefault()
       setTextValue('')
-      setSentFlag(pre => !pre)
+      setSentFlag(!sentFlag)
     }
   }
   const handleSelectEmoji = (selectedEmoji: string) => {
@@ -47,7 +45,7 @@ const ChatSent = ({ dark, setSentFlag, page }: Props) => {
         <Icon name='smail' desc='表情' onClick={() => {
           setShowEmojiPanel(!showEmojiPanel)
         }} />
-        <FileIcon userInfo={userInfo} setSentFlag={setSentFlag} page={page} />
+        <FileIcon userInfo={userInfo} />
         <div className='flex-1'></div>
         <Icon name='record' desc='历史记录' />
       </div>

@@ -1,18 +1,16 @@
 'use client'
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useClickAway } from 'ahooks'
-import type { ActiveUser } from 'types'
+import { useChatStore } from 'store'
 import GroupAnnouncement from './groupInfo/GroupAnnouncement'
 import GroupMembers from './groupInfo/GroupMembers'
 import Icon from './icon/Icon'
+import ThemeContext from '@/components/ThemeContext'
 
-interface Props {
-  dark: boolean
-  activeUsers: ActiveUser[]
-}
-
-const ChatHeader = ({ dark, activeUsers }: Props) => {
+const ChatHeader = () => {
+  const activeUsers = useChatStore(s => s.activeUsers)
+  const { dark } = useContext(ThemeContext)
   const divRef = useRef(null)
   const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'

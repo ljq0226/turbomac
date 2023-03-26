@@ -6,5 +6,6 @@ import useAppsStore from './app'
 import useUserStore from './user'
 import useSocketStore from './socket'
 import useTerminalStore from './terminal'
+import useChatStore from './chat'
 
-export { useTerminalStore, useSocketStore, useThemeStore, useControlStore, useLaunchpadStore, useDockStore, useAppsStore, useUserStore }
+export { useTerminalStore, useChatStore, useSocketStore, useThemeStore, useControlStore, useLaunchpadStore, useDockStore, useAppsStore, useUserStore }

@@ -1,22 +1,19 @@
 'use client'
-import type { Dispatch, SetStateAction } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
-import type { Message } from 'types'
-import { useSocketStore } from 'store'
+import { useChatStore, useSocketStore } from 'store'
+import { shallow } from 'zustand/shallow'
 import LoadingSpinner from './LoadingSpinner'
 import RenderMessage from './RenderMessage'
 import { debounce } from '@/lib/utils'
 interface Props {
   dark: boolean
-  messages: Message[]
-  sentFlag: boolean
-  page: number
   windowRef: React.MutableRefObject<HTMLDivElement | null>
-  setPage: Dispatch<SetStateAction<number>>
-  setMessages: Dispatch<SetStateAction<Message[]>>
 }
-const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: Props) => {
+const ChatMessage = ({ dark }: Props) => {
+  const [messages, setMessages] = useChatStore(s => [s.messages, s.setMessages], shallow)
+  const [page, setPage] = useChatStore(s => [s.page, s.setPage], shallow)
   const socket = useSocketStore(s => s.socket)
+  const sentFlag = useChatStore(s => s.sentFlag)
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const chatListRef = useRef(null)
@@ -43,7 +40,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: P
   function addMessage() {
     const index = Math.floor(Math.random() * messages.length * 100)
     const newId = messages.length
-      ? Math.max(...messages.map((m, n) => n)) + 1
+      ? Math.max(...messages.map((m: any, n: number) => n)) + 1
       : 1
     const newMessage = {
       id: newId,
@@ -71,7 +68,7 @@ const ChatMessage = ({ dark, messages, setMessages, sentFlag, page, setPage }: P
       if (chatlist.scrollTop < 50) {
         setLoading(true)
         setTimeout(() => {
-          setPage(page => (page + 1))
+          setPage(page + 1)
         }, 600)
       }
     }
