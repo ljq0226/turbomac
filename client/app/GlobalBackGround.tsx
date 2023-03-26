@@ -4,6 +4,7 @@ import { shallow } from 'zustand/shallow'
 import ContextMenu from '../components/menu/ContextMenu'
 import { useThemeStore } from '@/store'
 import { wallpapers } from '@/lib'
+import AlertMessage from '@/components/ui/alert/AlertMessage'
 
 const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
   const [brightness] = useThemeStore(s => [s.brightness], shallow)
@@ -31,13 +32,14 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
   }, [])
   return (
     <div
-      className="flex flex-col w-full h-full overflow-hidden bg-center bg-cover"
+      className="relative flex flex-col w-full h-full overflow-hidden bg-center bg-cover"
       ref={bgRef}
       style={{
         backgroundImage: `url(${wallpapers.github})`,
         filter: `brightness( ${(brightness as number) * 0.7 + 50}%)`,
       }}
     >
+      <AlertMessage/>
       {children}
       {menu && <ContextMenu setMenuStyle={setMenuStyle} pagePosition={pagePosition} />}
     </div>
