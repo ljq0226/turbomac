@@ -15,6 +15,7 @@ const ChatMessage = ({ dark }: Props) => {
   const socket = useSocketStore(s => s.socket)
   const sentFlag = useChatStore(s => s.sentFlag)
   const [lastChangedIndex, setLastChangedIndex] = useState<number>(0)
+  const [prevScrollTop, setPrevScrollTop] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const chatListRef = useRef(null)
 
@@ -29,11 +30,13 @@ const ChatMessage = ({ dark }: Props) => {
   }, [sentFlag])
 
   useEffect(() => {
-    if (socket) {
-      if (page > 0) {
-        socket.emit('getMessages', { page })
-        setLoading(false)
-      }
+    if (chatListRef.current && page > 0) {
+      const chatlist = chatListRef.current as HTMLDivElement
+      socket && socket.emit('getMessages', { page })
+      setLoading(false)
+      setTimeout(() => {
+        chatlist.scrollTop = chatlist.scrollHeight - prevScrollTop
+      }, 100)
     }
   }, [page])
 
@@ -64,6 +67,7 @@ const ChatMessage = ({ dark }: Props) => {
   const ScrollHandler = async () => {
     if (chatListRef.current) {
       const chatlist = chatListRef.current as HTMLDivElement
+      setPrevScrollTop(chatlist.scrollHeight)
       // when it gets to the top,send a request to the server
       if (chatlist.scrollTop < 50) {
         setLoading(true)
