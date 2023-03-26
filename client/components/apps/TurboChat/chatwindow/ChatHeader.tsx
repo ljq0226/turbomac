@@ -12,7 +12,6 @@ const ChatHeader = () => {
   const activeUsers = useChatStore(s => s.activeUsers)
   const { dark } = useContext(ThemeContext)
   const divRef = useRef(null)
-  const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
   const bg = dark ? 'bg-[#1a1a1a]' : 'bg-[#f2f2f2]'
   const [isShow, setIsShow] = useState(false)
 
@@ -29,7 +28,8 @@ const ChatHeader = () => {
       <motion.header className='flex-center'>
         <div className={`text-base ml-4 font-black ${dark ? '' : 'text-black'}`}
           onClick={handleIconClick}>
-          TurboRoom{` (${activeUsers.length})`}</div>
+          TurboRoom{` (${activeUsers.length})`}
+        </div>
         <div className='flex-1'></div>
         <div className='relative flex mr-2 space-x-2'>
           <div >
@@ -37,7 +37,7 @@ const ChatHeader = () => {
           </div>
           {
             isShow && <motion.div
-              className={`absolute overflow-hidden top-12 left-[-144px]  z-10 flex flex-col w-[177px] border ${border} ${bg}`}
+              className={`absolute overflow-hidden top-12 left-[-144px]  z-10 flex flex-col w-[177px]  ${bg}`}
               initial={{ opacity: isShow ? 0 : 1 }}
               animate={{ opacity: isShow ? 1 : 0 }}
               transition={{ duration: 0.3 }}

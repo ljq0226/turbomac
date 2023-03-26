@@ -5,9 +5,9 @@ interface Props {
 }
 
 const GroupAnnouncement = ({ dark }: Props) => {
-  const border = dark ? 'border-[#232323]' : 'border-[#e9e9e9]'
+  const text = dark ? '' : 'text-black'
   return (
-    <div className={`${border} border-b w-full h-[200px]`}>
+    <div className={` ${text} w-full h-[150px]`}>
       <header className='flex p-1'>
         <div>GroupAnnouncement</div>
         <div className="flex-1"></div>
