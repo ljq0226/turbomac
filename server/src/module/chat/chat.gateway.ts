@@ -1,4 +1,4 @@
-import { ConnectedSocket, MessageBody, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets'
+import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets'
 import { PrismaService } from 'nestjs-prisma'
 import { Server, Socket } from 'socket.io'
 import { PAGINATION, PUBLIC_ROOM } from '../../common/Constant'
@@ -8,7 +8,7 @@ import { PAGINATION, PUBLIC_ROOM } from '../../common/Constant'
   },
 })
 
-export class ChatGateway implements OnGatewayConnection {
+export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   constructor(
     private prisma: PrismaService,
   ) {
@@ -22,14 +22,18 @@ export class ChatGateway implements OnGatewayConnection {
   pageSize: number
   users: string[]
   // onconnection call
-  async handleConnection(client: Socket): Promise<string> {
+  handleConnection(client: Socket) {
     // default join public room
     client.join(this.defaultGroup)
     this.getOnlineUsers(client)
     // when a user join the room,sent him the messages
     this.getMessages(client, { page: 1 })
+  }
 
-    return 'connect success'
+  handleDisconnect(client: Socket) {
+    // default leave public room
+    client.leave(this.defaultGroup)
+    this.getOnlineUsers(client)
   }
 
   // get online users
@@ -38,7 +42,11 @@ export class ChatGateway implements OnGatewayConnection {
     @ConnectedSocket() client: Socket,
   ) {
     const data = await this.getActiveUser()
-    client.emit('onlineUsers', data)
+    // TODO build better Authorization System
+    // role: 'user' or 'owner','owner' first
+    const orderData = data.sort((a, b) => b.role.length - a.role.length)
+    client.emit('onlineUsers', orderData)
+    client.to(PUBLIC_ROOM).emit('onlineUsers', orderData)
   }
 
   @SubscribeMessage('getMessages')
