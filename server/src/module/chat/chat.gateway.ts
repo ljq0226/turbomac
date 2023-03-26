@@ -105,7 +105,8 @@ export class ChatGateway implements OnGatewayConnection {
   async getActiveUser() {
     const sockets = await this.server.fetchSockets()
     const userIdArr = sockets.map(item => item.handshake.query.id)
-    const realUser = userIdArr.filter(item => item !== undefined)
+    const uniqueUserIdArr = Array.from(new Set(userIdArr))
+    const realUser = uniqueUserIdArr.filter(item => item !== undefined)
     const res = []
     for (const userId of realUser) {
       const user = await this.prisma.user.findUnique({
