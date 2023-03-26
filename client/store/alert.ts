@@ -5,22 +5,20 @@ interface alertState {
   type: string
   content: string
   setShow: (v: boolean) => void
-  setType: (v: string) => void
-  setContent: (v: string) => void
+  useAlert: (type: string, content: string, show?: boolean) => void
 }
 
 const useAlertStore = create<alertState>(set => ({
-  show: true,
+  show: false,
   type: 'success',
   content: '',
   setShow: v => set(s => ({
     show: v,
   })),
-  setType: v => set(s => ({
-    type: v,
-  })),
-  setContent: v => set(s => ({
-    content: v,
+  useAlert: (type, content, show = true) => set(s => ({
+    show,
+    type,
+    content,
   })),
 
 }))

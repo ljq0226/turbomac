@@ -4,13 +4,13 @@ import Image from 'next/image'
 import { shallow } from 'zustand/shallow'
 import type { LoginData } from 'api/login'
 import { Login } from 'api/login'
-import { useAppsStore } from '@/store'
+import { useAlertStore, useAppsStore } from '@/store'
 const LoginWindow = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [check, setCheck] = useState(true)
   const [openApp, closeApp] = useAppsStore(s => [s.openApp, s.closeApp], shallow)
-
+  const useAlert = useAlertStore(s => s.useAlert)
   useEffect(() => {
     const userInfo = { ...JSON.parse(localStorage.getItem('userInfo') as string) }
     if (userInfo)
@@ -23,6 +23,7 @@ const LoginWindow = () => {
     if (res.code === 200) {
       localStorage.setItem('token', data.token)
       localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
+      useAlert('success', res.msg)
       closeApp('login')
       openApp('turbochat')
     }

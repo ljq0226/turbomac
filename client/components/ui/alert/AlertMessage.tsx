@@ -11,8 +11,8 @@ const AlertMessage = () => {
   useEffect(() => {
     setTimeout(() => {
       setShow(false)
-    }, 3000)
-  }, [])
+    }, 2000)
+  }, [show])
   const render = () => {
     switch (type) {
       case 'success':
@@ -67,7 +67,7 @@ const AlertMessage = () => {
     <AnimatePresence>
       {show
         && <motion.div
-          className={clsx('fixed w-[30%] top-[8%] left-[35%]')}
+          className={clsx('fixed w-[30%] top-[8%] left-[35%] z-[100]')}
           initial={{ opacity: 0.8, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}

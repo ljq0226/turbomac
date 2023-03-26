@@ -2,12 +2,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { shallow } from 'zustand/shallow'
 import ContextMenu from '../components/menu/ContextMenu'
-import { useThemeStore } from '@/store'
+import { useAlertStore, useThemeStore } from '@/store'
 import { wallpapers } from '@/lib'
 import AlertMessage from '@/components/ui/alert/AlertMessage'
 
 const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
   const [brightness] = useThemeStore(s => [s.brightness], shallow)
+  const useAlert = useAlertStore(s => s.useAlert)
   const [menu, setMenuStyle] = useState(false)
   const [pagePosition, setPagePosition] = useState({
     pageX: -999,
@@ -20,6 +21,7 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
   }
 
   useEffect(() => {
+    useAlert('success', 'Welcome to the TurboMac!')
     // 禁用window区域右键默认菜单弹窗
     window.oncontextmenu = function (e) {
       e.preventDefault()
@@ -39,7 +41,7 @@ const GlobalBackGround = ({ children }: { children: React.ReactNode }) => {
         filter: `brightness( ${(brightness as number) * 0.7 + 50}%)`,
       }}
     >
-      <AlertMessage/>
+      <AlertMessage />
       {children}
       {menu && <ContextMenu setMenuStyle={setMenuStyle} pagePosition={pagePosition} />}
     </div>
