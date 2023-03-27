@@ -17,7 +17,7 @@ const TurboChat = () => {
   useEffect(() => {
     setUserInfo(JSON.parse(localStorage.getItem('userInfo') as string))
     const id = { ...JSON.parse(localStorage.getItem('userInfo') as string) }.id
-    const host = process.env.NEXT_PUBLIC_NODE_ENV === 'dev' ? 'http://localhost:80/' : `${process.env.NEXT_PUBLIC_HOST}:${process.env.NEXT_PUBLIC_WEBSOCKET_PORT}`
+    const host = process.env.NEXT_PUBLIC_NODE_ENV === 'dev' ? 'http://localhost:80/' : `${process.env.NEXT_PUBLIC_WEBSOCKET}`
     const newSocket = io(host, {
       query: {
         id,
