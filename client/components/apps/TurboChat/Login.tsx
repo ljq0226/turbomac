@@ -30,7 +30,7 @@ const LoginWindow = () => {
       }
     }
     catch (error) {
-      useAlert('warning', '请本地调试')
+      useAlert('warning', '服务器已满,请本地运行!')
     }
   }
 
