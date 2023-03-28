@@ -15,8 +15,8 @@ const useMouseCorner = () => {
 
       if (x < 32 && y > screenHeight - 32)
         setShow(true)
-      // else if (x < 20 && y < 20)
-      //   setShow(true)
+      else if (x < 32 && y < 32)
+        setShow(true)
       else if (x > screenWidth - 32 && y < 32)
         setShow(true)
       else if (x > screenWidth - 32 && y > screenHeight - 32)

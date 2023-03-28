@@ -38,7 +38,7 @@ const ChatSent = ({ dark }: Props) => {
   }
   return (
     <div className='relative flex flex-col h-[170px]'>
-      <div className="absolute bottom-[100px] w-full" >
+      <div className="absolute bottom-[160px] w-full" >
         {showEmojiPanel && <EmojiPanel divRef={ref} onSelectEmoji={handleSelectEmoji} dark={dark} />}
       </div>
       <div className={`flex h-[40px] space-x-2 border-t mx-4 ${border}`}>

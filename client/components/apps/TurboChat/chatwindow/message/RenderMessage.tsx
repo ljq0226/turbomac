@@ -75,6 +75,7 @@ const RenderMessage = ({ messages, dark, setMessages, lastChangedIndex, setLastC
                     <p className={clsx(dark ? '' : 'text-black', message.user.role === 'owner' && 'text-yellow-300')}>{message.user.username}{message.user.role === 'owner' && ' 👑'}</p>
                     <div
                       onDoubleClick={e => removeMessage(e, message)}
+                      className={dark ? 'bg-[#2c2c2c]' : 'bg-[#d9d9d9]'}
                     >
                       {renderMessage(message)}
                     </div>

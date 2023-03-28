@@ -84,7 +84,7 @@ const Launchpad: React.FC = () => {
                 {search().map((app, index) => (
                   <div key={`launchpad-${app.id + index}`} className={`flex-center flex-col ${justifySelf(index)} w-[13vw] h-[20vh]`}>
                     <Link href={app.link}>
-                      <Image src={app.img} width={30} height={30} className={'w-[6rem] h-[6rem]'} alt={app.title} />
+                      <Image src={app.img} width={80} height={80} alt={app.title} />
                     </Link>
                     <p>{app.title}</p>
                   </div>

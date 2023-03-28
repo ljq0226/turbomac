@@ -11,7 +11,7 @@ const DocumentType = ({ message }: Props) => {
   const fileName = decodeURI(filePath)
   return (
     <a href={message.content}>
-      <div className='flex p-2  bg-[#2c2c2c] w-[250px]'>
+      <div className='flex p-2  w-[250px]'>
         <div className="flex flex-col flex-1 ">
           <p className='w-[150px] truncate text-blue-300 pl-2'>{`${fileName}`}</p>
           <p className='pl-2'>{message.size}</p>

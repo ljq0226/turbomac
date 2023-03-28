@@ -214,7 +214,7 @@ const Terminal: React.FC = () => {
 
   return (
     <div
-      className="p-4 pr-[5px] text-white bg-[#1C1C1E]/95 rounded-lg"
+      className="p-4 pr-[5px] h-full text-white bg-[#1C1C1E]/95 rounded-lg"
       style={{ fontFamily: 'Menlo, monospace', fontSize: '14px' }}
 
     >

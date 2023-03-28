@@ -78,7 +78,7 @@ const Window = ({ app, children }: WindowProps) => {
         visibility: minimizeFlag ? 'hidden' : 'visible',
       }}
       onClick={() => setFocus(app.id)}
-      exit={{ opacity: 0.8, scale: 0, x: (winWidth * 5) / 12, y: winHeight, dur: 2000 }}
+      // exit={{ opacity: 0.8, scale: 0, x: (winWidth * 5) / 12, y: winHeight, dur: 2000 }}
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
     >
       <motion.header

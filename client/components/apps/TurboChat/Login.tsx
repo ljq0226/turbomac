@@ -18,14 +18,19 @@ const LoginWindow = () => {
   }, [])
 
   const loginHandler = async () => {
-    const res = await Login({ username, password })
-    const data = res.data as LoginData
-    if (res.code === 200) {
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
-      useAlert('success', res.msg)
-      closeApp('login')
-      openApp('turbochat')
+    try {
+      const res = await Login({ username, password })
+      const data = res.data as LoginData
+      if (res.code === 200) {
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('userInfo', JSON.stringify(data.userInfo))
+        useAlert('success', res.msg)
+        closeApp('login')
+        openApp('turbochat')
+      }
+    }
+    catch (error) {
+      useAlert('warning', '请本地调试')
     }
   }
 
