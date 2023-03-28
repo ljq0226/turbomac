@@ -28,7 +28,13 @@ const ChatMessage = ({ dark }: Props) => {
       }, 100)
     }
   }, [sentFlag])
-
+  useEffect(() => {
+    if (chatListRef.current) {
+      const chatlist = chatListRef.current as HTMLDivElement
+      if (chatlist.scrollHeight - chatlist.scrollTop - chatlist.scrollWidth < 100)
+        chatlist.scrollTop = 9999
+    }
+  }, [messages])
   useEffect(() => {
     if (chatListRef.current && page > 0) {
       const chatlist = chatListRef.current as HTMLDivElement
