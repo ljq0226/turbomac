@@ -43,7 +43,7 @@ const ChatGPT: React.FC = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer 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',
+            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
           },
           body: JSON.stringify({
             messages: [{ role: 'user', content: inputValue.trim() }],
