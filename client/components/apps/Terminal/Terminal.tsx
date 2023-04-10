@@ -141,7 +141,7 @@ const Terminal: React.FC = () => {
   }
 
   const apps = () => {
-    const list = ['qq', 'chatgpt', 'vscode']
+    const list = ['turbochat', 'chatgpt', 'vscode', 'terminal', 'facetime']
     list.map(item => generateRow(<div key={generateRandomString()}>{item}</div> as JSX.Element))
   }
 
