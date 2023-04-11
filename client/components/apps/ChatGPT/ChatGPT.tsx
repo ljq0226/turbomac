@@ -35,7 +35,6 @@ const ChatGPT: React.FC = () => {
     }
     setMessages(prevMessages => [...prevMessages, newMessage])
     setInputValue('')
-
     try {
       const response = await fetch(
         'https://api.openai.com/v1/chat/completions',
@@ -63,9 +62,11 @@ const ChatGPT: React.FC = () => {
         }
         setMessages(prevMessages => [...prevMessages, botMessage])
       }
+      if (data?.error)
+        throw new Error(data?.error.message)
     }
     catch (error) {
-      useAlert('error', 'Make sure you have set the right openai key and connect the accessible internet. An error occurred. Please try again later.', 10000)
+      useAlert('error', 'Make sure you have set the right openai key and connect the accessible internet. An error occurred. Please try again later.', 8000)
     }
     finally {
       setIsLoading(false)
