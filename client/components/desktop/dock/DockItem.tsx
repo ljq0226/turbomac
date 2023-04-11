@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { AppsData } from 'types/configs/app'
 import { useDockHoverAnimation } from '@/hooks'
-import { useAppsStore, useLaunchpadStore } from '@/store'
+import { useAlertStore, useAppsStore, useLaunchpadStore } from '@/store'
 interface DockItemProps {
   app: AppsData
   mouseX: MotionValue
@@ -30,6 +30,7 @@ const DockItem = ({
   const setShow = useLaunchpadStore(s => s.setShow)
   const removeMinimizeApps = useAppsStore(s => s.removeMinimizeApps)
   const miniMizeApps = useAppsStore(s => s.minimizeApps)
+  const useAlert = useAlertStore(s => s.useAlert)
   let id: string
   useEffect(() => {
     id = { ...JSON.parse(localStorage.getItem('userInfo') as string) }.id
@@ -39,7 +40,6 @@ const DockItem = ({
     if (app.id === 'launchpad') {
       setShow(!show)
     }
-
     else if (!bannedApp.includes(app.id)) {
       const isMinimize = miniMizeApps.includes(app.id)
       if (isMinimize) {
@@ -49,6 +49,9 @@ const DockItem = ({
       if (app.id === 'turbochat')
         id ? openApp('turbochat') : openApp('login')
       else openApp(app.id)
+    }
+    else if (app.id === 'email') {
+      useAlert('info', '个人邮箱: luorom001@gmail.com', 6000)
     }
   }
 

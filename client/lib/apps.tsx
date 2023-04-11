@@ -63,14 +63,13 @@ const apps: AppsData[] = [
     id: 'email',
     title: 'Mail',
     img: '/img/icons/mail.png',
-    link: 'mailto:luorom001@gmail.com',
     content: <></>,
   },
   {
     id: 'github',
     title: 'Github',
     img: '/img/icons/github.png',
-    link: 'https://github.com/ljq0226',
+    link: 'https://github.com/ljq0226/turbomac',
     content: <></>,
   },
 ]
