@@ -1,4 +1,4 @@
-项目详细介绍：https://juejin.cn/post/7220327699385532471
+项目详细介绍：[掘金文章](https://juejin.cn/post/7220327699385532471)
 
 ## 技术栈
 
@@ -64,7 +64,7 @@ TurboChat
 - 滚动加载
 - 文件上传
 - 过渡动画
-![chat1.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3af4f48787c424899978912593dd857~tplv-k3u1fbpfcp-zoom-1.image)
+![chat1](https://obs-pic-1309372570.cos.ap-chongqing.myqcloud.com/pic/chat1.gif)
 
 ChatGPT
 
