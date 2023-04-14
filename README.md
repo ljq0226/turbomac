@@ -64,7 +64,7 @@ TurboChat
 - 滚动加载
 - 文件上传
 - 过渡动画
-  ![chat1.gif](https://obs-pic-1309372570.cos.ap-chongqing.myqcloud.com/pic/chat1.gif)
+![chat1.gif](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3af4f48787c424899978912593dd857~tplv-k3u1fbpfcp-zoom-1.image)
 
 ChatGPT
 
