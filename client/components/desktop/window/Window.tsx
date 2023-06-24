@@ -36,7 +36,7 @@ const Window = ({ app, children }: WindowProps) => {
 
   const handleMax = () => {
     setMax(app.id)
-    setBox({ width: (isRotate ? winHeight : winWidth), height: (isRotate ? winWidth : winHeight) })
+    setBox({ width: winWidth, height: winHeight })
     setLastPositon(position)
     setPosition({ x: 0, y: 0 })
   }

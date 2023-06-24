@@ -1,42 +1,61 @@
-'use client'
-import React, { useEffect, useState } from 'react'
-import { useAppsStore, useTerminalStore } from 'store'
-import { shallow } from 'zustand/shallow'
-import { useLocalStorageState } from 'ahooks'
-import { CommandNotFound, Help, Row } from './Util'
-import { FolderStructure } from './Data'
-import type { TerminalData } from './Data'
-import { generateRandomString } from '@/lib/utils'
-interface CommandList {
-  [key: string]:
-  { (): void } | { (arg: string | TerminalData): void }
-}
+import { useEffect, useRef, useState } from 'react'
+import { useDraggable } from '@neodrag/react'
+import type { DragOptions } from '@neodrag/react'
+import { useAppsStore } from 'store'
+import { BottomBar, CommandNotFound, Help, NoSuchFileOrDirectory, Row } from './components'
+import { FolderSystem } from './mock'
+import { getStorage, key, setStorage } from './utils'
+import type { CommandList, FolderSysteamType } from './types'
 
+const CURRENTID = 'currentId'
+const CURRENTFOLDERID = 'currentFolderId'
+const CURRENTCHILDIDS = 'currentChildIds'
+const CURRENTDIRECTORY = 'currentDirectory'
 const Terminal: React.FC = () => {
-  const [currentId, setCurrentId, resetCurrentId] = useTerminalStore(s => [
-    s.currentId,
-    s.setCurrentId,
-    s.resetCurrentId,
-  ], shallow)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
   const [changeCount, setChangeCount] = useState<number>(0)
+  const [currentId, setCurrentId] = useState<number>(0)
   const [commandHistory, setCommandHistory] = useState<string[]>([])
+
+  const [folderSysteam, setFolderSysteam] = useState(new Map(Object.entries(FolderSystem)))
+  const [currentFolderId, setCurrentFolderId] = useState(0)
   const [currentDirectory, setCurrentDirectory] = useState<string>('')
-  const [targetFolder, setTargetFolder] = useState<TerminalData>(FolderStructure)
-  const [, setLsItmes] = useLocalStorageState('LS_Items', { defaultValue: targetFolder.children.map(item => item.title).join('   ') })
+
   const [content, setContent] = useState<JSX.Element[]>(
     [<Row
-      key={generateRandomString()}
       id={0}
-      currentDirectory={currentDirectory}
+      key={key()}
       onkeydown={(e: React.KeyboardEvent<HTMLInputElement>) => executeCommand(e, 0)}
     />,
     ])
-
   const openApp = useAppsStore(s => s.openApp)
   const closeApp = useAppsStore(s => s.closeApp)
+  const draggableRef = useRef(null)
+
+  // 初始化 dragable 拖拽设置
+  const options: DragOptions = {
+    position,
+    onDrag: ({ offsetX, offsetY }) => setPosition({ x: offsetX, y: offsetY }),
+    bounds: { bottom: -500, top: 32, left: -600, right: -600 },
+    handle: '.window-header',
+    cancel: '.traffic-lights',
+    // disabled: !!max,
+  }
+  useDraggable(draggableRef, options)
+
+  // 初始化
   useEffect(() => {
-    resetCurrentId()
+    setCurrentId(0)
+    setCurrentDirectory('')
+    setCurrentFolderId(0)
   }, [])
+  useEffect(() => {
+    setStorage(CURRENTID, currentId)
+  }, [currentId])
+  useEffect(() => {
+    setStorage(CURRENTDIRECTORY, currentDirectory, false)
+  }, [currentDirectory])
+  // 当按下上下键时 获取历史 command
   useEffect(() => {
     const input = document.querySelector(`#terminal-input-${commandHistory.length}`) as HTMLInputElement
     if (commandHistory.length)
@@ -47,132 +66,165 @@ const Terminal: React.FC = () => {
     }
   }, [changeCount])
 
-  useEffect(() => {
-    const span = document.querySelector(`#terminal-currentDirectory-${commandHistory.length}`) as HTMLSpanElement
-    span.innerHTML = currentDirectory
-    localStorage.setItem('Terminal-CurrentDirectory', currentDirectory)
-  }, [currentDirectory, commandHistory.length])
-
-  useEffect(() => {
-    setCurrentDirectory(`${currentDirectory + targetFolder?.title}${targetFolder?.type === 'folder' ? '/' : ''}`)
-    const items = targetFolder.children.map(item => item.title).join('   ')
-    setLsItmes(items)
-  }, [targetFolder])
-
+  // 生成内容
   const generateRow = (row: JSX.Element) => {
     setContent(s => [...s, row])
   }
-
+  // cat 命令
+  const cat = (arg = '') => {
+    const ids = getStorage(CURRENTCHILDIDS)
+    ids.map((id: number) => {
+      const item = folderSysteam.get(`${id}`) as FolderSysteamType
+      return item.title === arg ? generateRow(<div key={key()}>{item.content}</div> as JSX.Element) : ''
+    })
+  }
+  // clear 命令
   const clear = () => {
     setContent([])
     const input = document.querySelector('#terminal-input-0') as HTMLInputElement
     input.value = ''
   }
-
   const open = (arg = '') => {
-    generateRow(<div key={generateRandomString()}>Opening {arg}...</div>)
+    generateRow(<div key={key()}>Opening {arg}...</div>)
     openApp(arg)
   }
   const close = (arg = '') => {
     closeApp(arg)
-    generateRow(<div key={generateRandomString()}>Closed {arg}...</div>)
+    generateRow(<div key={key()}>Closed {arg}...</div>)
   }
-  const dfs = (node: TerminalData, args: string[]) => {
-    if (!node)
-      return 0
-    for (let i = 0; i < node.children.length; i++) {
-      if (!args.includes(node.children[i].title.toLowerCase())) {
-        dfs(node.children[i], args)
-      }
-      else {
-        setTargetFolder(node.children[i])
-        return 1
-      }
-    }
-  }
-  const cd = (arg = '') => {
-    const paths = (localStorage.getItem('Terminal-CurrentDirectory') as string)
-    const args = [arg, arg.toUpperCase(), arg.toLowerCase(), arg.charAt(0).toUpperCase() + arg.slice(1)]
-    if (arg === '..' || !arg) {
-      if (!paths) {
-        setCurrentDirectory('')
-      }
-      else {
-        // to resolve when the current directory in first layer
-        if (paths.split('/').length <= 2) {
-          setCurrentDirectory('')
-          setTargetFolder(FolderStructure)
-        }
-        else {
-          const curPath = paths.split('/').slice(0, -2).join('/')
-          const newArg = curPath.split('/').pop() as string
-          const newArgs = [newArg, newArg.toUpperCase(), newArg.toLowerCase(), newArg.charAt(0).toUpperCase() + newArg.slice(1)]
-          dfs(FolderStructure, newArgs)
-          setTimeout(() => {
-            setCurrentDirectory(`${curPath}/`)
-          }, 10)
-        }
-      }
-    }
-    else if (arg === '~') {
-      setCurrentDirectory('')
-      setTargetFolder(FolderStructure)
-    }
-    else {
-      dfs(targetFolder, args)
-      const target = JSON.parse(localStorage.getItem('LS_Items') as string).split(' ').some(
-        (item: string) => item === arg || item.toLowerCase() === arg || item.toLowerCase() === arg.toLowerCase(),
-      )
-      !target && generateRow(<div key={generateRandomString()}>Directory of File not found: {arg}</div>)
-    }
-  }
-  const ls = () => {
-    const itmes = JSON.parse(localStorage.getItem('LS_Items') as string)
-    // eslint-disable-next-line array-callback-return
-    itmes.split(' ').map((item: string) => {
-      generateRow(<div key={generateRandomString()} className={item.includes('.') ? 'text-primary' : ''}>{item}</div>)
-    })
-  }
-
-  const cat = (arg = '') => {
-    targetFolder.children.map((item) => {
-      return item.title === arg ? generateRow(<div key={generateRandomString()}>{item.content}</div> as JSX.Element) : ''
-    })
-  }
-
   const apps = () => {
     const list = ['turbochat', 'chatgpt', 'vscode', 'terminal', 'facetime']
-    list.map(item => generateRow(<div key={generateRandomString()}>{item}</div> as JSX.Element))
+    list.map(item => generateRow(<div key={key()}>{item}</div> as JSX.Element))
+  }
+  const searchFile = (arg: string) => {
+    const args = [arg, arg.toUpperCase(), arg.toLowerCase(), arg.charAt(0).toUpperCase() + arg.slice(1)]
+    const childIds = getStorage(CURRENTCHILDIDS)
+    const entries = folderSysteam.entries() as any
+    for (const item of entries) {
+      if (childIds.includes(item[1].id) && args.includes(item[1].title))
+        return item[1].id
+    }
+  }
+  useEffect(() => {
+    const currentFolder = folderSysteam.get(`${currentFolderId}`) as FolderSysteamType
+    setStorage('currentFolderId', currentFolderId)
+    currentFolder.childIds && setStorage(CURRENTCHILDIDS, currentFolder.childIds)
+  }, [currentFolderId, folderSysteam])
+  // cd 命令
+  const cd = (arg = '') => {
+    const dir: string = localStorage.getItem(CURRENTDIRECTORY) as string
+    if (!arg || arg === '..') {
+      // 处理文件路径
+      const dirArr = dir.split('/')
+      dirArr.length = Math.max(0, dirArr.length - 2)
+      if (!dirArr.length)
+        setCurrentDirectory(`${dirArr.join('')}`)
+      else
+        setCurrentDirectory(`${dirArr.join('')}/`)
+      // 处理当前文件夹
+      setCurrentFolderId(folderSysteam.get(`${currentFolderId}`)?.parentId as number)
+      return
+    }
+
+    const id = searchFile(arg)
+    if (id) {
+      const res = `${dir + folderSysteam.get(`${id}`)?.title}/`
+      setCurrentFolderId(id)
+      setCurrentDirectory(res)
+    }
+    else { generateRow(<NoSuchFileOrDirectory key={key()} command={arg}/>) }
+  }
+  // mkdir 命令
+  const mkdir = (arg = '') => {
+    const currentFolderId = getStorage(CURRENTFOLDERID)
+    const size = folderSysteam.size.toString()
+    // 创建新对象
+    const newFolderSysteam = folderSysteam.set(`${size}`, {
+      id: +size,
+      title: arg,
+      childIds: [],
+      parentId: currentFolderId,
+    })
+    // 更新 当前文件夹下的 childIds
+    const childIds = (folderSysteam.get(`${currentFolderId}`) as FolderSysteamType).childIds as number[]
+    childIds && childIds.push(+size)
+    setStorage(CURRENTCHILDIDS, childIds)
+    setFolderSysteam(newFolderSysteam)
+  }
+  // touch 命令
+  const touch = (arg = '') => {
+    const currentFolderId = getStorage(CURRENTFOLDERID)
+    const size = folderSysteam.size.toString()
+    // 创建新对象
+    const newFolderSysteam = folderSysteam.set(`${size}`, {
+      id: +size,
+      title: arg,
+      content: <div ><h1>
+        This is <span className='text-red-400 underline'>{arg}</span> file!
+        </h1>
+        <p>Imagine there's a lot of content here...</p>
+        </div>,
+      parentId: currentFolderId,
+    })
+    // 更新 当前文件夹下的 childIds
+    const childIds = (folderSysteam.get(`${currentFolderId}`) as FolderSysteamType).childIds as number[]
+    childIds && childIds.push(+size)
+    setStorage(CURRENTCHILDIDS, childIds)
+    setFolderSysteam(newFolderSysteam)
+  }
+  // ls 命令
+  const ls = () => {
+    let res = ''
+    const ids = getStorage(CURRENTCHILDIDS)
+
+    for (const id of ids)
+      res = `${res + folderSysteam.get(`${id}`)?.title} `
+    if (!res) {
+      generateRow(<div key={key()} >There are no other folders or files in the current directory.</div>)
+    }
+    else {
+      res.split(' ').map((item: string) =>
+        generateRow(<div key={key()} className={item.includes('.') ? 'text-primary' : ''}>{item}</div>),
+      )
+    }
+  }
+  // help 命令
+  const help = () => {
+    generateRow(<Help key={key()} />)
   }
 
+  const commandList: CommandList = {
+    cat,
+    cd,
+    clear,
+    open,
+    close,
+    ls,
+    help,
+    mkdir,
+    touch,
+    apps,
+  }
+  // 按向上🔼键
   function handleArrowUp() {
     setChangeCount(prev => Math.max(prev - 1, -commandHistory.length))
   }
-
+  // 按向下🔽键
   function handleArrowDown() {
     setChangeCount(prev => Math.min(prev + 1, 0))
   }
 
+  // 匹配历史 command 并补充
   const matchCommand = (inputValue: string): string | null => {
+    // 遍历历史command 返回以当前输入 command 值开头(startsWith)的 command
     const matchedCommands = commandHistory.filter(command => command.startsWith(inputValue))
     return matchedCommands.length > 0 ? matchedCommands[matchedCommands.length - 1] : null
   }
 
-  const commandList: CommandList = {
-    clear,
-    help: () => generateRow(<Help key={generateRandomString()} />),
-    open,
-    close,
-    ls,
-    cd,
-    cat,
-    apps,
-  }
-
+  // 执行方法
   function executeCommand(event: React.KeyboardEvent<HTMLInputElement>, id: number) {
     const input = document.querySelector(`#terminal-input-${id}`) as HTMLInputElement
-    const [cmd, args] = input.value.trim().split(' ')
-
+    const [cmd, args] = input.value ? input.value.trim().split(' ') : ['', '']
     if (event.key === 'ArrowUp') {
       handleArrowUp()
     }
@@ -186,24 +238,26 @@ const Terminal: React.FC = () => {
         input.value = matchedCommand
     }
     else if (event.key === 'Enter') {
+      // 将新输入 command 加入 commandHistory 中
       const newArr = commandHistory
       newArr.push(input.value.trim())
       setCommandHistory(newArr)
+      // 如果输入 command 符合就执行
       if (cmd && Object.keys(commandList).includes(cmd))
         commandList[cmd](args)
-
       else if (cmd !== '')
-        generateRow(<CommandNotFound key={generateRandomString()} command={input.value.trim()} />)
-
-      generateRow(
+        generateRow(<CommandNotFound key={key()} command={input.value.trim()} />)
+      // 每次无论 command 符不符合，都需要生成一行新的 Row,并且 curentId++
+      setCurrentId(id => id + 1)
+      setTimeout(() => {
+        generateRow(
         <Row
-          key={generateRandomString()}
+          key={key()}
           id={commandHistory.length}
           onkeydown={(e: React.KeyboardEvent<HTMLInputElement>) => executeCommand(e, commandHistory.length)}
-          currentDirectory={currentDirectory}
         />,
-      )
-      setCurrentId(1)
+        )
+      }, 100)
     }
   }
   const clickToFocus = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -211,22 +265,25 @@ const Terminal: React.FC = () => {
     const currentInput = document.querySelector(`#terminal-input-${currentId}`) as HTMLInputElement
     currentInput.focus()
   }
-
   return (
-    <div
-      className="p-4 pr-[5px] h-full text-white bg-[#1C1C1E]/95 rounded-lg"
-      style={{ fontFamily: 'Menlo, monospace', fontSize: '14px' }}
-
-    >
-      <div className="h-6 rounded-lg"></div>
-      <div className="flex flex-col w-full h-[400px] overflow-y-scroll mb-2 chatlist_">
-        <div>Welcome to TueboMac,type `help` to get started,have fun!</div>
-        <div
-          className='flex-1 w-full'
-          onClick={e => clickToFocus(e)}
-        >
-          {...content}
+    <div ref={draggableRef} className='relative flex flex-col h-full' >
+      <div
+        className="flex flex-col p-4 pr-[5px] h-full text-white bg-[#1C1C1E]/95 rounded-lg"
+        style={{ fontFamily: 'Menlo, monospace', fontSize: '14px' }}
+      >
+        <div className="h-6 rounded-lg"></div>
+        <div className="flex flex-col flex-1 w-full mb-2 overflow-y-scroll scrollbar">
+          <div>Welcome to Terminal,type `help` to get started,have fun!</div>
+          <div
+            className='flex-1 w-full'
+            onClick={e => clickToFocus(e)}
+          >
+            {[...content]}
+          </div>
         </div>
+      </div>
+      <div className='absolute bottom-0 w-full '>
+        <BottomBar/>
       </div>
     </div>
   )

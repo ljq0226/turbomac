@@ -31,8 +31,8 @@ const apps: AppsData[] = [
   {
     id: 'terminal',
     title: 'Terminal',
-    width: 600,
-    height: 540,
+    width: 700,
+    height: 500,
     img: '/img/icons/terminal.png',
     content: <Terminal />,
   },
